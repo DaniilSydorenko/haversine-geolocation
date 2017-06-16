@@ -11,11 +11,17 @@ Geolocation
 
 ## Introduction
 
+## Download
+```bash
+git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
+```
 ## Installation
 
-### NPM
-
-## Configuration
+### via NPM
+```bash
+npm i haversine-geolocation -S
+```
+## Basic usage
 
 License
 -------
