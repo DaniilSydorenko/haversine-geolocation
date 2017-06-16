@@ -6,7 +6,7 @@ Geolocation
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Travis CI](https://travis-ci.org/DaniilSydorenko/haversine-geolocation.svg?branch=master)](https://travis-ci.org/DaniilSydorenko/haversine-geolocation)
 
 - [Introduction](#introduction)
-    - [Haversine Formula](#HaversineFormula)
+    - [Haversine Formula](#Haversine Formula)
     - [Pseudocode](#pseudocode)
 - [Installation](#installation)
     - [Download](#download)
