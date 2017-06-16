@@ -1,6 +1,6 @@
 {
   "name": "haversine-geolocation",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
     "node.js"
   ],
   "author": "Daniil Sydorenko <daniildeveloper@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DaniilSydorenko/haversine-geolocation.git"
+  },
   "license": "MIT",
   "dependencies": {
     "jasmine-node": "^1.14.5"
