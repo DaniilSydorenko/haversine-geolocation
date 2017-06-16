@@ -1,0 +1,22 @@
+{
+  "name": "haversine-geolocation",
+  "version": "1.0.0",
+  "description": "Get distances between objects or get closest position to current object. Based on the Haversine Formula",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node spec"
+  },
+  "keywords": [
+    "geolocation",
+    "haversine",
+    "coordinates",
+    "javascript",
+    "es-6",
+    "node.js"
+  ],
+  "author": "Daniil Sydorenko <daniildeveloper@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
