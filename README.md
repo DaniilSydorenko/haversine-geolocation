@@ -6,12 +6,15 @@ Geolocation
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Travis CI](https://travis-ci.org/DaniilSydorenko/haversine-geolocation.svg?branch=master)](https://travis-ci.org/DaniilSydorenko/haversine-geolocation)
 
 - [Introduction](#introduction)
-    - [Haversine Formula](#Formula)
+    - [Haversine Formula](#formula)
     - [Pseudocode](#pseudocode)
 - [Installation](#installation)
     - [Download](#download)
-    - [via NPM](#NPM)
+    - [via NPM](#via-npm)
 - [Basic usage](#basic-usage)
+    - [Is geolocation enabled](#is-geolocation-enabled)
+    - [Calculate distance between two points](#calculate-distance-between-two-points)
+    - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
 - [License](#license)
 
 ## Introduction
@@ -19,10 +22,10 @@ If you want to calculate the distance between two points or you want to get clos
 
 <img width="439" alt="haversine" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
 
-### Formula:
+### Formula
 ![haversine_2](https://user-images.githubusercontent.com/2789198/27240432-e67a0cf0-52d4-11e7-9acb-b935e1a84f47.png)
 
-### Pseudocode:
+### Pseudocode
 
 ```code()
 dlon = lon2 - lon1 
@@ -39,7 +42,7 @@ R = 6367 km OR 3956 mi
 ```bash
 git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 ```
-### NPM
+### via NPM
 ```bash
 npm i haversine-geolocation -S
 ```
