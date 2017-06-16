@@ -21,6 +21,7 @@ d = R * c (where R is the radius of the Earth)
 
 R = 6367 km OR 3956 mi
 ```
+<img width="439" alt="haversine" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
 
 ## Download
 ```bash
