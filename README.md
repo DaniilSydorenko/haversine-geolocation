@@ -12,22 +12,7 @@ Geolocation
 ## Introduction
 If you want to calculate the distance between two points or you want to get closest position to current point let me introduce haversine-geolocation module. It based on the Haversine Formula:
 
-<img width="439" alt="haversine" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
 
-### it looks like:
-![haversine_2](https://user-images.githubusercontent.com/2789198/27240432-e67a0cf0-52d4-11e7-9acb-b935e1a84f47.png)
-
-### Pseudocode:
-
-```code()
-dlon = lon2 - lon1 
-dlat = lat2 - lat1 
-a = (sin(dlat/2))^2 + cos(lat1) * cos(lat2) * (sin(dlon/2))^2 
-c = 2 * atan2( sqrt(a), sqrt(1-a) ) 
-d = R * c (where R is the radius of the Earth)
-
-R = 6367 km OR 3956 mi
-```
 
 ## Download
 ```bash
