@@ -44,9 +44,36 @@ git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 npm i haversine-geolocation -S
 ```
 ## Basic usage
-``` javascript
-var geolocation = require('haversine-geolocation');
 
+### Is geolocation enabled
+
+``` javascript
+const geolocation = require('haversine-geolocation');
+const onSuccess = (data) => {   
+    // Get users current position
+    console.log(data.coords.latitude, data.coords.longitude);
+};
+const onError = (error) => {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            throw Error("Error: Permission denied");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            throw Error("Error: Position unavailable");
+            break;
+        case error.TIMEOUT:
+            throw Error("Error: Timeout");
+            break;
+    }
+};
+
+Geolocation.isGeolocationAvilable(onSuccess, onError);
+```
+
+### Calculate distance between two points
+
+``` javascript
+const geolocation = require('haversine-geolocation');
 const positionsToCompare = [
     {
         id: 1,
@@ -60,6 +87,31 @@ const positionsToCompare = [
     }
 ];
 
+let distance = Geolocation.getDistanceBetween(positionsToCompare[0], positionsToCompare[1]);
+console.log(distance); // 1133.0627006180137
+```
+
+### Calculate the closest position to user
+
+``` javascript
+const geolocation = require('haversine-geolocation');
+const positionsToCompare = [
+    {
+        id: 1,
+        latitude: 61.5322204,
+        longitude: 28.7515963
+    },
+    {
+        id: 2,
+        latitude: 51.9971208,
+        longitude: 22.1455439
+    },
+    {
+        id: 3,
+        latitude: 45.3571207,
+        longitude: 30.3435456
+    }
+];
 const onSuccess = (data) => {
     let closetsPosition = Geolocation.getClosestPosition ({
             latitude: data.coords.latitude,
@@ -68,9 +120,8 @@ const onSuccess = (data) => {
         positionsToCompare
     );
 
-    // Do something with result
+    console.log(closetsPosition);
 };
-
 const onError = (error) => {
     switch (error.code) {
         case error.PERMISSION_DENIED:
