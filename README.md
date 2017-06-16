@@ -1,7 +1,9 @@
 Geolocation
 ========
 
-[![NPM](https://nodei.co/npm/haversine-geolocation.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/haversine-geolocation/)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)[![Travis CI](https://travis-ci.org/DaniilSydorenko/haversine-geolocation.svg?branch=master)](https://travis-ci.org/DaniilSydorenko/haversine-geolocation)
+[![NPM](https://nodei.co/npm/haversine-geolocation.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/haversine-geolocation/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)[![Travis CI](https://travis-ci.org/DaniilSydorenko/haversine-geolocation.svg?branch=master)](https://travis-ci.org/DaniilSydorenko/haversine-geolocation)
 
 - [Introduction](#introduction)
 - [Installation](#installation)
