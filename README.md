@@ -40,6 +40,49 @@ git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 npm i haversine-geolocation -S
 ```
 ## Basic usage
+``` javascript
+var geolocation = require('haversine-geolocation');
+
+const positionsToCompare = [
+    {
+        id: 1,
+        latitude: 61.5322204,
+        longitude: 28.7515963
+    },
+    {
+        id: 2,
+        latitude: 51.9971208,
+        longitude: 22.1455439
+    }
+];
+
+const onSuccess = (data) => {
+    let closetsPosition = Geolocation.getClosestPosition ({
+            latitude: data.coords.latitude,
+            longitude: data.coords.longitude
+        },
+        positionsToCompare
+    );
+
+    // Do something with result
+};
+
+const onError = (error) => {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            throw Error("Error: Permission denied");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            throw Error("Error: Position unavailable");
+            break;
+        case error.TIMEOUT:
+            throw Error("Error: Timeout");
+            break;
+    }
+};
+
+Geolocation.isGeolocationAvilable(onSuccess, onError);
+```
 
 License
 -------
