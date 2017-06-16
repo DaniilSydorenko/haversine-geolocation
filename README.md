@@ -76,12 +76,10 @@ Geolocation.isGeolocationAvilable(onSuccess, onError);
 const geolocation = require('haversine-geolocation');
 const positionsToCompare = [
     {
-        id: 1,
         latitude: 61.5322204,
         longitude: 28.7515963
     },
     {
-        id: 2,
         latitude: 51.9971208,
         longitude: 22.1455439
     }
@@ -98,16 +96,19 @@ const geolocation = require('haversine-geolocation');
 const positionsToCompare = [
     {
         id: 1,
+        title: 'Point 1',
         latitude: 61.5322204,
         longitude: 28.7515963
     },
     {
         id: 2,
+        title: 'Point 2',
         latitude: 51.9971208,
         longitude: 22.1455439
     },
     {
         id: 3,
+        title: 'Point 3',
         latitude: 45.3571207,
         longitude: 30.3435456
     }
