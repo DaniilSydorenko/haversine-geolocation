@@ -6,8 +6,12 @@ Geolocation
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Travis CI](https://travis-ci.org/DaniilSydorenko/haversine-geolocation.svg?branch=master)](https://travis-ci.org/DaniilSydorenko/haversine-geolocation)
 
 - [Introduction](#introduction)
+    - [it looks like](#it looks like)
+    - [Pseudocode](#pseudocode)
 - [Installation](#installation)
- - [License](#license)
+    - [Download](#download)
+    - [via NPM](#via NPM)
+- [License](#license)
 
 ## Introduction
 If you want to calculate the distance between two points or you want to get closest position to current point let me introduce haversine-geolocation module. It based on the Haversine Formula:
@@ -28,13 +32,12 @@ d = R * c (where R is the radius of the Earth)
 
 R = 6367 km OR 3956 mi
 ```
+## Installation
 
-## Download
+### Download
 ```bash
 git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 ```
-## Installation
-
 ### via NPM
 ```bash
 npm i haversine-geolocation -S
@@ -89,7 +92,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Daniil Sydorenko
+Copyright (c) 2017 Daniil Sydorenko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation
