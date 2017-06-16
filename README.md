@@ -18,6 +18,8 @@ dlat = lat2 - lat1
 a = (sin(dlat/2))^2 + cos(lat1) * cos(lat2) * (sin(dlon/2))^2 
 c = 2 * atan2( sqrt(a), sqrt(1-a) ) 
 d = R * c (where R is the radius of the Earth)
+
+R = 6367 km OR 3956 mi
 ```
 
 ## Download
