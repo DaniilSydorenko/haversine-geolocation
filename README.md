@@ -99,6 +99,7 @@ console.log(haversine.getDistanceBetween(points[0], points[1])); // 1133.1 km
 ```
 
 ### Calculate the closest position to user
+#### Will return all properties of object with small nested object haversine: { distance: val, measurement: 'val' } 
 
 ``` javascript
 const haversine = require('haversine-geolocation');
@@ -132,10 +133,22 @@ const onSuccess = (data) => {
     let closetsPosition = haversine.getClosestPosition (
         currentPoint, // user current geolocation
         points, // points to compare
-        'm' // measurement
+        'mi' // measurement
     );
 
     console.log(closetsPosition);
+    
+    // Response:
+    {
+        id: 3,
+        title: 'Point 3',
+        latitude: 45.3571207,
+        longitude: 30.3435456,
+        haversine: {
+            distance: 49,
+            measurement: 'mi'
+        }
+    }
 };
 const onError = (error) => {
     switch (error.code) {

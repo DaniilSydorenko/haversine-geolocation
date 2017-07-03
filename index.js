@@ -110,16 +110,12 @@ class HaversineGeolocation {
 
             if (distance === null || distance > res) {
                 distance = res;
-
-                data.id = position.id;
-                data.title = position.title;
-                data.distance = distance;
-                data.latitude = position.latitude;
-                data.longitude = position.longitude;
-
-                // Todo
-                // map all properties
-                // Add ?object? ---> haversine: {distance: 111, measurement: 'm'}
+                for (let prop in position) {
+                    if (position.hasOwnProperty(prop)) {
+                        data[prop] = position[prop]
+                    }
+                }
+                data.haversine = { distance, measurement };
             }
         });
         return data;
