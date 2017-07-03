@@ -1,7 +1,7 @@
 "use strict";
 
-class Geolocation {
-    // TODO: Distance in miles
+class HaversineGeolocation {
+    // TODO Firefox, IE, Tests
 
     /**
      * Check if geolocation enabled in user browser and users current position coordinates
@@ -14,6 +14,33 @@ class Geolocation {
             navigator.geolocation.getCurrentPosition(success, error)
         }
     };
+
+    /**
+     * Convert measurements: "km to mi" or "km to m"
+     *
+     * @param distance
+     * @param measurement
+     * @returns {*}
+     */
+    convertMeasurements(distance, measurement = 'km') {
+        let res = null;
+
+        switch (measurement.toLowerCase()) {
+            case 'mi' :
+                res = (distance * 0.62137).toFixed(1);
+                break;
+            case 'km' :
+                res = distance.toFixed(1);
+                break;
+            case 'm' :
+                res = (distance * 1000).toFixed();
+                break;
+            default :
+                res = distance.toFixed(1);
+        }
+
+        return res;
+    }
 
     /**
      * Get distance between positions by Haversine formula
@@ -41,23 +68,26 @@ class Geolocation {
     };
 
     /**
-     * Wrapper on Haversine
      *
-     * @param currentPosition
-     * @param positionToCompare
-     * @return {*}
+     * @param p1
+     * @param p2
+     * @param measurement
+     * @returns {number}
      */
-    getDistanceBetween(currentPosition, positionToCompare) {
-        if (currentPosition.hasOwnProperty('latitude') &&
-            currentPosition.hasOwnProperty('longitude') &&
-            positionToCompare.hasOwnProperty('latitude') &&
-            positionToCompare.hasOwnProperty('longitude')) {
-            return this.haversine(
-                currentPosition.latitude,
-                currentPosition.longitude,
-                positionToCompare.latitude,
-                positionToCompare.longitude
+    getDistanceBetween(p1, p2, measurement) {
+        if (p1.hasOwnProperty('latitude') && p1.hasOwnProperty('longitude') &&
+            p2.hasOwnProperty('latitude') && p2.hasOwnProperty('longitude')) {
+
+
+            let d = this.haversine(
+                p1.latitude,
+                p1.longitude,
+                p2.latitude,
+                p2.longitude
             );
+
+            return this.convertMeasurements(d, measurement)
+
         } else {
             throw new Error("Error: Position latitude or longitude is not correct");
         }
@@ -66,26 +96,34 @@ class Geolocation {
     /**
      * Get closest position from array of positions
      *
-     * @param currentPosition
-     * @param positionsToCompare
-     * @return {{}}
+     * @param current
+     * @param otherPoints
+     * @param measurement
+     * @returns {{}}
      */
-    getClosestPosition(currentPosition, positionsToCompare) {
+    getClosestPosition(current, otherPoints, measurement) {
         let distance = null;
         let data = {};
 
-        positionsToCompare.map((position) => {
-            let res = this.getDistanceBetween(currentPosition, position);
+        otherPoints.map((position) => {
+            let res = this.getDistanceBetween(current, position, measurement);
+
             if (distance === null || distance > res) {
                 distance = res;
+
                 data.id = position.id;
+                data.title = position.title;
                 data.distance = distance;
                 data.latitude = position.latitude;
                 data.longitude = position.longitude;
+
+                // Todo
+                // map all properties
+                // Add ?object? ---> haversine: {distance: 111, measurement: 'm'}
             }
         });
         return data;
     };
 }
 
-module.exports = new Geolocation();
+module.exports = new HaversineGeolocation();

@@ -51,7 +51,7 @@ npm i haversine-geolocation -S
 ### Is geolocation enabled
 
 ``` javascript
-const geolocation = require('haversine-geolocation');
+const haversine = require('haversine-geolocation');
 const onSuccess = (data) => {   
     // Get users current position
     console.log(data.coords.latitude, data.coords.longitude);
@@ -70,14 +70,14 @@ const onError = (error) => {
     }
 };
 
-Geolocation.isGeolocationAvilable(onSuccess, onError);
+haversine.isGeolocationAvilable(onSuccess, onError);
 ```
 
 ### Calculate distance between two points
 
 ``` javascript
-const geolocation = require('haversine-geolocation');
-const positionsToCompare = [
+const haversine = require('haversine-geolocation');
+const points = [
     {
         latitude: 61.5322204,
         longitude: 28.7515963
@@ -88,15 +88,21 @@ const positionsToCompare = [
     }
 ];
 
-let distance = Geolocation.getDistanceBetween(positionsToCompare[0], positionsToCompare[1]);
-console.log(distance); // 1133.0627006180137
+// Distance in miles
+console.log(haversine.getDistanceBetween(points[0], points[1], 'mi')); // 704.1 mi
+
+// Distance in meters
+console.log(haversine.getDistanceBetween(points[0], points[1], 'm')); // 1133062.7 m
+
+// Distance in kilometers(default value)
+console.log(haversine.getDistanceBetween(points[0], points[1])); // 1133.1 km
 ```
 
 ### Calculate the closest position to user
 
 ``` javascript
-const geolocation = require('haversine-geolocation');
-const positionsToCompare = [
+const haversine = require('haversine-geolocation');
+const points = [
     {
         id: 1,
         title: 'Point 1',
@@ -116,12 +122,17 @@ const positionsToCompare = [
         longitude: 30.3435456
     }
 ];
+
 const onSuccess = (data) => {
-    let closetsPosition = Geolocation.getClosestPosition ({
-            latitude: data.coords.latitude,
-            longitude: data.coords.longitude
-        },
-        positionsToCompare
+    const currentPoint = {
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude
+    };
+
+    let closetsPosition = haversine.getClosestPosition (
+        currentPoint, // user current geolocation
+        points, // points to compare
+        'm' // measurement
     );
 
     console.log(closetsPosition);
@@ -140,7 +151,7 @@ const onError = (error) => {
     }
 };
 
-Geolocation.isGeolocationAvilable(onSuccess, onError);
+haversine.isGeolocationAvilable(onSuccess, onError);
 ```
 
 License
