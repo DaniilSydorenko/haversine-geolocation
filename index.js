@@ -39,7 +39,7 @@ class HaversineGeolocation {
                 res = distance.toFixed(1);
         }
 
-        return res;
+        return parseInt(res);
     }
 
     /**
@@ -77,8 +77,6 @@ class HaversineGeolocation {
     getDistanceBetween(p1, p2, measurement) {
         if (p1.hasOwnProperty('latitude') && p1.hasOwnProperty('longitude') &&
             p2.hasOwnProperty('latitude') && p2.hasOwnProperty('longitude')) {
-
-
             let d = this.haversine(
                 p1.latitude,
                 p1.longitude,
@@ -107,7 +105,6 @@ class HaversineGeolocation {
 
         otherPoints.map((position) => {
             let res = this.getDistanceBetween(current, position, measurement);
-
             if (distance === null || distance > res) {
                 distance = res;
                 for (let prop in position) {
