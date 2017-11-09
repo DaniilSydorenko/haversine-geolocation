@@ -9,10 +9,13 @@ Geolocation
     - [Haversine Formula](#formula)
     - [Pseudocode](#pseudocode)
 - [Installation](#installation)
-    - [Download](#download)
+    - [Clone repository](#clone-repository)
     - [via NPM](#via-npm)
 - [Basic usage](#basic-usage)
-    - [Is geolocation enabled](#is-geolocation-enabled)
+    - [Import Haversine-Geolocation module](#Import-haversine-geolocation-module)
+    - [Is geolocation available](#is-geolocation-available)
+        - [Promise interface](#Promise interface)
+        - [Callback interface](#Callback interface)
     - [Calculate distance between two points](#calculate-distance-between-two-points)
     - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
 - [License](#license)
@@ -38,45 +41,52 @@ R = 6367 km OR 3956 mi
 ```
 ## Installation
 
-### Download
+### Clone repository
 ```bash
 git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 ```
 ### via NPM
 ```bash
-npm i haversine-geolocation -S
+npm install haversine-geolocation --save-dev
 ```
 ## Basic usage
 
-### Is geolocation enabled
+### Import Haversine-Geolocation module 
 
-``` javascript
-const haversine = require('haversine-geolocation');
-const onSuccess = (data) => {   
-    // Get users current position
-    console.log(data.coords.latitude, data.coords.longitude);
-};
-const onError = (error) => {
-    switch (error.code) {
-        case error.PERMISSION_DENIED:
-            throw Error("Error: Permission denied");
-            break;
-        case error.POSITION_UNAVAILABLE:
-            throw Error("Error: Position unavailable");
-            break;
-        case error.TIMEOUT:
-            throw Error("Error: Timeout");
-            break;
-    }
-};
-
-haversine.isGeolocationAvilable(onSuccess, onError);
+```javascript
+const HaversineGeolocation = require('haversine-geolocation');
 ```
 
-### Calculate distance between two points
+### Is geolocation available:
 
-``` javascript
-const haversine = require('haversine-geolocation');
+#### Promise interface
+
+```javascript
+HaversineGeolocation.isGeolocationAvailable()
+    .then(data => {
+        const currentPoint = {
+            latitude: data.coords.latitude,
+            longitude: data.coords.longitude,
+            accuracy: data.coords.accuracy
+        };
+    });
+```
+
+#### Callback interface
+
+```javascript
+HaversineGeolocation.isGeolocationAvailable((data) => {
+    const currentPoint = {
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude,
+        accuracy: data.coords.accuracy
+    };
+});
+```
+
+### Calculate distance between two points:
+
+```javascript
 const points = [
     {
         latitude: 61.5322204,
@@ -89,21 +99,22 @@ const points = [
 ];
 
 // Distance in miles
-console.log(haversine.getDistanceBetween(points[0], points[1], 'mi')); // 704.1 mi
+console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi')); // 704.1 mi
 
 // Distance in meters
-console.log(haversine.getDistanceBetween(points[0], points[1], 'm')); // 1133062.7 m
+console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm')); // 1133062.7 m
 
 // Distance in kilometers(default value)
-console.log(haversine.getDistanceBetween(points[0], points[1])); // 1133.1 km
+console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1])); // 1133.1 km
 ```
 
-### Calculate the closest position to user
-#### Will return all properties of object with small nested object haversine: { distance: val, measurement: 'val' } 
+### Calculate the closest position to user:
+##### Will return all existed properties with a small nested object haversine: { distance: val, measurement: 'val' } 
 
-``` javascript
-const haversine = require('haversine-geolocation');
-const points = [
+```javascript
+
+/* Location points mock-up */
+const locationPoints = [
     {
         id: 1,
         title: 'Point 1',
@@ -124,47 +135,43 @@ const points = [
     }
 ];
 
-const onSuccess = (data) => {
+/* Promise interface */
+HaversineGeolocation.isGeolocationAvailable()
+    .then(data => {
+        const currentPoint = {
+            latitude: data.coords.latitude,
+            longitude: data.coords.longitude,
+            accuracy: data.coords.accuracy
+        };
+        
+        const closetsPosition = haversine.getClosestPosition(currentPoint, locationPoints, 'mi');
+    });
+
+/* Callback interface */
+HaversineGeolocation.isGeolocationAvailable((data) => {
     const currentPoint = {
         latitude: data.coords.latitude,
-        longitude: data.coords.longitude
+        longitude: data.coords.longitude,
+        accuracy: data.coords.accuracy
     };
-
-    let closetsPosition = haversine.getClosestPosition (
-        currentPoint, // user current geolocation
-        points, // points to compare
-        'mi' // measurement
-    );
-
-    console.log(closetsPosition);
     
-    // Response:
+    const closetsPosition = haversine.getClosestPosition(currentPoint, locationPoints, 'mi');
+});
+```
+
+##### Expected response:
+
+```json
     {
-        id: 3,
-        title: 'Point 3',
-        latitude: 45.3571207,
-        longitude: 30.3435456,
-        haversine: {
-            distance: 49,
-            measurement: 'mi'
+        "id": 3,
+        "title": "Point 3",
+        "latitude": 45.3571207,
+        "longitude": 30.3435456,
+        "haversine": {
+            "distance": 49,
+            "measurement": "mi"
         }
     }
-};
-const onError = (error) => {
-    switch (error.code) {
-        case error.PERMISSION_DENIED:
-            throw Error("Error: Permission denied");
-            break;
-        case error.POSITION_UNAVAILABLE:
-            throw Error("Error: Position unavailable");
-            break;
-        case error.TIMEOUT:
-            throw Error("Error: Timeout");
-            break;
-    }
-};
-
-haversine.isGeolocationAvilable(onSuccess, onError);
 ```
 
 License
