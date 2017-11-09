@@ -1,4 +1,4 @@
-Geolocation
+Haversine-Geolocation
 ========
 
 [![NPM](https://nodei.co/npm/haversine-geolocation.png)](https://nodei.co/npm/haversine-geolocation/)
@@ -18,6 +18,7 @@ Geolocation
         - [Callback interface](#callback-interface)
     - [Calculate distance between two points](#calculate-distance-between-two-points)
     - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
+- [Tests](#tests)
 - [License](#license)
 
 ## Introduction
@@ -180,6 +181,14 @@ HaversineGeolocation.isGeolocationAvailable((data) => {
             "measurement": "mi"
         }
     }
+```
+
+## Tests
+
+#### Run Jasmine test by command:
+
+```bash
+npm run test
 ```
 
 License

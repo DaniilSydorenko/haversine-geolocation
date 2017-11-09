@@ -1,6 +1,6 @@
 {
   "name": "haversine-geolocation",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
   "main": "index.js",
   "scripts": {

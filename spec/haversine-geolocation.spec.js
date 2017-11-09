@@ -1,6 +1,6 @@
 "use strict";
 
-const geolocation = require('../index');
+const HaversineGeolocation = require('../index');
 
 describe("Test for Haversine-Geolocation", () => {
     let distance = null,
@@ -31,15 +31,15 @@ describe("Test for Haversine-Geolocation", () => {
             },
         ];
 
-        distance = geolocation.haversine(
+        distance = HaversineGeolocation._haversine(
             points[0].latitude,
             points[0].longitude,
             points[1].latitude,
             points[1].longitude
         );
 
-        distanceBetween = geolocation.getDistanceBetween(points[0], points[1], 'mi');
-        closestPosition = geolocation.getClosestPosition(points[0], points);
+        distanceBetween = HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi');
+        closestPosition = HaversineGeolocation.getClosestPosition(points[0], points);
     });
 
     it("haversine: value type number", () => expect(distance).toEqual(jasmine.any(Number)));
