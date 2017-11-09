@@ -12,10 +12,10 @@ Geolocation
     - [Clone repository](#clone-repository)
     - [via NPM](#via-npm)
 - [Basic usage](#basic-usage)
-    - [Import Haversine-Geolocation module](#Import-haversine-geolocation-module)
+    - [Import module](#import-module)
     - [Is geolocation available](#is-geolocation-available)
-        - [Promise interface](#Promise interface)
-        - [Callback interface](#Callback interface)
+        - [Promise interface](#promise-interface)
+        - [Callback interface](#callback-interface)
     - [Calculate distance between two points](#calculate-distance-between-two-points)
     - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
 - [License](#license)
@@ -51,7 +51,7 @@ npm install haversine-geolocation --save-dev
 ```
 ## Basic usage
 
-### Import Haversine-Geolocation module 
+### Import module 
 
 ```javascript
 const HaversineGeolocation = require('haversine-geolocation');
@@ -99,13 +99,13 @@ const points = [
 ];
 
 // Distance in miles
-console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi')); // 704.1 mi
+HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi'); // 704.1 mi
 
 // Distance in meters
-console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm')); // 1133062.7 m
+HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm'); // 1133062.7 m
 
 // Distance in kilometers(default value)
-console.log(HaversineGeolocation.getDistanceBetween(points[0], points[1])); // 1133.1 km
+HaversineGeolocation.getDistanceBetween(points[0], points[1]); // 1133.1 km
 ```
 
 ### Calculate the closest position to user:
@@ -144,7 +144,11 @@ HaversineGeolocation.isGeolocationAvailable()
             accuracy: data.coords.accuracy
         };
         
-        const closetsPosition = haversine.getClosestPosition(currentPoint, locationPoints, 'mi');
+        HaversineGeolocation.getClosestPosition(
+            currentPoint, 
+            locationPoints,
+            'mi'
+        );
     });
 
 /* Callback interface */
@@ -155,7 +159,11 @@ HaversineGeolocation.isGeolocationAvailable((data) => {
         accuracy: data.coords.accuracy
     };
     
-    const closetsPosition = haversine.getClosestPosition(currentPoint, locationPoints, 'mi');
+    HaversineGeolocation.getClosestPosition(
+        currentPoint, 
+        locationPoints,
+        'mi'
+    );
 });
 ```
 
