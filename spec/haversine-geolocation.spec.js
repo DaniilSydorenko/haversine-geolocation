@@ -1,6 +1,4 @@
-"use strict";
-
-const HaversineGeolocation = require('../index');
+import HaversineGeolocation from "../index";
 
 describe("Test for Haversine-Geolocation", () => {
     let distance = null,

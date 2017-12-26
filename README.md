@@ -21,7 +21,7 @@ Haversine-Geolocation
 - [License](#license)
 
 ## Introduction
-If you want to calculate the distance between two points or you want to get closest position to current point let me introduce haversine-geolocation module. It based on the Haversine Formula:
+If you need to calculate the distance between two points or you want to find closest from position to your current location let me introduce haversine-geolocation module. It based on the Haversine Formula:
 
 <img width="439" alt="haversine" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
 
