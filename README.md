@@ -12,13 +12,12 @@ Haversine-Geolocation
     - [Clone repository](#clone-repository)
     - [via NPM](#via-npm)
 - [Basic usage](#basic-usage)
-    - [Import module](#import-module)
-    - [Is geolocation available](#is-geolocation-available)
-        - [Promise interface](#promise-interface)
-        - [Callback interface](#callback-interface)
-    - [Calculate distance between two points](#calculate-distance-between-two-points)
-    - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
-- [Tests](#tests)
+    - [Importing](#import-module)
+    - [API](#api)
+        - [Is geolocation available](#is-geolocation-available)
+        - [Calculate distance between two points](#calculate-distance-between-two-points)
+        - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
+    - [Tests](#tests)
 - [License](#license)
 
 ## Introduction
@@ -48,19 +47,19 @@ git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
 ```
 ### via NPM
 ```bash
-npm install haversine-geolocation --save-dev
+npm install haversine-geolocation --save
 ```
 ## Basic usage
 
-### Import module 
+### Importing: 
 
 ```javascript
-const HaversineGeolocation = require('haversine-geolocation');
+import HaversineGeolocation from 'haversine-geolocation';
 ```
 
-### Is geolocation available:
+### API:
 
-#### Promise interface
+#### Is geolocation available:
 
 ```javascript
 HaversineGeolocation.isGeolocationAvailable()
@@ -73,19 +72,7 @@ HaversineGeolocation.isGeolocationAvailable()
     });
 ```
 
-#### Callback interface
-
-```javascript
-HaversineGeolocation.isGeolocationAvailable((data) => {
-    const currentPoint = {
-        latitude: data.coords.latitude,
-        longitude: data.coords.longitude,
-        accuracy: data.coords.accuracy
-    };
-});
-```
-
-### Calculate distance between two points:
+#### Calculate distance between two points:
 
 ```javascript
 const points = [
@@ -98,23 +85,22 @@ const points = [
         longitude: 22.1455439
     }
 ];
-
+ 
 // Distance in miles
 HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi'); // 704.1 mi
-
+ 
 // Distance in meters
 HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm'); // 1133062.7 m
-
+ 
 // Distance in kilometers(default value)
 HaversineGeolocation.getDistanceBetween(points[0], points[1]); // 1133.1 km
 ```
 
-### Calculate the closest position to user:
+#### Calculate the closest position to user:
 ##### Will return all existed properties with a small nested object haversine: { distance: val, measurement: 'val' } 
 
 ```javascript
 
-/* Location points mock-up */
 const locationPoints = [
     {
         id: 1,
@@ -135,8 +121,7 @@ const locationPoints = [
         longitude: 30.3435456
     }
 ];
-
-/* Promise interface */
+ 
 HaversineGeolocation.isGeolocationAvailable()
     .then(data => {
         const currentPoint = {
@@ -151,21 +136,6 @@ HaversineGeolocation.isGeolocationAvailable()
             'mi'
         );
     });
-
-/* Callback interface */
-HaversineGeolocation.isGeolocationAvailable((data) => {
-    const currentPoint = {
-        latitude: data.coords.latitude,
-        longitude: data.coords.longitude,
-        accuracy: data.coords.accuracy
-    };
-    
-    HaversineGeolocation.getClosestPosition(
-        currentPoint, 
-        locationPoints,
-        'mi'
-    );
-});
 ```
 
 ##### Expected response:

@@ -1,54 +1,4 @@
 class HaversineGeolocation {
-
-  /**
-   * Check if geolocation enabled in user browser and users current position coordinates
-   */
-  isGeolocationAvailable(cb) {
-    if (cb) {
-      // Callback interface
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(cb, (error) => {
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              throw Error("Error: Permission denied");
-              break;
-            case error.POSITION_UNAVAILABLE:
-              throw Error("Error: Position unavailable");
-              break;
-            case error.TIMEOUT:
-              throw Error("Error: Timeout");
-              break;
-          }
-        });
-      } else {
-        throw Error("Error: Geolocation disabled in your browser");
-      }
-    } else {
-      // Promise interface
-      return new Promise((resolve, reject) => {
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition((data) => {
-            resolve(data);
-          }, (error) => {
-            switch (error.code) {
-              case error.PERMISSION_DENIED:
-                reject(new Error("Error: Permission denied"));
-                break;
-              case error.POSITION_UNAVAILABLE:
-                reject(new Error("Error: Position unavailable"));
-                break;
-              case error.TIMEOUT:
-                reject(new Error("Error: Timeout"));
-                break;
-            }
-          });
-        } else {
-          reject(new Error("Error: Geolocation disabled in your browser"));
-        }
-      });
-    }
-  };
-
   /**
    * Convert measurements: "km to mi" or "km to m"
    *
@@ -98,10 +48,41 @@ class HaversineGeolocation {
       Math.cos(lat1) *
       Math.cos(lat2);
     let c = 2 * Math.asin(Math.sqrt(a));
+
     return R * c;
   };
 
   /**
+   * Check if geolocation enabled in user browser and users current position coordinates
+   *
+   * @return {Promise}
+   */
+  isGeolocationAvailable() {
+    return new Promise((resolve, reject) => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((data) => {
+          resolve(data);
+        }, (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              reject(new Error("Error: Permission denied"));
+              break;
+            case error.POSITION_UNAVAILABLE:
+              reject(new Error("Error: Position unavailable"));
+              break;
+            case error.TIMEOUT:
+              reject(new Error("Error: Timeout"));
+              break;
+          }
+        });
+      } else {
+        reject(new Error("Error: Geolocation disabled in your browser"));
+      }
+    });
+  };
+
+  /**
+   * Calculate distance between two positions
    *
    * @param p1
    * @param p2
@@ -149,8 +130,9 @@ class HaversineGeolocation {
         data.haversine = { distance, measurement, accuracy: current.accuracy };
       }
     });
+
     return data;
   };
 }
 
-module.exports = new HaversineGeolocation();
+export default new HaversineGeolocation();
