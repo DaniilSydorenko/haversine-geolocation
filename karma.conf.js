@@ -1,5 +1,5 @@
 module.exports = function (config) {
-  config.set({
+  var configuration = {
     basePath: '',
     frameworks: ['mocha', 'chai', 'sinon'],
     files: [
@@ -24,11 +24,21 @@ module.exports = function (config) {
       ChromeWithoutSecurity: {
         base: 'Chrome',
         flags: ['--disable-web-security']
+      },
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
       }
     },
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     concurrency: Infinity
-  });
+  }
+
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
+
+  config.set(configuration);
 };
