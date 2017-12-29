@@ -17,7 +17,6 @@ Haversine-Geolocation
         - [Is geolocation available](#is-geolocation-available)
         - [Calculate distance between two points](#calculate-distance-between-two-points)
         - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
-    - [Tests](#tests)
 - [License](#license)
 
 ## Introduction
@@ -151,14 +150,6 @@ HaversineGeolocation.isGeolocationAvailable()
             "measurement": "mi"
         }
     }
-```
-
-## Tests
-
-#### Run Jasmine test by command:
-
-```bash
-npm run test
 ```
 
 License

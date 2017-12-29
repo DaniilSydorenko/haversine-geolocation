@@ -1,10 +1,12 @@
 {
   "name": "haversine-geolocation",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node spec"
+    "build": "webpack --progress",
+    "test": "NODE_ENV=testing karma start --single-run",
+    "test:watch": "NODE_ENV=testing karma start"
   },
   "keywords": [
     "geolocation",
@@ -20,7 +22,22 @@
     "url": "https://github.com/DaniilSydorenko/haversine-geolocation.git"
   },
   "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.10.0"
+  },
   "dependencies": {
-    "jasmine-node": "^1.14.5"
+    "chai": "^4.1.2",
+    "inject-loader": "^3.0.1",
+    "karma": "^2.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sinon": "^1.0.5",
+    "karma-webpack": "^2.0.9",
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3"
   }
 }
