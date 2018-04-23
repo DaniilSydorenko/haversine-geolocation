@@ -19,16 +19,15 @@ Haversine-Geolocation
         - [Calculate the closest position to user](#calculate-the-closest-position-to-user)
 - [License](#license)
 
-## Introduction
+# Introduction
 If you need to calculate the distance between two points or you want to find closest from position to your current location let me introduce haversine-geolocation module. It based on the Haversine Formula:
 
 <img width="439" alt="haversine" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
 
-### Formula
+## Formula
 ![haversine_2](https://user-images.githubusercontent.com/2789198/27240432-e67a0cf0-52d4-11e7-9acb-b935e1a84f47.png)
 
-### Pseudocode
-
+## Pseudocode
 ```code()
 dlon = lon2 - lon1 
 dlat = lat2 - lat1 
@@ -38,28 +37,19 @@ d = R * c (where R is the radius of the Earth)
 
 R = 6367 km OR 3956 mi
 ```
-## Installation
-
-### Clone repository
-```bash
-git clone https://github.com/DaniilSydorenko/haversine-geolocation.git
-```
-### via NPM
+# Installation
+## NPM
 ```bash
 npm install haversine-geolocation --save
 ```
-## Basic usage
-
-### Importing: 
-
+# Basic usage
+## Importing: 
 ```javascript
 import HaversineGeolocation from 'haversine-geolocation';
 ```
 
-### API:
-
-#### Is geolocation available:
-
+## API:
+### Is geolocation available:
 ```javascript
 HaversineGeolocation.isGeolocationAvailable()
     .then(data => {
@@ -71,8 +61,7 @@ HaversineGeolocation.isGeolocationAvailable()
     });
 ```
 
-#### Calculate distance between two points:
-
+### Calculate distance between two points:
 ```javascript
 const points = [
     {
@@ -95,9 +84,8 @@ HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm'); // 1133062.7
 HaversineGeolocation.getDistanceBetween(points[0], points[1]); // 1133.1 km
 ```
 
-#### Calculate the closest position to user:
-##### Will return all existed properties with a small nested object haversine: { distance: val, measurement: 'val' } 
-
+### Calculate the closest position to user:
+Will return all existed properties with a small nested object haversine: { distance: val, measurement: 'val' } 
 ```javascript
 
 const locationPoints = [
@@ -137,8 +125,7 @@ HaversineGeolocation.isGeolocationAvailable()
     });
 ```
 
-##### Expected response:
-
+#### Expected response:
 ```json
     {
         "id": 3,
@@ -157,7 +144,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Daniil Sydorenko
+Copyright (c) 2018 Daniil Sydorenko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation
