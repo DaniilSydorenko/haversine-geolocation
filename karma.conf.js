@@ -1,15 +1,12 @@
 module.exports = function (config) {
-  var configuration = {
+  const configuration = {
     basePath: '',
     frameworks: ['mocha', 'chai', 'sinon'],
-    files: [
-      './spec/*.spec.js'
-    ],
+    files: ['./spec/*.spec.js'],
     exclude: [],
     preprocessors: {
       "./spec/*.spec.js": ["webpack"]
     },
-    // webpack configuration
     webpack: require("./webpack.config.js"),
     webpackMiddleware: {
       stats: "errors-only"
@@ -18,20 +15,14 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['ChromeWithoutSecurity'],
+    autoWatch: false,
+    browsers: ['Chrome'],
     customLaunchers: {
-      ChromeWithoutSecurity: {
-        base: 'Chrome',
-        flags: ['--disable-web-security']
-      },
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox']
       }
     },
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     concurrency: Infinity
   }
