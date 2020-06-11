@@ -9,8 +9,6 @@ Haversine-Geolocation
     - [Haversine Formula](#formula)
     - [Pseudocode](#pseudocode)
 - [Installation](#installation)
-    - [Clone repository](#clone-repository)
-    - [via NPM](#via-npm)
 - [Basic usage](#basic-usage)
     - [Importing](#import-module)
     - [API](#api)
@@ -38,9 +36,8 @@ d = R * c (where R is the radius of the Earth)
 R = 6367 km OR 3956 mi
 ```
 # Installation
-## NPM
 ```bash
-npm install haversine-geolocation --save
+npm i haversine-geolocation -S
 ```
 # Basic usage
 ## Importing: 
@@ -50,6 +47,7 @@ import HaversineGeolocation from 'haversine-geolocation';
 
 ## API:
 ### Is geolocation available:
+#### Promise
 ```javascript
 HaversineGeolocation.isGeolocationAvailable()
     .then(data => {
@@ -59,6 +57,17 @@ HaversineGeolocation.isGeolocationAvailable()
             accuracy: data.coords.accuracy
         };
     });
+```
+#### Async await
+```javascript
+	(async () => {
+        const data = await HaversineGeolocation.isGeolocationAvailable();
+        const currentPoint = {
+            latitude: data.coords.latitude,
+            longitude: data.coords.longitude,
+            accuracy: data.coords.accuracy
+        };
+	})();
 ```
 
 ### Calculate distance between two points:
@@ -144,7 +153,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2018 Daniil Sydorenko
+Copyright (c) 2020 Daniil Sydorenko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation

@@ -1,34 +1,33 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
 
 module.exports = {
-
-  entry: {
-    script: path.resolve(__dirname, "./index.js")
-  },
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: "babel-loader",
-        exclude: /(\/node_modules\/|test\.js|\.spec\.js$)/
-      }
-    ]
-  },
-
-  output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "build.js",
-    pathinfo: true
-  },
-
-  resolve: {
-    extensions: [".js"],
-    modules: [
-      __dirname,
-      path.resolve(__dirname, "./node_modules")
-    ]
-  }
-
+	mode: 'production',
+	entry: path.join(__dirname, './src/index.ts'),
+	output: {
+		path: path.join(__dirname, 'dist'),
+		filename: 'build.js',
+		libraryTarget: 'umd',
+	},
+	devtool: 'source-map',
+	resolve: {
+		extensions: ['.ts', '.js']
+	},
+	module: {
+		rules: [
+			{
+				test: /\.(j|t)s?$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'babel-loader'
+					}
+				]
+			},
+			{
+				enforce: 'pre',
+				test: /\.js$/,
+				loader: 'source-map-loader'
+			}
+		]
+	}
 };
