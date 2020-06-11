@@ -96,8 +96,12 @@ fabric.properties
 /test/reports
 /test/tmp/
 
-### Assets ###
-
-/assets/img
-/demo/
+### Custom ###
 tags.txt
+
+dist
+.DS_Store
+npm-debug.log
+report.xml
+.editorconfig
+.vscode

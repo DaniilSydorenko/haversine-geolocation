@@ -1,11 +1,11 @@
 module.exports = function (config) {
   const configuration = {
     basePath: '',
-    frameworks: ['mocha', 'chai', 'sinon'],
-    files: ['./spec/*.spec.js'],
+    frameworks: ['jasmine'],
+    files: ['./spec/*.spec.ts'],
     exclude: [],
     preprocessors: {
-      "./spec/*.spec.js": ["webpack"]
+      "./spec/*.spec.ts": ["webpack"]
     },
     webpack: require("./webpack.config.js"),
     webpackMiddleware: {
