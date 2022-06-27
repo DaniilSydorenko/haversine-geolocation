@@ -6,7 +6,10 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'build.js',
-		libraryTarget: 'umd',
+		globalObject: 'this',
+		library: {
+			type: 'umd'
+		},
 	},
 	devtool: 'source-map',
 	resolve: {
