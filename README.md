@@ -3,6 +3,7 @@ Haversine-Geolocation
 
 // TODO: add info about node js useing and error
 // TODO bump packages
+// TODO bump packages
 
 [![NPM](https://nodei.co/npm/haversine-geolocation.png)](https://nodei.co/npm/haversine-geolocation/)
 
