@@ -1,6 +1,11 @@
 name: Autopilot Help Signal
 
 on:
+  workflow_run:
+    workflows:
+      - "GRS Governance"
+      - "Secret Scan"
+    types: [completed]
   schedule:
     - cron: "41 */3 * * *"
   workflow_dispatch:
