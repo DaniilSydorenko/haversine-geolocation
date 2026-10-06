@@ -1,0 +1,28 @@
+name: Autopilot Help Signal
+
+on:
+  schedule:
+    - cron: "41 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: read
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect repository health
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          bad="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?per_page=20" --jq '[.workflow_runs[] | select(.name != "Autopilot Help Signal") | select(.status == "completed")][0] | select(.conclusion == "failure" or .conclusion == "timed_out" or .conclusion == "action_required")' || true)"
+          if [ -n "$bad" ]; then
+            echo "Repository requests Autopilot attention." >> "$GITHUB_STEP_SUMMARY"
+            echo "$bad" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "Repository health signal is clear." >> "$GITHUB_STEP_SUMMARY"
