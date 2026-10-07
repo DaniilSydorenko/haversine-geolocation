@@ -27,6 +27,34 @@ Verified baseline facts:
 
 The current repository also contains stale Dependabot branches and PRs tied to the legacy Webpack/Babel/Karma dependency graph. Those PRs must not be treated as required V2 dependency updates until the future toolchain is decided.
 
+## Published package contents
+
+The public npm mirror for `haversine-geolocation@1.6.0` confirms that the published package contains substantially more than the runtime bundle.
+
+Published top-level contents include:
+
+- `dist/`;
+- `spec/`;
+- `src/`;
+- `.babelrc`;
+- `.travis.yml`;
+- `karma.conf.js`;
+- `LICENSE.txt`;
+- `package.json`;
+- `README.md`;
+- `tsconfig.json`;
+- `webpack.config.js`.
+
+The published `dist/` directory contains only `build.js`.
+
+The published `spec/` directory includes the TypeScript test file.
+
+The published `src/` directory includes TypeScript source plus generated JavaScript/source-map artifacts such as `index.js.map` and generated interface files.
+
+This confirms that V1 package publication was not tightly curated. Build/test configuration and source artifacts were shipped to consumers even though the runtime entry point was the single UMD bundle.
+
+V2 should use an explicit package-file policy and package-content tests rather than relying on broad `.npmignore` behavior.
+
 ## Current package entry point
 
 `package.json` declares:
@@ -398,8 +426,7 @@ Likely candidates, subject to consumer evidence:
 
 This audit is not complete until the following evidence is added:
 
-1. published npm `1.6.0` tarball inventory;
-2. npm version chronology;
+1. authoritative npm version chronology;
 3. authoritative npm version chronology versus Git tags;
 4. consumer-facing import/export experiments from the published artifact;
 5. browser behavior of the packed artifact;
