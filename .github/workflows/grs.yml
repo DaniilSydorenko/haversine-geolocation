@@ -1,0 +1,50 @@
+name: GRS Governance
+
+on:
+  pull_request:
+    paths:
+      - ".github/repository.json"
+      - ".github/workflows/grs.yml"
+      - "README.md"
+      - ".gitignore"
+      - "LICENSE*"
+      - "SECURITY.md"
+      - "CONTRIBUTING.md"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/secret-scan.yml"
+  push:
+    branches: [master]
+    paths:
+      - ".github/repository.json"
+      - ".github/workflows/grs.yml"
+      - "README.md"
+      - ".gitignore"
+      - "LICENSE*"
+      - "SECURITY.md"
+      - "CONTRIBUTING.md"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/secret-scan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  governance:
+    name: Validate GRS contract
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Checkout GRS control plane
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          repository: DaniilSydorenko/.github
+          ref: main
+          path: .grs-control
+      - name: Validate GRS manifest
+        run: python3 .grs-control/grs/validator.py .github/repository.json
+      - name: Audit deterministic repository surfaces
+        run: python3 .grs-control/grs/audit_repository.py .github/repository.json --root .

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "standard": { "version": 1 },
+  "repository": {
+    "class": "oss-library",
+    "maturity": "active",
+    "visibility": "public"
+  },
+  "portfolio": {
+    "flagship": true,
+    "pin_candidate": true
+  }
+}
