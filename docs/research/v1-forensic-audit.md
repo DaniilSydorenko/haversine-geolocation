@@ -422,16 +422,64 @@ Likely candidates, subject to consumer evidence:
 - whether any browser-global behavior is required at package-root import time;
 - exact npm version chronology versus Git tags/releases.
 
-## Phase-closure work still required
+## Compatibility matrix
 
-This audit is not complete until the following evidence is added:
+| Area | V1 observed behavior | V2 direction |
+| --- | --- | --- |
+| Package identity | Existing public npm/GitHub package | PRESERVE |
+| Runtime dependencies | None declared | PRESERVE as a strong default |
+| Root import in Node | Fails because UMD entry evaluates a browser global | REDESIGN |
+| Browser geolocation | Mixed into root singleton | REDESIGN into browser-specific boundary |
+| Distance API | Class singleton method | REDESIGN after characterization |
+| Raw Haversine helper | Effectively public underscore method | INVESTIGATE consumer reliance |
+| Units | Free-form string | REDESIGN as typed contract |
+| Unknown unit | Silent kilometre-style fallback | BREAK INTENTIONALLY unless compatibility evidence says otherwise |
+| Rounding | Coupled to calculation | REDESIGN |
+| Coordinates | `latitude/longitude/accuracy` TypeScript shape | REDESIGN; accuracy must not be required for pure math |
+| Validation | Presence check only | REDESIGN |
+| Earth radius | Fixed `6372.8 km` | INVESTIGATE provenance and legacy compatibility |
+| Nearest result | Candidate copy + nested `haversine` metadata | REDESIGN with compatibility path |
+| Empty nearest input | Weak/undefined behavior | DEFINE explicitly |
+| Build | Webpack + Babel + UMD | MODERNIZE |
+| Tests | Karma/Jasmine + broad positive assertions | MODERNIZE |
+| Type safety | No independent typecheck gate | MODERNIZE |
+| Published files | Runtime + source + tests + configs | REDESIGN package-file contract |
+| CI | Historical Travis plus 2026 governance workflows | MODERNIZE without conflicting with GRS/Autopilot |
+| Release | Manual historical npm/release flow | MODERNIZE with provenance/trusted publishing |
 
-1. authoritative npm version chronology;
-3. authoritative npm version chronology versus Git tags;
-4. consumer-facing import/export experiments from the published artifact;
-5. browser behavior of the packed artifact;
-6. independent mathematical reference comparisons and property tests;
-7. final compatibility matrix;
-8. explicit recommendations feeding the V2 ADR phase.
+## V2 recommendations produced by the audit
 
-No runtime implementation change should be merged as part of this audit.
+The forensic evidence supports the following architecture constraints before any API bikeshedding begins:
+
+1. The package root must be pure and safe in Node/SSR.
+2. Browser geolocation must not be required to import distance functionality.
+3. Mathematical calculation must be separated from display rounding.
+4. Coordinate validity must be explicit and independently testable.
+5. Zero-valued coordinates and zero distances must be treated as valid.
+6. Package contents must be explicitly curated.
+7. Type checking must become a first-class CI gate.
+8. The V1 singleton/export behavior requires characterization tests before replacement.
+9. The historical `v1.7.0` tag must not be treated as the published successor to npm `1.6.0`; Git and npm histories diverged.
+10. V2 must preserve project/package identity and history rather than creating a replacement repository.
+
+## Remaining historical unknowns
+
+The following questions remain useful but do not block characterization work:
+
+- a complete authoritative list of every npm-published historical version and publish timestamp;
+- real-world external use of underscore-prefixed methods;
+- real-world deep imports into published `src/` paths;
+- original rationale for the `6372.8 km` radius choice;
+- whether any consumer intentionally depends on V1's rounding/fallback quirks.
+
+These unknowns must not be silently guessed. Where consumer evidence cannot be obtained, V2 decisions should be documented as explicit breaking changes.
+
+## Audit conclusion
+
+The V1 line is small enough to modernize comprehensively, but its public behavior is wider than the intended API suggests because packaging, runtime globals, rounding, typing and source publication all leak implementation details.
+
+The correct next step is not a rewrite. It is a characterization suite that captures the shipped V1 contract and deliberately marks each behavior as preserve, fix, or break.
+
+The forensic audit is therefore sufficient to begin the characterization milestone while deeper historical consumer evidence can continue opportunistically.
+
+No runtime implementation change belongs in this audit PR.
