@@ -1,6 +1,6 @@
 # ADR-004: Package, runtime and browser boundaries
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
