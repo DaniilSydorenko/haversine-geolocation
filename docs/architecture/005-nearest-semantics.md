@@ -1,6 +1,6 @@
 # ADR-005: nearest() result and collection semantics
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
