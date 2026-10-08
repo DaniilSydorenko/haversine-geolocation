@@ -6,13 +6,13 @@ const METRES_PER_UNIT: Record<DistanceUnit, number> = {
     mi: 1609.344,
 };
 
-export const assertDistanceUnit = (
+export function assertDistanceUnit(
     value: unknown,
-): asserts value is DistanceUnit => {
+): asserts value is DistanceUnit {
     if (value !== 'm' && value !== 'km' && value !== 'mi') {
         throw new TypeError('Distance unit must be one of: m, km, mi');
     }
-};
+}
 
 export const convertDistance = (
     value: number,
