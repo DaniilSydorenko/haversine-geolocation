@@ -4,11 +4,12 @@
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
   "main": "dist/build.js",
   "scripts": {
-    "build": "webpack --progress",
+    "build": "webpack --progress && npm run build:types",
     "build-pack": "npm run build && rm -f -- performy-* && npm pack",
     "test": "NODE_ENV=testing karma start --single-run",
     "test:watch": "NODE_ENV=testing karma start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:types": "tsc -p tsconfig.types.json"
   },
   "keywords": [
     "geolocation",
@@ -49,5 +50,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "types": "dist/types/index.d.ts"
 }
