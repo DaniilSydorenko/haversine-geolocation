@@ -14,9 +14,9 @@ const hasCoordinateShape = (
     'latitude' in value &&
     'longitude' in value;
 
-export const assertCoordinate = (
+export function assertCoordinate(
     value: unknown,
-): asserts value is Coordinate => {
+): asserts value is Coordinate {
     if (!hasCoordinateShape(value)) {
         throw new TypeError('Coordinate must provide latitude and longitude');
     }
@@ -32,7 +32,7 @@ export const assertCoordinate = (
     if (value.longitude < -180 || value.longitude > 180) {
         throw new RangeError('Coordinate longitude must be between -180 and 180');
     }
-};
+}
 
 export const isCoordinate = (value: unknown): value is Coordinate => {
     try {
