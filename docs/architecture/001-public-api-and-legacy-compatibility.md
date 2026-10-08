@@ -1,6 +1,6 @@
 # ADR-001: Public API and legacy compatibility
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
