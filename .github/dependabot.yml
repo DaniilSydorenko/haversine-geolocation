@@ -13,3 +13,7 @@ updates:
         update-types:
           - minor
           - patch
+    ignore:
+      - dependency-name: "@babel/*"
+        update-types:
+          - version-update:semver-major
