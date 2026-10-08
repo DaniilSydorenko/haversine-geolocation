@@ -48,7 +48,13 @@ jobs:
           const report = require('./pack.json')[0];
           const files = report.files.map((file) => file.path);
 
-          const required = ['dist/build.js', 'package.json'];
+          const required = [
+            'dist/build.js',
+            'dist/types/index.d.ts',
+            'dist/types/legacy.d.ts',
+            'dist/types/browser.d.ts',
+            'package.json',
+          ];
           for (const path of required) {
             if (!files.includes(path)) {
               throw new Error(`Missing required package file: ${path}`);
