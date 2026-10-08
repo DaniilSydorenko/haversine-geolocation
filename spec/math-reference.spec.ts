@@ -80,7 +80,7 @@ describe("Haversine mathematical reference suite", () => {
         });
     });
 
-    it("documents the V1 near-antipodal floating-point NaN defect", () => {
+    it("returns a finite result for a representative near-antipodal pair", () => {
         const distance = rawDistance(
             18.5032297229626,
             -89.06975041360795,
@@ -88,6 +88,7 @@ describe("Haversine mathematical reference suite", () => {
             90.93024968423809,
         );
 
-        expect(Number.isNaN(distance)).toBe(true);
+        expect(Number.isFinite(distance)).toBe(true);
+        expect(distance).toBeGreaterThan(20000);
     });
 });
