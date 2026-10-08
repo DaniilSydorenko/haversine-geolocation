@@ -1,6 +1,6 @@
 # ADR-003: Spherical Earth model and radius semantics
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
