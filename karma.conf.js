@@ -1,3 +1,5 @@
+const createWebpackConfig = require('./webpack.config.js');
+
 module.exports = function (config) {
   const configuration = {
     basePath: '',
@@ -7,7 +9,7 @@ module.exports = function (config) {
     preprocessors: {
       "./spec/*.spec.ts": ["webpack"]
     },
-    webpack: require("./webpack.config.js"),
+    webpack: createWebpackConfig({ format: 'umd' }),
     webpackMiddleware: {
       stats: "errors-only"
     },
