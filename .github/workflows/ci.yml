@@ -38,8 +38,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Node package smoke test
-        run: node -e "const pkg=require('./dist/build.js'); if(typeof pkg.distance!=='function') throw new Error('missing distance export'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('invalid distance result'); if(!pkg.default||typeof pkg.default.getDistanceBetween!=='function') throw new Error('missing legacy default export');"
+      - name: Node runtime artifact smoke tests
+        run: |
+          node -e "const pkg=require('./dist/index.cjs'); if(typeof pkg.distance!=='function') throw new Error('missing CJS distance export'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('invalid CJS distance result'); if(!pkg.default||typeof pkg.default.getDistanceBetween!=='function') throw new Error('missing CJS legacy default export');"
+          node --input-type=module -e "import legacyDefault,{distance} from './dist/index.mjs'; const result=distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('invalid ESM distance result'); if(!legacyDefault||typeof legacyDefault.getDistanceBetween!=='function') throw new Error('missing ESM legacy default export');"
+          node -e "const browser=require('./dist/browser.cjs'); if(typeof browser.getCurrentPosition!=='function'||typeof browser.isGeolocationSupported!=='function') throw new Error('missing CJS browser exports');"
+          node --input-type=module -e "import {getCurrentPosition,isGeolocationSupported} from './dist/browser.mjs'; if(typeof getCurrentPosition!=='function'||typeof isGeolocationSupported!=='function') throw new Error('missing ESM browser exports');"
+          node -e "const legacy=require('./dist/legacy.cjs'); if(!legacy.default||typeof legacy.default.getDistanceBetween!=='function') throw new Error('missing CJS legacy subpath default');"
+          node --input-type=module -e "import legacy from './dist/legacy.mjs'; if(!legacy||typeof legacy.getDistanceBetween!=='function') throw new Error('missing ESM legacy subpath default');"
 
       - name: Validate npm package contents
         run: |
@@ -50,11 +56,18 @@ jobs:
 
           const required = [
             'dist/build.js',
+            'dist/index.cjs',
+            'dist/index.mjs',
+            'dist/browser.cjs',
+            'dist/browser.mjs',
+            'dist/legacy.cjs',
+            'dist/legacy.mjs',
             'dist/types/index.d.ts',
             'dist/types/legacy.d.ts',
             'dist/types/browser.d.ts',
             'package.json',
           ];
+
           for (const path of required) {
             if (!files.includes(path)) {
               throw new Error(`Missing required package file: ${path}`);
@@ -69,8 +82,8 @@ jobs:
               'karma.conf.js',
               'webpack.config.js',
               '.babelrc',
-              '.travis.yml',
               'tsconfig.json',
+              'tsconfig.types.json',
             ].includes(path)
           );
 
@@ -80,3 +93,22 @@ jobs:
 
           console.log('Validated package files:', files.join(', '));
           NODE
+
+      - name: Test packed CommonJS and ESM consumers
+        run: |
+          npm pack --json > pack-result.json
+          PACKAGE_FILE=$(node -p "require('./pack-result.json')[0].filename")
+          PACKAGE_PATH="$GITHUB_WORKSPACE/$PACKAGE_FILE"
+
+          mkdir -p /tmp/haversine-cjs /tmp/haversine-esm
+
+          cd /tmp/haversine-cjs
+          npm init -y >/dev/null
+          npm install "$PACKAGE_PATH" --ignore-scripts --no-audit --no-fund >/dev/null
+          node -e "const pkg=require('haversine-geolocation'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('packed CJS root failed'); const browser=require('haversine-geolocation/browser'); if(typeof browser.isGeolocationSupported!=='function') throw new Error('packed CJS browser subpath failed'); const legacy=require('haversine-geolocation/legacy'); if(!legacy.default||typeof legacy.default.getDistanceBetween!=='function') throw new Error('packed CJS legacy subpath failed');"
+
+          cd /tmp/haversine-esm
+          npm init -y >/dev/null
+          npm pkg set type=module
+          npm install "$PACKAGE_PATH" --ignore-scripts --no-audit --no-fund >/dev/null
+          node --input-type=module -e "import legacyDefault,{distance} from 'haversine-geolocation'; import {isGeolocationSupported} from 'haversine-geolocation/browser'; import legacy from 'haversine-geolocation/legacy'; const result=distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('packed ESM root failed'); if(typeof isGeolocationSupported!=='function') throw new Error('packed ESM browser subpath failed'); if(!legacy||typeof legacy.getDistanceBetween!=='function') throw new Error('packed ESM legacy subpath failed'); if(!legacyDefault||typeof legacyDefault.getDistanceBetween!=='function') throw new Error('packed ESM default failed');"

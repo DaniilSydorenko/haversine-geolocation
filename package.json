@@ -2,14 +2,17 @@
   "name": "haversine-geolocation",
   "version": "1.6.0",
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
-  "main": "dist/build.js",
+  "main": "dist/index.cjs",
   "scripts": {
-    "build": "webpack --progress && npm run build:types",
+    "build": "npm run build:umd && npm run build:cjs && npm run build:esm && npm run build:types",
     "build-pack": "npm run build && rm -f -- performy-* && npm pack",
     "test": "NODE_ENV=testing karma start --single-run",
     "test:watch": "NODE_ENV=testing karma start",
     "typecheck": "tsc --noEmit",
-    "build:types": "tsc -p tsconfig.types.json"
+    "build:types": "tsc -p tsconfig.types.json",
+    "build:umd": "webpack --env format=umd --progress",
+    "build:cjs": "webpack --env format=cjs --progress",
+    "build:esm": "webpack --env format=esm --progress"
   },
   "keywords": [
     "geolocation",
@@ -51,5 +54,25 @@
   "files": [
     "dist"
   ],
-  "types": "dist/types/index.d.ts"
+  "types": "dist/types/index.d.ts",
+  "module": "dist/index.mjs",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./browser": {
+      "types": "./dist/types/browser.d.ts",
+      "import": "./dist/browser.mjs",
+      "require": "./dist/browser.cjs"
+    },
+    "./legacy": {
+      "types": "./dist/types/legacy.d.ts",
+      "import": "./dist/legacy.mjs",
+      "require": "./dist/legacy.cjs"
+    },
+    "./package.json": "./package.json"
+  }
 }
