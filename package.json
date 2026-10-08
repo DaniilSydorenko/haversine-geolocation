@@ -7,7 +7,8 @@
     "build": "webpack --progress",
     "build-pack": "npm run build && rm -f -- performy-* && npm pack",
     "test": "NODE_ENV=testing karma start --single-run",
-    "test:watch": "NODE_ENV=testing karma start"
+    "test:watch": "NODE_ENV=testing karma start",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "geolocation",
