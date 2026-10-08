@@ -37,3 +37,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Node package smoke test
+        run: node -e "const pkg=require('./dist/build.js'); if(typeof pkg.distance!=='function') throw new Error('missing distance export'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('invalid distance result'); if(!pkg.default||typeof pkg.default.getDistanceBetween!=='function') throw new Error('missing legacy default export');"
