@@ -27,7 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-env": "^8.0.6",
     "babel-loader": "^8.2.3",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/plugin-proposal-json-strings": "^7.16.0",
