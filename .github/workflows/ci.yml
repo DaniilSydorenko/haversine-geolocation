@@ -40,3 +40,37 @@ jobs:
 
       - name: Node package smoke test
         run: node -e "const pkg=require('./dist/build.js'); if(typeof pkg.distance!=='function') throw new Error('missing distance export'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('invalid distance result'); if(!pkg.default||typeof pkg.default.getDistanceBetween!=='function') throw new Error('missing legacy default export');"
+
+      - name: Validate npm package contents
+        run: |
+          npm pack --dry-run --json > pack.json
+          node <<'NODE'
+          const report = require('./pack.json')[0];
+          const files = report.files.map((file) => file.path);
+
+          const required = ['dist/build.js', 'package.json'];
+          for (const path of required) {
+            if (!files.includes(path)) {
+              throw new Error(`Missing required package file: ${path}`);
+            }
+          }
+
+          const forbidden = files.filter((path) =>
+            path.startsWith('src/') ||
+            path.startsWith('spec/') ||
+            path.startsWith('.github/') ||
+            [
+              'karma.conf.js',
+              'webpack.config.js',
+              '.babelrc',
+              '.travis.yml',
+              'tsconfig.json',
+            ].includes(path)
+          );
+
+          if (forbidden.length > 0) {
+            throw new Error(`Forbidden package files: ${forbidden.join(', ')}`);
+          }
+
+          console.log('Validated package files:', files.join(', '));
+          NODE
