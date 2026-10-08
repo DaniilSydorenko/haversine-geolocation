@@ -1,6 +1,6 @@
 # Haversine V2 Architecture Decisions
 
-Status: proposed
+Status: accepted
 
 These ADRs define the intended Haversine V2 public and package contract before implementation begins.
 
