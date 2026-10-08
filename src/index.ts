@@ -42,12 +42,12 @@ class HaversineGeolocation {
         return R * c;
     };
 
-    isGeolocationAvailable(): Promise<Position> {
+    isGeolocationAvailable(): Promise<GeolocationPosition> {
         return new Promise((resolve, reject) => {
             if ('geolocation' in navigator) {
-                navigator.geolocation.getCurrentPosition((data: Position) => {
+                navigator.geolocation.getCurrentPosition((data: GeolocationPosition) => {
                     resolve(data);
-                }, (error: PositionError) => {
+                }, (error: GeolocationPositionError) => {
                     switch (error.code) {
                         case error.PERMISSION_DENIED:
                             reject(new Error("Error: Permission denied"));
@@ -83,7 +83,17 @@ class HaversineGeolocation {
         }
     }
 
-    getClosestPosition(current: ILocationPoint, otherPoints: ILocationPoint[], measurement: string): ILocationPoint {
+    getClosestPosition(
+        current: ILocationPoint,
+        otherPoints: ILocationPoint[],
+        measurement: string,
+    ): ILocationPoint & {
+        haversine: {
+            distance: number;
+            measurement: string;
+            accuracy: number;
+        };
+    } {
         const distances: number[] = otherPoints.map((value: any) => this.getDistanceBetween(current, value, measurement));
         const indexOfSmallest: number = distances.indexOf(Math.min(...distances));
 
