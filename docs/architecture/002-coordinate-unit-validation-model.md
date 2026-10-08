@@ -1,6 +1,6 @@
 # ADR-002: Coordinate, unit and validation model
 
-Status: Proposed
+Status: Accepted
 
 ## Context
 
