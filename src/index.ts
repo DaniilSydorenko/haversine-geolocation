@@ -36,7 +36,8 @@ class HaversineGeolocation {
             Math.cos(lat1) *
             Math.cos(lat2);
 
-        const c: number = 2 * Math.asin(Math.sqrt(a));
+        const safeA: number = Math.min(1, Math.max(0, a));
+        const c: number = 2 * Math.asin(Math.sqrt(safeA));
 
         return R * c;
     };
