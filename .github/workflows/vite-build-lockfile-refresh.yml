@@ -6,6 +6,7 @@ on:
       - build/vite-library
     paths:
       - package.json
+      - .github/workflows/vite-build-lockfile-refresh.yml
 
 permissions:
   contents: write
@@ -20,6 +21,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: build/vite-library
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -45,4 +47,6 @@ jobs:
           fi
 
           git commit -m "chore: refresh package lock for Vite build migration"
+          git fetch origin build/vite-library
+          git rebase origin/build/vite-library
           git push origin HEAD:build/vite-library
