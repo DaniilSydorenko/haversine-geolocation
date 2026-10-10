@@ -1,0 +1,12 @@
+{
+  "name": "haversine-consumer-next",
+  "private": true,
+  "scripts": {
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}
