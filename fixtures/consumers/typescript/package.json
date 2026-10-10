@@ -1,0 +1,11 @@
+{
+  "name": "haversine-consumer-typescript",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}
