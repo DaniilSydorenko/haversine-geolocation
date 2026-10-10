@@ -8,6 +8,11 @@ export default defineConfig({
         emptyOutDir: true,
         sourcemap: true,
         target: 'es2020',
+        rolldownOptions: {
+            output: {
+                exports: 'named',
+            },
+        },
         lib: {
             entry: {
                 index: resolve(root, 'src/index.ts'),
