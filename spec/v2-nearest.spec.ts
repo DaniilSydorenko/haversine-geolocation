@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { nearest } from '../src/v2/nearest';
 
 describe('V2 nearest', () => {
