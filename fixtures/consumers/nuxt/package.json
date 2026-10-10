@@ -1,0 +1,10 @@
+{
+  "name": "haversine-consumer-nuxt",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build"
+  },
+  "dependencies": {
+    "nuxt": "4.6.1"
+  }
+}
