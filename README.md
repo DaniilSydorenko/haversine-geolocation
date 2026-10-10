@@ -2,182 +2,313 @@
 
 [![npm version](https://img.shields.io/npm/v/haversine-geolocation.svg)](https://www.npmjs.com/package/haversine-geolocation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
+[![CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/ci.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/ci.yml)
+[![Consumer Fixtures](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/consumer-fixtures.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/consumer-fixtures.yml)
 [![GRS Governance](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/grs.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/grs.yml)
 [![Secret Scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/secret-scan.yml)
 
-A small JavaScript/TypeScript library for calculating distances between geographic points with the Haversine formula and for finding the closest point to a given location.
+A small JavaScript/TypeScript geospatial library built around spherical Haversine distance calculations, nearest-point search and browser geolocation integration.
 
-Published on npm as [`haversine-geolocation`](https://www.npmjs.com/package/haversine-geolocation).
+## Release status
 
-## Project status
+There are currently two important lines to distinguish:
 
-This is an established public OSS package with an existing release history. Repository governance and maintenance surfaces are being modernized incrementally without rewriting the library's historical engineering record.
+- **npm stable:** `haversine-geolocation@1.6.0` — the historical V1 API;
+- **repository `master`:** the unreleased V2 development line.
 
-- Package version in this repository: `1.6.0`
-- License: MIT
-- Default branch: `master`
-- Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md)
-- Security reports: see [SECURITY.md](SECURITY.md)
+The V2 code, package exports and examples below are already implemented on `master`, but **V2 has not yet been published to npm**.
 
-## What it provides
-
-- geolocation availability through the browser Geolocation API;
-- distance calculation between two latitude/longitude points;
-- support for kilometres, metres, and miles;
-- selection of the closest point from a collection while preserving the original point properties.
-
-## Installation
+If you run:
 
 ```bash
 npm install haversine-geolocation
 ```
 
-## Basic usage
+today, you receive the published V1 package.
+
+See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the planned upgrade path.
+
+## Published V1 usage
 
 ### Import
 
-```javascript
+```ts
 import HaversineGeolocation from 'haversine-geolocation';
 ```
 
-### Check geolocation availability
+### Distance
 
-#### Promise
+```ts
+const a = {
+  latitude: 61.5322204,
+  longitude: 28.7515963,
+  accuracy: 5,
+};
 
-```javascript
-HaversineGeolocation.isGeolocationAvailable()
-  .then(data => {
-    const currentPoint = {
-      latitude: data.coords.latitude,
-      longitude: data.coords.longitude,
-      accuracy: data.coords.accuracy
-    };
-  });
+const b = {
+  latitude: 51.9971208,
+  longitude: 22.1455439,
+  accuracy: 5,
+};
+
+HaversineGeolocation.getDistanceBetween(a, b, 'km'); // 1133.1
+HaversineGeolocation.getDistanceBetween(a, b, 'mi'); // 704.1
+HaversineGeolocation.getDistanceBetween(a, b, 'm');  // 1133063
 ```
 
-#### Async/await
+V1 applies historical presentation rounding automatically.
 
-```javascript
-(async () => {
-  const data = await HaversineGeolocation.isGeolocationAvailable();
+### Closest position
 
-  const currentPoint = {
-    latitude: data.coords.latitude,
-    longitude: data.coords.longitude,
-    accuracy: data.coords.accuracy
-  };
-})();
+```ts
+const closest = HaversineGeolocation.getClosestPosition(
+  a,
+  [
+    {
+      latitude: 61.5322204,
+      longitude: 28.7515963,
+      accuracy: 5,
+    },
+    {
+      latitude: 51.9971208,
+      longitude: 22.1455439,
+      accuracy: 5,
+    },
+  ],
+  'km',
+);
+
+console.log(closest.haversine.distance);
 ```
 
-### Calculate the distance between two points
+### Browser geolocation
 
-```javascript
-const points = [
-  {
-    latitude: 61.5322204,
-    longitude: 28.7515963
-  },
-  {
-    latitude: 51.9971208,
-    longitude: 22.1455439
-  }
-];
+```ts
+const position = await HaversineGeolocation.isGeolocationAvailable();
 
-// Miles
-HaversineGeolocation.getDistanceBetween(points[0], points[1], 'mi'); // 704.1 mi
-
-// Metres
-HaversineGeolocation.getDistanceBetween(points[0], points[1], 'm'); // 1133062.7 m
-
-// Kilometres (default)
-HaversineGeolocation.getDistanceBetween(points[0], points[1]); // 1133.1 km
+console.log(position.coords.latitude);
+console.log(position.coords.longitude);
 ```
 
-### Find the closest point
+V1 couples browser geolocation to the historical singleton. That package design is one of the areas V2 changes.
 
-`getClosestPosition` returns the closest input object and preserves its existing properties while adding a nested `haversine` object.
+---
 
-```javascript
-const locationPoints = [
-  {
-    id: 1,
-    title: 'Point 1',
-    latitude: 61.5322204,
-    longitude: 28.7515963
-  },
-  {
-    id: 2,
-    title: 'Point 2',
-    latitude: 51.9971208,
-    longitude: 22.1455439
-  },
-  {
-    id: 3,
-    title: 'Point 3',
-    latitude: 45.3571207,
-    longitude: 30.3435456
-  }
-];
+## V2 preview — unreleased
 
-HaversineGeolocation.isGeolocationAvailable()
-  .then(data => {
-    const currentPoint = {
-      latitude: data.coords.latitude,
-      longitude: data.coords.longitude,
-      accuracy: data.coords.accuracy
-    };
+The canonical V2 API is functional and uses named exports.
 
-    return HaversineGeolocation.getClosestPosition(
-      currentPoint,
-      locationPoints,
-      'mi'
-    );
-  });
+### Distance
+
+```ts
+import { distance } from 'haversine-geolocation';
+
+const kilometres = distance(
+  { latitude: 52.2296756, longitude: 21.0122287 },
+  { latitude: 59.9138688, longitude: 10.7522454 },
+);
+
+const metres = distance(
+  { latitude: 52.2296756, longitude: 21.0122287 },
+  { latitude: 59.9138688, longitude: 10.7522454 },
+  { unit: 'm' },
+);
 ```
 
-Example response:
+V2:
 
-```json
-{
-  "id": 3,
-  "title": "Point 3",
-  "latitude": 45.3571207,
-  "longitude": 30.3435456,
-  "haversine": {
-    "distance": 49,
-    "measurement": "mi"
-  }
+- validates coordinates;
+- keeps full calculation precision;
+- supports `m`, `km` and `mi`;
+- uses a documented spherical mean-Earth-radius default;
+- supports an explicit custom spherical radius;
+- guards the Haversine intermediate against floating-point domain drift.
+
+### Coordinate validation
+
+```ts
+import {
+  assertCoordinate,
+  isCoordinate,
+} from 'haversine-geolocation';
+
+isCoordinate({
+  latitude: 52.2296756,
+  longitude: 21.0122287,
+}); // true
+```
+
+Canonical V2 coordinates use:
+
+```ts
+interface Coordinate {
+  latitude: number;
+  longitude: number;
 }
 ```
 
-## Haversine formula
+Latitude must be in `[-90, 90]`, longitude in `[-180, 180]`, and both values must be finite numbers.
 
-The Haversine formula calculates the great-circle distance between two points on a sphere from their latitude and longitude.
+### Unit conversion
 
-<img width="439" alt="Haversine formula illustration" src="https://user-images.githubusercontent.com/2789198/27240436-e9a459da-52d4-11e7-8f84-f96d0b312859.png">
+```ts
+import { convertDistance } from 'haversine-geolocation';
+
+convertDistance(10, 'km', 'mi');
+```
+
+Conversion does not apply display rounding.
+
+### Nearest point
+
+```ts
+import { nearest } from 'haversine-geolocation';
+
+const result = nearest(
+  { latitude: 52.2296756, longitude: 21.0122287 },
+  [
+    {
+      id: 'oslo',
+      latitude: 59.9138688,
+      longitude: 10.7522454,
+    },
+    {
+      id: 'nearby',
+      latitude: 52.23,
+      longitude: 21.012,
+    },
+  ],
+);
+
+if (result) {
+  console.log(result.point);
+  console.log(result.distance);
+}
+```
+
+`nearest()` is single-pass, does not mutate candidates, preserves candidate metadata, returns the first candidate on an exact tie, and returns `undefined` for an empty collection.
+
+### Browser geolocation
+
+Browser functionality is isolated from the pure package root:
+
+```ts
+import {
+  getCurrentPosition,
+  isGeolocationSupported,
+} from 'haversine-geolocation/browser';
+
+if (isGeolocationSupported()) {
+  const position = await getCurrentPosition();
+  console.log(position.coords);
+}
+```
+
+The browser module performs no top-level access to `window`, `document` or `navigator`, so the pure package root remains safe for Node and SSR imports.
+
+### Legacy compatibility
+
+During the V2 2.x migration line, the historical singleton remains available as a deprecated compatibility facade.
+
+```ts
+import HaversineGeolocation from 'haversine-geolocation';
+```
+
+An explicit legacy subpath is also part of the V2 package contract:
+
+```ts
+import HaversineGeolocation from 'haversine-geolocation/legacy';
+```
+
+The legacy facade preserves historical V1 behavior where compatibility matters, including the old radius and rounding semantics.
+
+## V2 package architecture
+
+The unreleased V2 package on `master` is designed around explicit entry points:
 
 ```text
-dlon = lon2 - lon1
+haversine-geolocation
+├── .          pure core + deprecated legacy default
+├── ./browser  browser Geolocation API adapter
+└── ./legacy   explicit V1 compatibility facade
+```
+
+The package build produces:
+
+- ESM artifacts;
+- CommonJS artifacts;
+- TypeScript declarations;
+- the historical UMD compatibility artifact.
+
+CI validates the actual `npm pack` tarball rather than only importing repository source files.
+
+## Mathematical model
+
+Haversine calculates great-circle distance on a **sphere**.
+
+V2 uses the documented mean Earth radius:
+
+```text
+6,371,008.8 m
+```
+
+The historical V1 compatibility facade keeps its original:
+
+```text
+6,372.8 km
+```
+
+Earth is not a perfect sphere. Haversine is therefore not a replacement for an ellipsoidal WGS84 geodesic algorithm when survey-grade or high-precision geodesy is required.
+
+The core calculation is conceptually:
+
+```text
 dlat = lat2 - lat1
+dlon = lon2 - lon1
 
 a = sin²(dlat / 2)
   + cos(lat1) * cos(lat2) * sin²(dlon / 2)
 
-c = 2 * atan2(sqrt(a), sqrt(1 - a))
+a = clamp(a, 0, 1)
+c = 2 * asin(sqrt(a))
 d = R * c
 ```
 
-Where `R` is the Earth's radius in the chosen unit.
+## Architecture and migration
+
+The V2 contract is documented in the accepted ADRs under [docs/architecture](docs/architecture/README.md).
+
+The detailed migration guide is:
+
+- [Migrating from Haversine V1 to V2](docs/migration/v1-to-v2.md)
+
+Historical behavior and compatibility findings are preserved in:
+
+- [Haversine V1 Forensic Audit](docs/research/v1-forensic-audit.md)
+
+## Development quality gates
+
+The repository currently validates:
+
+- TypeScript source typechecking;
+- browser-based tests;
+- production builds;
+- Node runtime smoke tests;
+- CommonJS and ESM package consumers;
+- npm tarball contents;
+- secret scanning.
+
+The packed package is also validated through production builds in Vite, Next.js and Nuxt.
 
 ## Contributing
 
-Bug fixes, tests, documentation improvements, compatibility fixes, and small maintenance improvements are welcome.
+Bug fixes, tests, documentation improvements, compatibility fixes and focused maintenance improvements are welcome.
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a non-trivial pull request.
 
 ## Security
 
-Please do not report suspected vulnerabilities through public issues. Follow the process in [SECURITY.md](SECURITY.md).
+Please do not report suspected vulnerabilities through public issues. Follow [SECURITY.md](SECURITY.md).
 
 ## License
 
