@@ -4,15 +4,14 @@
   "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
   "main": "dist/index.cjs",
   "scripts": {
-    "build": "npm run build:umd && npm run build:cjs && npm run build:esm && npm run build:types",
+    "build": "npm run build:runtime && npm run build:umd && npm run build:types",
     "build-pack": "npm run build && rm -f -- performy-* && npm pack",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "build:types": "tsc -p tsconfig.types.json",
-    "build:umd": "webpack --env format=umd --progress",
-    "build:cjs": "webpack --env format=cjs --progress",
-    "build:esm": "webpack --env format=esm --progress"
+    "build:umd": "vite build --config vite.umd.config.ts",
+    "build:runtime": "vite build --config vite.lib.config.ts"
   },
   "keywords": [
     "geolocation",
@@ -29,19 +28,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "babel-loader": "^8.2.3",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/plugin-proposal-json-strings": "^7.16.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-syntax-import-meta": "^7.10.4",
-    "@babel/plugin-transform-regenerator": "^7.16.0",
-    "@babel/plugin-transform-runtime": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
-    "webpack": "^5.64.0",
-    "webpack-cli": "^4.9.1",
-    "source-map-loader": "^5.0.0",
     "typescript": "^4.4.4",
     "vite": "8.3.4",
     "vitest": "5.0.3"

@@ -1,5 +1,7 @@
-import { assertCoordinate, Coordinate } from './coordinate';
-import { convertDistance, DistanceUnit } from './units';
+import { assertCoordinate } from './coordinate';
+import type { Coordinate } from './coordinate';
+import { convertDistance } from './units';
+import type { DistanceUnit } from './units';
 
 export const EARTH_MEAN_RADIUS_M = 6_371_008.8;
 
