@@ -1,17 +1,45 @@
 import {
+    afterEach,
+    describe,
+    expect,
+    it,
+    vi,
+} from 'vitest';
+
+import {
     getCurrentPosition,
     isGeolocationSupported,
 } from '../src/v2/browser';
 
 describe('V2 browser geolocation adapter', () => {
-    it('detects the browser Geolocation API at call time', () => {
-        expect(isGeolocationSupported()).toBe(
-            typeof navigator !== 'undefined' &&
-            navigator.geolocation !== undefined,
-        );
+    afterEach(() => {
+        vi.unstubAllGlobals();
+        vi.restoreAllMocks();
     });
 
-    it('resolves with the native GeolocationPosition', (done) => {
+    it('detects the browser Geolocation API at call time', () => {
+        vi.stubGlobal('navigator', {
+            geolocation: {
+                getCurrentPosition: vi.fn(),
+            },
+        });
+
+        expect(isGeolocationSupported()).toBe(true);
+    });
+
+    it('returns false when navigator is unavailable', () => {
+        vi.stubGlobal('navigator', undefined);
+
+        expect(isGeolocationSupported()).toBe(false);
+    });
+
+    it('returns false when navigator has no geolocation API', () => {
+        vi.stubGlobal('navigator', {});
+
+        expect(isGeolocationSupported()).toBe(false);
+    });
+
+    it('resolves with the native GeolocationPosition', async () => {
         const position = {
             coords: {
                 accuracy: 5,
@@ -25,22 +53,29 @@ describe('V2 browser geolocation adapter', () => {
             timestamp: 123456789,
         } as GeolocationPosition;
 
-        spyOn(
-            navigator.geolocation,
-            'getCurrentPosition',
-        ).and.callFake((success) => {
-            success(position);
+        const nativeGetCurrentPosition = vi.fn(
+            (success: PositionCallback) => {
+                success(position);
+            },
+        );
+
+        vi.stubGlobal('navigator', {
+            geolocation: {
+                getCurrentPosition: nativeGetCurrentPosition,
+            },
         });
 
-        getCurrentPosition({ enableHighAccuracy: true })
-            .then((result) => {
-                expect(result).toBe(position);
-                done();
-            })
-            .catch(done.fail);
+        await expect(
+            getCurrentPosition({ enableHighAccuracy: true }),
+        ).resolves.toBe(position);
+
+        expect(nativeGetCurrentPosition).toHaveBeenCalledTimes(1);
+        expect(nativeGetCurrentPosition.mock.calls[0][2]).toEqual({
+            enableHighAccuracy: true,
+        });
     });
 
-    it('rejects with the native geolocation error', (done) => {
+    it('rejects with the native geolocation error', async () => {
         const error = {
             code: 1,
             message: 'Permission denied',
@@ -49,20 +84,29 @@ describe('V2 browser geolocation adapter', () => {
             TIMEOUT: 3,
         } as GeolocationPositionError;
 
-        spyOn(
-            navigator.geolocation,
-            'getCurrentPosition',
-        ).and.callFake((_success, failure) => {
-            if (failure) {
-                failure(error);
-            }
+        const nativeGetCurrentPosition = vi.fn(
+            (
+                _success: PositionCallback,
+                failure?: PositionErrorCallback | null,
+            ) => {
+                failure?.(error);
+            },
+        );
+
+        vi.stubGlobal('navigator', {
+            geolocation: {
+                getCurrentPosition: nativeGetCurrentPosition,
+            },
         });
 
-        getCurrentPosition()
-            .then(() => done.fail('Expected geolocation to reject'))
-            .catch((result) => {
-                expect(result).toBe(error);
-                done();
-            });
+        await expect(getCurrentPosition()).rejects.toBe(error);
+    });
+
+    it('rejects clearly when geolocation is unavailable', async () => {
+        vi.stubGlobal('navigator', undefined);
+
+        await expect(getCurrentPosition()).rejects.toThrow(
+            'Geolocation API is not available in this environment',
+        );
     });
 });
