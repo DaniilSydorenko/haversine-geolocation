@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import {
     distance,
     EARTH_MEAN_RADIUS_M,
