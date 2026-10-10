@@ -1,0 +1,79 @@
+name: Consumer Fixtures
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'webpack.config.js'
+      - 'tsconfig*.json'
+      - 'fixtures/consumers/**'
+      - '.github/workflows/consumer-fixtures.yml'
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'webpack.config.js'
+      - 'tsconfig*.json'
+      - 'fixtures/consumers/**'
+      - '.github/workflows/consumer-fixtures.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  framework-consumer:
+    name: ${{ matrix.consumer }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        consumer:
+          - vite
+          - next
+          - nuxt
+
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NUXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install library dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Pack library
+        run: npm pack --json > pack-result.json
+
+      - name: Build packed framework consumer
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PACKAGE_FILE=$(node -p "require('./pack-result.json')[0].filename")
+          PACKAGE_PATH="$GITHUB_WORKSPACE/$PACKAGE_FILE"
+          FIXTURE_PATH="$RUNNER_TEMP/haversine-${{ matrix.consumer }}"
+
+          cp -R "fixtures/consumers/${{ matrix.consumer }}" "$FIXTURE_PATH"
+          cd "$FIXTURE_PATH"
+
+          npm install --no-audit --no-fund
+          npm install "$PACKAGE_PATH" --save-exact --no-audit --no-fund
+          npm run build

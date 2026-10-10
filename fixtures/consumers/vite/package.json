@@ -1,0 +1,11 @@
+{
+  "name": "haversine-consumer-vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "8.3.4"
+  }
+}
