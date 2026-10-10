@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import HaversineGeolocation from "../src/index";
 
 describe("V1 characterization", () => {
