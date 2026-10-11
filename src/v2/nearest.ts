@@ -1,6 +1,6 @@
-import type { Coordinate } from './coordinate';
-import { distance } from './distance';
-import type { DistanceOptions } from './distance';
+import type { Coordinate } from './coordinate.js';
+import { distance } from './distance.js';
+import type { DistanceOptions } from './distance.js';
 
 export interface NearestResult<T> {
     point: T;
