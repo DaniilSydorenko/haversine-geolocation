@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP** | 🟡 | **91%** |
+| **ALL ROADMAP** | 🟡 | **94%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -56,7 +56,7 @@
 | Published alpha TypeScript verification | 🟢 | 100% |
 | Published alpha provenance verification | 🟢 | 100% |
 | Resolve historical Node import issue #12 after published verification | 🟢 | 100% |
-| Alpha feedback and compatibility hardening | 🟠 | 15% |
+| Alpha feedback and compatibility hardening | 🟠 | 55% |
 | 2.0.0-beta.1 | 🔵 | 0% |
 | Beta feedback and compatibility hardening | 🔵 | 0% |
 | 2.0.0-rc.1 | 🔵 | 0% |
@@ -65,15 +65,16 @@
 | 2.0.0 stable npm release | 🔵 | 0% |
 | Post-release README/status update | 🔵 | 0% |
 | Post-release migration-guide finalization | 🔵 | 0% |
-| 🆕 NEW — Modernize TypeScript compiler baseline from 4.4 | 🔵 | 0% |
-| 🆕 NEW — Define supported Node.js/browser compatibility matrix | 🔵 | 0% |
-| 🆕 NEW — Add compatibility CI across supported Node.js versions | 🟠 | 60% |
-| 🆕 NEW — Add dedicated API reference documentation | 🔵 | 0% |
-| 🆕 NEW — Add benchmark suite and performance baseline | 🔵 | 0% |
+| 🆕 NEW — Modernize TypeScript compiler baseline from 4.4 | 🟢 | 100% |
+| 🆕 NEW — Define supported Node.js/browser compatibility matrix | 🟠 | 70% |
+| 🆕 NEW — Add compatibility CI across supported Node.js versions | 🟢 | 100% |
+| 🆕 NEW — Add dedicated API reference documentation | 🟢 | 100% |
+| 🆕 NEW — Add benchmark suite and performance baseline | 🟢 | 100% |
 | 🆕 NEW — Add lint/format quality gate | 🔵 | 0% |
-| 🆕 NEW — Add package-size regression budget | 🔵 | 0% |
+| 🆕 NEW — Add package-size regression budget | 🟢 | 100% |
 | 🆕 NEW — Add formal CHANGELOG/release-notes baseline | 🔵 | 0% |
-| 🆕 NEW — Correct README test-runner wording after Vitest migration | 🟠 | 70% |
+| 🆕 NEW — Correct README test-runner wording after Vitest migration | 🟢 | 100% |
 | 🆕 NEW — Remove Vite native-config-loader ESM warnings | 🔵 | 0% |
 | 🆕 NEW — Add real-browser UMD compatibility fixture | 🔵 | 0% |
-| 🆕 NEW — Normalize package repository.url for npm | 🟠 | 70% |
+| 🆕 NEW — Normalize package repository.url for npm | 🟢 | 100% |
+| 🆕 NEW — Correct README published-alpha release status | 🟢 | 100% |
