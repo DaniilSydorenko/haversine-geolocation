@@ -278,9 +278,10 @@ d = R * c
 
 The V2 contract is documented in the accepted ADRs under [docs/architecture](docs/architecture/README.md).
 
-The detailed migration guide is:
+The detailed migration and release guides are:
 
 - [Migrating from Haversine V1 to V2](docs/migration/v1-to-v2.md)
+- [Haversine V2 release runbook](docs/release/v2-release-runbook.md)
 
 Historical behavior and compatibility findings are preserved in:
 
