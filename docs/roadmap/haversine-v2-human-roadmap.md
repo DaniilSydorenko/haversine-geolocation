@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP** | 🟡 | **85%** |
+| **ALL ROADMAP** | 🟡 | **88%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -45,9 +45,9 @@
 | npm Trusted Publisher account binding | 🟠 | 80% |
 | 2.0.0-alpha.1 version PR | 🟢 | 100% |
 | 2.0.0-alpha.1 release notes | 🟢 | 100% |
-| 2.0.0-alpha.1 candidate validation execution | 🔵 | 0% |
-| v2.0.0-alpha.1 Git tag | 🔵 | 0% |
-| 2.0.0-alpha.1 GitHub prerelease | 🔵 | 0% |
+| 2.0.0-alpha.1 candidate validation execution | 🟢 | 100% |
+| v2.0.0-alpha.1 Git tag | 🟢 | 100% |
+| 2.0.0-alpha.1 GitHub prerelease | 🟢 | 100% |
 | Stage 2.0.0-alpha.1 on npm | 🔵 | 0% |
 | Review staged alpha package | 🔵 | 0% |
 | 2FA approval of staged alpha | 🔵 | 0% |
