@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP** | 🟡 | **82%** |
+| **ALL ROADMAP** | 🟡 | **83%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -42,7 +42,7 @@
 | Explicit manual npm publish gate | 🟢 | 100% |
 | V2 release runbook | 🟢 | 100% |
 | V2 prerelease release-policy implementation | 🟢 | 100% |
-| npm Trusted Publisher account binding | 🟠 | 0% |
+| npm Trusted Publisher account binding | 🟠 | 80% |
 | 2.0.0-alpha.1 version PR | 🔵 | 0% |
 | 2.0.0-alpha.1 release notes | 🔵 | 0% |
 | 2.0.0-alpha.1 candidate validation execution | 🔵 | 0% |
