@@ -1,34 +1,34 @@
 export {
     assertCoordinate,
     isCoordinate,
-} from './coordinate';
+} from './coordinate.js';
 
 export type {
     Coordinate,
-} from './coordinate';
+} from './coordinate.js';
 
 export {
     assertDistanceUnit,
     convertDistance,
-} from './units';
+} from './units.js';
 
 export type {
     DistanceUnit,
-} from './units';
+} from './units.js';
 
 export {
     distance,
     EARTH_MEAN_RADIUS_M,
-} from './distance';
+} from './distance.js';
 
 export type {
     DistanceOptions,
-} from './distance';
+} from './distance.js';
 
 export {
     nearest,
-} from './nearest';
+} from './nearest.js';
 
 export type {
     NearestResult,
-} from './nearest';
+} from './nearest.js';
