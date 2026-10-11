@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP** | 🟡 | **94%** |
+| **ALL ROADMAP** | 🟡 | **95%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -70,9 +70,9 @@
 | 🆕 NEW — Add compatibility CI across supported Node.js versions | 🟢 | 100% |
 | 🆕 NEW — Add dedicated API reference documentation | 🟢 | 100% |
 | 🆕 NEW — Add benchmark suite and performance baseline | 🟢 | 100% |
-| 🆕 NEW — Add lint/format quality gate | 🔵 | 0% |
+| 🆕 NEW — Add lint/format quality gate | 🟢 | 100% |
 | 🆕 NEW — Add package-size regression budget | 🟢 | 100% |
-| 🆕 NEW — Add formal CHANGELOG/release-notes baseline | 🔵 | 0% |
+| 🆕 NEW — Add formal CHANGELOG/release-notes baseline | 🟢 | 100% |
 | 🆕 NEW — Correct README test-runner wording after Vitest migration | 🟢 | 100% |
 | 🆕 NEW — Remove Vite native-config-loader ESM warnings | 🔵 | 0% |
 | 🆕 NEW — Add real-browser UMD compatibility fixture | 🔵 | 0% |
