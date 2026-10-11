@@ -1,0 +1,182 @@
+name: Runtime Compatibility
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite*.config.ts'
+      - 'tsconfig*.json'
+      - '.github/workflows/runtime-compatibility.yml'
+      - 'docs/compatibility.md'
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite*.config.ts'
+      - 'tsconfig*.json'
+      - '.github/workflows/runtime-compatibility.yml'
+      - 'docs/compatibility.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  node:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 22
+          - 24
+          - 26
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install library dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Pack library
+        run: npm pack --json > pack-result.json
+
+      - name: Verify packed package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PACKAGE_FILE=$(node -p "require('./pack-result.json')[0].filename")
+          PACKAGE_PATH="$GITHUB_WORKSPACE/$PACKAGE_FILE"
+          CONSUMER="$RUNNER_TEMP/haversine-node-${{ matrix.node }}"
+
+          mkdir -p "$CONSUMER"
+          cd "$CONSUMER"
+
+          npm init -y >/dev/null
+          npm install "$PACKAGE_PATH" --save-exact --no-audit --no-fund
+          npm install typescript@5.9.3 --save-dev --no-audit --no-fund
+
+          node <<'NODE'
+          const pkg = require('haversine-geolocation');
+          const browser = require('haversine-geolocation/browser');
+          const legacy = require('haversine-geolocation/legacy');
+
+          if (typeof pkg.distance !== 'function') {
+            throw new Error('CommonJS root is missing distance()');
+          }
+
+          const result = pkg.distance(
+            { latitude: 0, longitude: 0 },
+            { latitude: 0, longitude: 1 }
+          );
+
+          if (!Number.isFinite(result) || result <= 0) {
+            throw new Error('CommonJS distance() returned an invalid result');
+          }
+
+          if (browser.isGeolocationSupported() !== false) {
+            throw new Error('browser adapter should report unsupported in Node');
+          }
+
+          if (!legacy.default || typeof legacy.default.getDistanceBetween !== 'function') {
+            throw new Error('CommonJS legacy subpath is invalid');
+          }
+          NODE
+
+          node --input-type=module <<'NODE'
+          import HaversineGeolocation, { distance } from 'haversine-geolocation';
+          import { isGeolocationSupported } from 'haversine-geolocation/browser';
+          import LegacyHaversineGeolocation from 'haversine-geolocation/legacy';
+
+          const result = distance(
+            { latitude: 52.2296756, longitude: 21.0122287 },
+            { latitude: 59.9138688, longitude: 10.7522454 }
+          );
+
+          if (!Number.isFinite(result) || result <= 0) {
+            throw new Error('ESM distance() returned an invalid result');
+          }
+
+          if (typeof HaversineGeolocation.getDistanceBetween !== 'function') {
+            throw new Error('ESM root legacy default is invalid');
+          }
+
+          if (isGeolocationSupported() !== false) {
+            throw new Error('ESM browser adapter should report unsupported in Node');
+          }
+
+          if (typeof LegacyHaversineGeolocation.getDistanceBetween !== 'function') {
+            throw new Error('ESM legacy subpath is invalid');
+          }
+          NODE
+
+          cat > consumer.ts <<'TS'
+          import HaversineGeolocation, {
+            distance,
+            nearest,
+            type Coordinate,
+            type DistanceUnit,
+          } from 'haversine-geolocation';
+          import {
+            getCurrentPosition,
+            isGeolocationSupported,
+          } from 'haversine-geolocation/browser';
+          import LegacyHaversineGeolocation from 'haversine-geolocation/legacy';
+
+          const origin: Coordinate = {
+            latitude: 52.2296756,
+            longitude: 21.0122287,
+          };
+
+          const unit: DistanceUnit = 'km';
+          const value: number = distance(
+            origin,
+            { latitude: 59.9138688, longitude: 10.7522454 },
+            { unit },
+          );
+
+          const closest = nearest(origin, [
+            { id: 'near', latitude: 52.23, longitude: 21.012 },
+          ]);
+
+          void value;
+          void closest;
+          void HaversineGeolocation;
+          void LegacyHaversineGeolocation;
+          void getCurrentPosition;
+          void isGeolocationSupported;
+          TS
+
+          cat > tsconfig.json <<'JSON'
+          {
+            "compilerOptions": {
+              "target": "ES2022",
+              "module": "NodeNext",
+              "moduleResolution": "NodeNext",
+              "strict": true,
+              "noEmit": true,
+              "skipLibCheck": false
+            },
+            "include": ["consumer.ts"]
+          }
+          JSON
+
+          npx tsc --project tsconfig.json
