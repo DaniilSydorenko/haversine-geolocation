@@ -1,8 +1,8 @@
 import { execFileSync } from 'node:child_process';
 
 const KIB = 1024;
-const MAX_PACKED_BYTES = 64 * KIB;
-const MAX_UNPACKED_BYTES = 128 * KIB;
+const MAX_PACKED_BYTES = 32 * KIB;
+const MAX_UNPACKED_BYTES = 96 * KIB;
 
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
