@@ -62,6 +62,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check package size
+        run: npm run size:check
+
       - name: Validate package contents and version
         shell: bash
         env:
