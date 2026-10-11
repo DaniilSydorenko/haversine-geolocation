@@ -4,6 +4,11 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     build: {
         emptyOutDir: false,
+        rolldownOptions: {
+            output: {
+                exports: 'named',
+            },
+        },
         sourcemap: true,
         target: 'es2020',
         lib: {
