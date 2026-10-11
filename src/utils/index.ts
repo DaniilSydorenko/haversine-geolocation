@@ -5,4 +5,11 @@ import { isNodeJs } from './isNodeJs';
 import { showError } from './showError';
 import { showGeolocationError } from './showGeolocationError';
 
-export { calculateHaversine, convertMeasurement, getHaversineEntity, isNodeJs, showError, showGeolocationError };
+export {
+    calculateHaversine,
+    convertMeasurement,
+    getHaversineEntity,
+    isNodeJs,
+    showError,
+    showGeolocationError,
+};

@@ -1,15 +1,6 @@
-import {
-    afterEach,
-    describe,
-    expect,
-    it,
-    vi,
-} from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import {
-    getCurrentPosition,
-    isGeolocationSupported,
-} from '../src/v2/browser';
+import { getCurrentPosition, isGeolocationSupported } from '../src/v2/browser';
 
 describe('V2 browser geolocation adapter', () => {
     afterEach(() => {
@@ -53,11 +44,9 @@ describe('V2 browser geolocation adapter', () => {
             timestamp: 123456789,
         } as GeolocationPosition;
 
-        const nativeGetCurrentPosition = vi.fn(
-            (success: PositionCallback) => {
-                success(position);
-            },
-        );
+        const nativeGetCurrentPosition = vi.fn((success: PositionCallback) => {
+            success(position);
+        });
 
         vi.stubGlobal('navigator', {
             geolocation: {
@@ -65,9 +54,7 @@ describe('V2 browser geolocation adapter', () => {
             },
         });
 
-        await expect(
-            getCurrentPosition({ enableHighAccuracy: true }),
-        ).resolves.toBe(position);
+        await expect(getCurrentPosition({ enableHighAccuracy: true })).resolves.toBe(position);
 
         expect(nativeGetCurrentPosition).toHaveBeenCalledTimes(1);
         expect(nativeGetCurrentPosition.mock.calls[0][2]).toEqual({
@@ -85,10 +72,7 @@ describe('V2 browser geolocation adapter', () => {
         } as GeolocationPositionError;
 
         const nativeGetCurrentPosition = vi.fn(
-            (
-                _success: PositionCallback,
-                failure?: PositionErrorCallback | null,
-            ) => {
+            (_success: PositionCallback, failure?: PositionErrorCallback | null) => {
                 failure?.(error);
             },
         );

@@ -44,22 +44,15 @@ for (let index = 0; index < 5; index += 1) {
     nearest(origin, candidates);
 }
 
-const distanceResult = benchmark(
-    'distance()',
-    DISTANCE_ITERATIONS,
-    () => {
-        let total = 0;
+const distanceResult = benchmark('distance()', DISTANCE_ITERATIONS, () => {
+    let total = 0;
 
-        for (let index = 0; index < DISTANCE_ITERATIONS; index += 1) {
-            total += distance(
-                origin,
-                destinations[index % destinations.length],
-            );
-        }
+    for (let index = 0; index < DISTANCE_ITERATIONS; index += 1) {
+        total += distance(origin, destinations[index % destinations.length]);
+    }
 
-        return total;
-    },
-);
+    return total;
+});
 
 const nearestResult = benchmark(
     'nearest() candidate evaluations',
@@ -93,10 +86,7 @@ const report = {
     node: process.version,
     platform: process.platform,
     arch: process.arch,
-    benchmarks: [
-        format(distanceResult),
-        format(nearestResult),
-    ],
+    benchmarks: [format(distanceResult), format(nearestResult)],
 };
 
 console.log(JSON.stringify(report, null, 2));

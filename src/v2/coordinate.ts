@@ -6,17 +6,10 @@ export interface Coordinate {
 const isFiniteNumber = (value: unknown): value is number =>
     typeof value === 'number' && Number.isFinite(value);
 
-const hasCoordinateShape = (
-    value: unknown,
-): value is { latitude: unknown; longitude: unknown } =>
-    typeof value === 'object' &&
-    value !== null &&
-    'latitude' in value &&
-    'longitude' in value;
+const hasCoordinateShape = (value: unknown): value is { latitude: unknown; longitude: unknown } =>
+    typeof value === 'object' && value !== null && 'latitude' in value && 'longitude' in value;
 
-export function assertCoordinate(
-    value: unknown,
-): asserts value is Coordinate {
+export function assertCoordinate(value: unknown): asserts value is Coordinate {
     if (!hasCoordinateShape(value)) {
         throw new TypeError('Coordinate must provide latitude and longitude');
     }

@@ -1,5 +1,5 @@
 export const calculateHaversine = (...args: number[]): number => {
-    const rad: number[] = args.map((deg: number) => deg / 180.0 * Math.PI);
+    const rad: number[] = args.map((deg: number) => (deg / 180.0) * Math.PI);
     const lat1: number = rad[0];
     const lon1: number = rad[1];
     const lat2: number = rad[2];
@@ -8,12 +8,9 @@ export const calculateHaversine = (...args: number[]): number => {
     const dLat: number = lat2 - lat1;
     const dLon: number = lon2 - lon1;
 
-    const a: number = Math.sin(dLat / 2) *
-        Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2) *
-        Math.cos(lat1) *
-        Math.cos(lat2);
+    const a: number =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
 
     const c: number = 2 * Math.asin(Math.sqrt(a));
 

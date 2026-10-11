@@ -17,8 +17,8 @@ describe('V2 nearest', () => {
             },
             {
                 id: 'warsaw-nearby',
-                latitude: 52.2300,
-                longitude: 21.0120,
+                latitude: 52.23,
+                longitude: 21.012,
             },
         ];
 
@@ -33,8 +33,8 @@ describe('V2 nearest', () => {
         const candidate = {
             id: 'target',
             title: 'Target',
-            latitude: 52.2300,
-            longitude: 21.0120,
+            latitude: 52.23,
+            longitude: 21.012,
             metadata: {
                 category: 'example',
             },
@@ -49,8 +49,8 @@ describe('V2 nearest', () => {
     it('does not mutate candidates or their array', () => {
         const candidate = Object.freeze({
             id: 'frozen',
-            latitude: 52.2300,
-            longitude: 21.0120,
+            latitude: 52.23,
+            longitude: 21.012,
         });
         const candidates = Object.freeze([candidate]);
 
@@ -58,11 +58,7 @@ describe('V2 nearest', () => {
 
         expect(result!.point).toBe(candidate);
         expect(candidates.length).toBe(1);
-        expect(Object.keys(candidate)).toEqual([
-            'id',
-            'latitude',
-            'longitude',
-        ]);
+        expect(Object.keys(candidate)).toEqual(['id', 'latitude', 'longitude']);
     });
 
     it('returns undefined for an empty candidate collection', () => {
@@ -83,10 +79,7 @@ describe('V2 nearest', () => {
             },
         ];
 
-        const result = nearest(
-            { latitude: 0, longitude: 0 },
-            candidates,
-        );
+        const result = nearest({ latitude: 0, longitude: 0 }, candidates);
 
         expect(result!.point.id).toBe('first');
     });
@@ -97,41 +90,32 @@ describe('V2 nearest', () => {
             longitude: 1,
         };
 
-        const kilometres = nearest(
-            { latitude: 0, longitude: 0 },
-            [candidate],
-            { unit: 'km' },
-        )!.distance;
+        const kilometres = nearest({ latitude: 0, longitude: 0 }, [candidate], {
+            unit: 'km',
+        })!.distance;
 
-        const metres = nearest(
-            { latitude: 0, longitude: 0 },
-            [candidate],
-            { unit: 'm' },
-        )!.distance;
+        const metres = nearest({ latitude: 0, longitude: 0 }, [candidate], { unit: 'm' })!.distance;
 
         expect(metres).toBeCloseTo(kilometres * 1000, 8);
     });
 
     it('propagates a custom spherical radius', () => {
-        const result = nearest(
-            { latitude: 0, longitude: 0 },
-            [{ latitude: 0, longitude: 90 }],
-            {
-                unit: 'm',
-                radius: 1000,
-            },
-        );
+        const result = nearest({ latitude: 0, longitude: 0 }, [{ latitude: 0, longitude: 90 }], {
+            unit: 'm',
+            radius: 1000,
+        });
 
-        expect(result!.distance).toBeCloseTo(1000 * Math.PI / 2, 12);
+        expect(result!.distance).toBeCloseTo((1000 * Math.PI) / 2, 12);
     });
 
     it('validates candidate coordinates through distance()', () => {
-        expect(() => nearest(
-            origin,
-            [{
-                latitude: 100,
-                longitude: 0,
-            }],
-        )).toThrowError(RangeError);
+        expect(() =>
+            nearest(origin, [
+                {
+                    latitude: 100,
+                    longitude: 0,
+                },
+            ]),
+        ).toThrowError(RangeError);
     });
 });

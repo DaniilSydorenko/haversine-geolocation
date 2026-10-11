@@ -10,8 +10,7 @@ export interface DistanceOptions {
     radius?: number;
 }
 
-const degreesToRadians = (degrees: number): number =>
-    degrees * Math.PI / 180;
+const degreesToRadians = (degrees: number): number => (degrees * Math.PI) / 180;
 
 const assertRadius = (radius: number): void => {
     if (!Number.isFinite(radius)) {
@@ -49,9 +48,7 @@ export const distance = (
 
     const a =
         latitudeHaversine * latitudeHaversine +
-        longitudeHaversine * longitudeHaversine *
-        Math.cos(latitude1) *
-        Math.cos(latitude2);
+        longitudeHaversine * longitudeHaversine * Math.cos(latitude1) * Math.cos(latitude2);
 
     const safeA = Math.min(1, Math.max(0, a));
     const centralAngle = 2 * Math.asin(Math.sqrt(safeA));

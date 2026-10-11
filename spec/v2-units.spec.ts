@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-    assertDistanceUnit,
-    convertDistance,
-} from '../src/v2/units';
+import { assertDistanceUnit, convertDistance } from '../src/v2/units';
 
 describe('V2 distance units', () => {
     it('keeps metres unchanged', () => {
