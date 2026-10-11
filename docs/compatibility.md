@@ -28,11 +28,21 @@ Required contracts:
 
 ## Browser consumers
 
-Browser/package integration is separately validated through production builds in:
+The V2 runtime build target is ES2020.
+
+The browser compatibility policy is feature-based:
+
+- modern evergreen browser with ES2020 support;
+- `navigator.geolocation` is required only for the `./browser` adapter;
+- browser permission and secure-context requirements are platform behavior.
+
+Browser/package integration is validated through production builds in:
 
 - Vite;
 - Next.js;
 - Nuxt.
+
+The UMD compatibility artifact is also executed in real Chrome Stable on the GitHub-hosted Ubuntu runner.
 
 The browser-specific Geolocation API adapter is isolated behind:
 
@@ -41,6 +51,8 @@ haversine-geolocation/browser
 ```
 
 The pure package root performs no top-level browser-global access.
+
+Exact Safari or Firefox version guarantees are intentionally not claimed without matching browser CI.
 
 ## Compatibility policy
 
