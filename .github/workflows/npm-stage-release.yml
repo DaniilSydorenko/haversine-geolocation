@@ -86,6 +86,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check package size
+        run: npm run size:check
+
       - name: Inspect package contents
         run: npm pack --dry-run --json
 
