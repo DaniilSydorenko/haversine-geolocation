@@ -11,22 +11,32 @@ A small JavaScript/TypeScript geospatial library built around spherical Haversin
 
 ## Release status
 
-There are currently two important lines to distinguish:
+There are currently two public release lines:
 
-- **npm stable:** `haversine-geolocation@1.6.0` — the historical V1 API;
-- **repository `master`:** the unreleased V2 development line.
+- **npm stable / `latest`:** `haversine-geolocation@1.6.0` — the historical V1 API;
+- **npm prerelease / `next`:** `haversine-geolocation@2.0.0-alpha.1` — the first public V2 alpha.
 
-The V2 code, package exports and examples below are already implemented on `master`, but **V2 has not yet been published to npm**.
-
-If you run:
+A normal install still receives stable V1:
 
 ```bash
 npm install haversine-geolocation
 ```
 
-today, you receive the published V1 package.
+To test V2 explicitly:
 
-See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the planned upgrade path.
+```bash
+npm install haversine-geolocation@2.0.0-alpha.1
+```
+
+or:
+
+```bash
+npm install haversine-geolocation@next
+```
+
+V2 is public, but remains prerelease until stable `2.0.0`.
+
+See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path.
 
 ## Published V1 usage
 
@@ -94,9 +104,9 @@ V1 couples browser geolocation to the historical singleton. That package design 
 
 ---
 
-## V2 preview — unreleased
+## V2 alpha — public prerelease
 
-The canonical V2 API is functional and uses named exports.
+The canonical V2 API is available in the public `2.0.0-alpha.1` prerelease and uses named exports.
 
 ### Distance
 
@@ -224,7 +234,7 @@ The legacy facade preserves historical V1 behavior where compatibility matters, 
 
 ## V2 package architecture
 
-The unreleased V2 package on `master` is designed around explicit entry points:
+The V2 package is designed around explicit entry points:
 
 ```text
 haversine-geolocation
@@ -278,8 +288,9 @@ d = R * c
 
 The V2 contract is documented in the accepted ADRs under [docs/architecture](docs/architecture/README.md).
 
-The detailed migration and release guides are:
+The detailed API, migration and release guides are:
 
+- [V2 API Reference](docs/api-reference.md)
 - [Migrating from Haversine V1 to V2](docs/migration/v1-to-v2.md)
 - [Haversine V2 release runbook](docs/release/v2-release-runbook.md)
 
