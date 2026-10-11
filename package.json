@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "build:types": "tsc -p tsconfig.types.json",
     "build:umd": "vite build --config vite.umd.config.ts",
-    "build:runtime": "vite build --config vite.lib.config.ts"
+    "build:runtime": "vite build --config vite.lib.config.ts",
+    "size:check": "node scripts/check-package-size.mjs"
   },
   "keywords": [
     "geolocation",
