@@ -54,15 +54,25 @@ if (closest !== undefined) {
 const geolocationSupported: boolean = isGeolocationSupported();
 const currentPosition: Promise<GeolocationPosition> = getCurrentPosition();
 
+const legacyOrigin = {
+  ...origin,
+  accuracy: 0,
+};
+
+const legacyCandidate = {
+  ...candidates[0],
+  accuracy: 0,
+};
+
 const legacyRootDistance: number = legacyDefault.getDistanceBetween(
-  origin,
-  candidates[0],
+  legacyOrigin,
+  legacyCandidate,
   'km',
 );
 
 const legacySubpathDistance: number = legacy.getDistanceBetween(
-  origin,
-  candidates[0],
+  legacyOrigin,
+  legacyCandidate,
   'km',
 );
 
