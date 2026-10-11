@@ -1,0 +1,66 @@
+name: Browser UMD Compatibility
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'fixtures/browser-umd/**'
+      - 'vite.umd.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/browser-umd.yml'
+      - 'docs/compatibility.md'
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - 'fixtures/browser-umd/**'
+      - 'vite.umd.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/browser-umd.yml'
+      - 'docs/compatibility.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chrome:
+    name: Chrome Stable UMD
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Verify Chrome availability
+        run: google-chrome --version
+
+      - name: Run UMD fixture in real Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FIXTURE="file://$GITHUB_WORKSPACE/fixtures/browser-umd/index.html"
+
+          google-chrome             --headless=new             --no-sandbox             --disable-gpu             --allow-file-access-from-files             --dump-dom             "$FIXTURE" > browser-umd-output.html
+
+          cat browser-umd-output.html
+
+          grep 'data-status="pass"' browser-umd-output.html
+          grep 'pass:' browser-umd-output.html
