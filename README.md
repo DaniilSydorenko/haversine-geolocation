@@ -292,8 +292,8 @@ Historical behavior and compatibility findings are preserved in:
 The repository currently validates:
 
 - TypeScript source typechecking;
-- browser-based tests;
-- production builds;
+- Vitest unit and characterization tests;
+- production builds through Vite library mode;
 - Node runtime smoke tests;
 - CommonJS and ESM package consumers;
 - npm tarball contents;
