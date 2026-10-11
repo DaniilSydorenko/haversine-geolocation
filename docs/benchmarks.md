@@ -41,4 +41,19 @@ node scripts/benchmark.mjs
 
 ## Baseline
 
-The first GitHub Actions baseline will be recorded here after the benchmark workflow completes successfully.
+First recorded GitHub Actions baseline:
+
+- workflow run: `38164694853`;
+- Node: `v22.23.3`;
+- platform: Linux x64;
+- `distance()`: 500,000 operations in 52.35 ms, 9,551,600 ops/s;
+- `nearest()` candidate evaluations: 500,000 evaluations in 49.72 ms, 10,056,326 ops/s.
+
+Checksums:
+
+- `distance()`: `4933646585.854939`;
+- `nearest()`: `12329.022089`.
+
+These values are a reference point, not a pass/fail threshold.
+
+A regression budget should be introduced only after enough CI runs exist to characterize normal shared-runner variance.
