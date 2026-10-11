@@ -1,4 +1,4 @@
 export {
     getCurrentPosition,
     isGeolocationSupported,
-} from './v2/browser';
+} from './v2/browser.js';
