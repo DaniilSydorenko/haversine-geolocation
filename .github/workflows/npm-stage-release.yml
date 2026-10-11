@@ -1,9 +1,16 @@
 name: Stage npm Release
 
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing Git tag to publish (for example v2.0.0-alpha.1)"
+        required: true
+        type: string
+      confirm_publish:
+        description: "Type PUBLISH to authorize the npm staging action"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -16,10 +23,22 @@ jobs:
     timeout-minutes: 20
 
     steps:
+      - name: Require explicit publish confirmation
+        shell: bash
+        env:
+          CONFIRM_PUBLISH: ${{ inputs.confirm_publish }}
+        run: |
+          set -euo pipefail
+
+          if [ "$CONFIRM_PUBLISH" != "PUBLISH" ]; then
+            echo "Refusing npm staging because confirm_publish is not exactly PUBLISH"
+            exit 1
+          fi
+
       - name: Checkout release tag
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ inputs.tag }}
 
       - name: Setup Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -32,13 +51,13 @@ jobs:
 
       - name: Verify release metadata
         shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
 
           VERSION=$(node -p "require('./package.json').version")
           EXPECTED_TAG="v$VERSION"
-          RELEASE_TAG="${{ github.event.release.tag_name }}"
-          RELEASE_IS_PRERELEASE="${{ github.event.release.prerelease }}"
 
           if [ "$RELEASE_TAG" != "$EXPECTED_TAG" ]; then
             echo "Release tag $RELEASE_TAG does not match package version $VERSION"
@@ -47,18 +66,9 @@ jobs:
 
           if [[ "$VERSION" == *-* ]]; then
             DIST_TAG="next"
-
-            if [ "$RELEASE_IS_PRERELEASE" != "true" ]; then
-              echo "Prerelease package version $VERSION must use a GitHub prerelease"
-              exit 1
-            fi
           else
-            DIST_TAG="latest"
-
-            if [ "$RELEASE_IS_PRERELEASE" = "true" ]; then
-              echo "Stable package version $VERSION must not use a GitHub prerelease"
-              exit 1
-            fi
+            echo "Stable npm publication is not enabled by this workflow yet."
+            exit 1
           fi
 
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
