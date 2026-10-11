@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haversine UMD Browser Smoke</title>
+  </head>
+  <body data-status="pending">
+    <main id="result">pending</main>
+
+    <script src="../../dist/build.js"></script>
+    <script>
+      (() => {
+        const api = globalThis.HaversineGeolocation;
+
+        if (!api || typeof api.distance !== 'function') {
+          throw new Error('UMD distance() export is missing');
+        }
+
+        const value = api.distance(
+          { latitude: 0, longitude: 0 },
+          { latitude: 0, longitude: 1 },
+        );
+
+        if (!Number.isFinite(value) || value <= 0) {
+          throw new Error('UMD distance() returned an invalid result');
+        }
+
+        if (
+          !api.default ||
+          typeof api.default.getDistanceBetween !== 'function'
+        ) {
+          throw new Error('UMD legacy default facade is missing');
+        }
+
+        document.body.dataset.status = 'pass';
+        document.querySelector('#result').textContent =
+          `pass:${value.toFixed(6)}`;
+      })();
+    </script>
+  </body>
+</html>
