@@ -1,4 +1,4 @@
-import type { ILocationPoint } from "./interfaces/ILocationPoint";
+import type { ILocationPoint } from "./interfaces/ILocationPoint.js";
 
 class HaversineGeolocation {
     _convertMeasurements(distance: number, measurement: string = 'km'): number {
