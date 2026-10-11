@@ -20,8 +20,7 @@ export default defineConfig({
                 legacy: resolve(root, 'src/legacy.ts'),
             },
             formats: ['es', 'cjs'],
-            fileName: (format, entryName) =>
-                `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
+            fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
         },
     },
 });

@@ -12,4 +12,4 @@ export const showGeolocationError = (error: GeolocationPositionError): void => {
             showError(error.message);
             break;
     }
-}
+};

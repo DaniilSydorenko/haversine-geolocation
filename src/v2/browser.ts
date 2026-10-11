@@ -6,12 +6,9 @@ const getGeolocation = (): Geolocation | undefined => {
     return navigator.geolocation;
 };
 
-export const isGeolocationSupported = (): boolean =>
-    getGeolocation() !== undefined;
+export const isGeolocationSupported = (): boolean => getGeolocation() !== undefined;
 
-export const getCurrentPosition = (
-    options?: PositionOptions,
-): Promise<GeolocationPosition> =>
+export const getCurrentPosition = (options?: PositionOptions): Promise<GeolocationPosition> =>
     new Promise((resolve, reject) => {
         const geolocation = getGeolocation();
 
@@ -20,9 +17,5 @@ export const getCurrentPosition = (
             return;
         }
 
-        geolocation.getCurrentPosition(
-            resolve,
-            reject,
-            options,
-        );
+        geolocation.getCurrentPosition(resolve, reject, options);
     });

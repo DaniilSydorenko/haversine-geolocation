@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-    assertCoordinate,
-    isCoordinate,
-} from '../src/v2/coordinate';
+import { assertCoordinate, isCoordinate } from '../src/v2/coordinate';
 
 describe('V2 coordinate validation', () => {
     it('accepts zero coordinates', () => {
@@ -16,12 +13,14 @@ describe('V2 coordinate validation', () => {
     });
 
     it('accepts extra metadata without changing the coordinate contract', () => {
-        expect(isCoordinate({
-            latitude: 52.2297,
-            longitude: 21.0122,
-            accuracy: 5,
-            id: 'warsaw',
-        })).toBe(true);
+        expect(
+            isCoordinate({
+                latitude: 52.2297,
+                longitude: 21.0122,
+                accuracy: 5,
+                id: 'warsaw',
+            }),
+        ).toBe(true);
     });
 
     it('rejects null and primitive values', () => {
@@ -56,32 +55,42 @@ describe('V2 coordinate validation', () => {
 
     it('throws TypeError for malformed values', () => {
         expect(() => assertCoordinate(null)).toThrowError(TypeError);
-        expect(() => assertCoordinate({
-            latitude: '52',
-            longitude: 21,
-        })).toThrowError(TypeError);
-        expect(() => assertCoordinate({
-            latitude: NaN,
-            longitude: 21,
-        })).toThrowError(TypeError);
+        expect(() =>
+            assertCoordinate({
+                latitude: '52',
+                longitude: 21,
+            }),
+        ).toThrowError(TypeError);
+        expect(() =>
+            assertCoordinate({
+                latitude: NaN,
+                longitude: 21,
+            }),
+        ).toThrowError(TypeError);
     });
 
     it('throws RangeError for finite out-of-range values', () => {
-        expect(() => assertCoordinate({
-            latitude: 91,
-            longitude: 0,
-        })).toThrowError(RangeError);
+        expect(() =>
+            assertCoordinate({
+                latitude: 91,
+                longitude: 0,
+            }),
+        ).toThrowError(RangeError);
 
-        expect(() => assertCoordinate({
-            latitude: 0,
-            longitude: 181,
-        })).toThrowError(RangeError);
+        expect(() =>
+            assertCoordinate({
+                latitude: 0,
+                longitude: 181,
+            }),
+        ).toThrowError(RangeError);
     });
 
     it('returns normally for a valid coordinate', () => {
-        expect(() => assertCoordinate({
-            latitude: 52.2297,
-            longitude: 21.0122,
-        })).not.toThrow();
+        expect(() =>
+            assertCoordinate({
+                latitude: 52.2297,
+                longitude: 21.0122,
+            }),
+        ).not.toThrow();
     });
 });
