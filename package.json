@@ -24,7 +24,7 @@
   "author": "Daniil Sydorenko <daniildeveloper@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DaniilSydorenko/haversine-geolocation.git"
+    "url": "git+https://github.com/DaniilSydorenko/haversine-geolocation.git"
   },
   "license": "MIT",
   "devDependencies": {
