@@ -36,7 +36,7 @@ npm install haversine-geolocation@next
 
 V2 is public, but remains prerelease until stable `2.0.0`.
 
-See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path.
+See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
 
 ## Published V1 usage
 
