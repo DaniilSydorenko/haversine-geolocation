@@ -6,17 +6,29 @@ Status: local execution guide; **not** a second roadmap, task-status database, a
 - **Accepted implementation:** `DaniilSydorenko/haversine-geolocation` default branch `master`; never infer `main`.
 - **Shared read-only GRS contract:** `.github/repository.json`, `.github/workflows/grs.yml` and its pinned central `DaniilSydorenko/.github` validator. The central schema and C01–C07 governance are **not** Haversine-owned.
 - **Release authority:** maintainer controls npm account setup, prerelease/stable publication, 2FA approval and public release decisions. No agent may infer approval from a green CI job.
-- **Execution:** on-demand domain engineering rounds; this file does **not** start a Haversine Autopilot, job or Control Plane worker.
+- **Execution:** on-demand domain engineering rounds, **always following all twelve stages** of the [local protocol](../engineering/round-protocol.md); this file does **not** start a Haversine Autopilot, job or Control Plane worker.
 - **HQ reference:** the proposed, non-enforcing `reports/github-hq/ENGINEERING-ROUND-PROTOCOL.md` is useful for evidence discipline, not a new domain mandate.
 
-## Common task contract for every round
+## Mandatory execution contract: twelve steps for each round
 
-1. **Discover:** read the latest canonical roadmap, default-branch HEAD, relevant issue(s), release state and *all* open PRs and changed paths. Identify unrelated PR collisions, especially `package.json`, `package-lock.json` and the canonical roadmap.
-2. **Scope:** choose one coherent outcome; record task ID, owner, dependencies, touched paths, excluded paths, rollback and stop conditions in the PR body. If a task is already implemented, verify and reconcile it rather than manufacture a new code change.
-3. **Implement:** use a fresh branch from the live `master` SHA. Do not mutate another worker's branch, central `.github`, scheduled workers or npm account.
-4. **Validate:** require `npm ci`, applicable `npm run quality`, `npm run typecheck`, `npm test`, `npm run build`, `npm run size:check`, packed consumer tests and path-triggered compatibility/GRS/secret checks as applicable. A filtered-out check is N/A, **not** a passing check.
-5. **Integrate:** re-check PR path overlap, exact PR head, required check conclusions and merge authorization; do not force or bypass protection. Unknown/missing checks block claims of validated acceptance. After merge, inspect accepted `master` artifact, SHA and triggered push checks.
-6. **Report:** only accepted default-branch evidence can mark DONE in the Haversine roadmap. Report DONE / BLOCKED / DEFERRED / NOT APPLICABLE and link proof. Stop on missing owner approval, scope expansion, incompatible public API changes or repeat CI failures without a distinct diagnosis.
+**Local standard:** [Haversine 12-Step Engineering Round Protocol](../engineering/round-protocol.md), also discoverable from [root AGENTS.md](../../AGENTS.md). The [evidence template](../engineering/round-evidence-template.md) is a PR/issue record, not another roadmap.
+
+For **every substantive on-demand engineering round**, execute or explicitly mark **N/A with reason** for each protocol stage, in order:
+
+1. DISCOVERY — fresh `master` SHA, all open PR paths, local issues, release and CI facts.
+2. RECONCILIATION — correct historical/draft claims against accepted evidence.
+3. PLANNING — one coherent task or safe bounded batch, IDs and dependencies.
+4. DESIGN — permitted and excluded paths, risk, tests, owner gates and rollback.
+5. IMPLEMENTATION — fresh branch and scoped changes, no foreign-worker branch edits.
+6. VALIDATION — strict quality, build, tests, compatibility, security and applicability.
+7. PR REVIEW — rerun all-open-PR collision and complete diff/authority review.
+8. EXACT-HEAD CI — only the current PR SHA's completed required checks count.
+9. INTEGRATION OR BLOCKED — guarded merge by expected SHA, or explicit stop reason.
+10. POST-INTEGRATION AUDIT — accepted `master`, triggered push checks and actual publication/runtime when relevant.
+11. ROADMAP SYNC — update the single Haversine roadmap **after** acceptance.
+12. HANDOFF — task outcomes, SHAs, links, blocked owner gates and next bounded work.
+
+The twelve entries **below** are individual **work items**, not these process steps. A round may include multiple focused PRs; finish the whole sequence (including the accepted roadmap sync) before marking the round DONE. Unknown CI is not PASS, N/A is not PASS, and an agent has no authority to approve npm or governance gates.
 
 **Default exclusion for every round:** no cross-repository mutation, no C01–C07 enforcement, no visibility changes, no automatic publishing or release tags, no unrelated dependency upgrades, no generated-state churn.
 
