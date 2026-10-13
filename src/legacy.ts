@@ -68,10 +68,10 @@ class HaversineGeolocation {
 
     getDistanceBetween(p1: ILocationPoint, p2: ILocationPoint, measurement: string): number {
         if (
-            p1.hasOwnProperty('latitude') &&
-            p1.hasOwnProperty('longitude') &&
-            p2.hasOwnProperty('latitude') &&
-            p2.hasOwnProperty('longitude')
+            Object.prototype.hasOwnProperty.call(p1, 'latitude') &&
+            Object.prototype.hasOwnProperty.call(p1, 'longitude') &&
+            Object.prototype.hasOwnProperty.call(p2, 'latitude') &&
+            Object.prototype.hasOwnProperty.call(p2, 'longitude')
         ) {
             const distance: number = this._haversine(
                 p1.latitude,
