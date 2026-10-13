@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP** | 🟡 | **95%** |
+| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **85%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -66,7 +66,7 @@
 | Post-release README/status update | 🔵 | 0% |
 | Post-release migration-guide finalization | 🔵 | 0% |
 | 🆕 NEW — Modernize TypeScript compiler baseline from 4.4 | 🟢 | 100% |
-| 🆕 NEW — Define supported Node.js/browser compatibility matrix | 🟠 | 70% |
+| 🆕 NEW — Define supported Node.js/browser compatibility matrix | 🟢 | 100% |
 | 🆕 NEW — Add compatibility CI across supported Node.js versions | 🟢 | 100% |
 | 🆕 NEW — Add dedicated API reference documentation | 🟢 | 100% |
 | 🆕 NEW — Add benchmark suite and performance baseline | 🟢 | 100% |
@@ -74,12 +74,30 @@
 | 🆕 NEW — Add package-size regression budget | 🟢 | 100% |
 | 🆕 NEW — Add formal CHANGELOG/release-notes baseline | 🟢 | 100% |
 | 🆕 NEW — Correct README test-runner wording after Vitest migration | 🟢 | 100% |
-| 🆕 NEW — Remove Vite native-config-loader ESM warnings | 🔵 | 0% |
-| 🆕 NEW — Add real-browser UMD compatibility fixture | 🔵 | 0% |
+| 🆕 NEW — Remove Vite native-config-loader ESM warnings | 🟢 | 100% |
+| 🆕 NEW — Add real-browser UMD compatibility fixture | 🟢 | 100% |
 | 🆕 NEW — Normalize package repository.url for npm | 🟢 | 100% |
 | 🆕 NEW — Correct README published-alpha release status | 🟢 | 100% |
 | 🆕 NEW — Pin central GRS control plane to validated immutable SHA | 🟢 | 100% |
 | 🆕 NEW — Disable persisted credentials in read-only GRS checkouts | 🟢 | 100% |
+| 🆕 NEW — Reconcile V2 release runbook with published alpha | 🟢 | 100% |
+| 🆕 NEW — Add bounded agent engineering round map | 🟢 | 100% |
+| 🆕 NEW — Eliminate or explicitly justify 27 Biome warnings from accepted CI | 🔵 | 0% |
+| 🆕 NEW — Evaluate TypeScript 7 major upgrade (PR #152) | 🔵 | 0% |
+| 🆕 NEW — Decide default-branch protection / minimal ruleset | 🟠 | 0% |
+| 🆕 NEW — Enable manual stable npm staging safely, after owner approval | 🔵 | 0% |
+
+## Status and scoring methodology
+
+**Audited 2026-10-14** against accepted default branch `master` at `eb690e5cf509c42508bc0374d4c9ad1dd336a949`, the current open-PR/issue inventory and the public `v2.0.0-alpha.1` release. This commit is the *audit baseline*, not a claim that the live branch will remain unchanged.
+
+- **85% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 83 distinct task rows, 70 at 100%, one historical 55% alpha-hardening estimate and 12 at 0%: `(70 × 100 + 55) / 83 = 85%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
+- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 85% for the release gate.
+- **Legacy estimate disclaimer:** `Alpha feedback and compatibility hardening | 55%` was carried from earlier planning and is *not* independently measured from user feedback in this audit. The next alpha round must reconcile it with concrete evidence, and adjust the row without inventing progress.
+- **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
+- **Newly discovered genuine work:** the accepted CI quality step succeeded but reported **27 Biome warnings** (not a failed check); the release runbook had a false pre-alpha status and is corrected; the existing `master` is unprotected (owner decision, no automated admin change); TypeScript 7 PR #152 is open on package/lockfile; and stable staging is explicitly rejected by the current release workflow.
+- **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md). That document provides ordered task IDs, dependencies, touched-path limits, CI/acceptance, owner gates and stop conditions. It is not a separate progress tracker, autonomous worker or a request to modify central GitHub HQ.
+- **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
 
 ## Local GRS dependency policy
 
