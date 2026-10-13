@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Quality
-        run: npm run quality
+        run: npm run quality -- --error-on-warnings --max-diagnostics=none
 
       - name: Typecheck
         run: npm run typecheck
