@@ -78,3 +78,13 @@
 | 🆕 NEW — Add real-browser UMD compatibility fixture | 🔵 | 0% |
 | 🆕 NEW — Normalize package repository.url for npm | 🟢 | 100% |
 | 🆕 NEW — Correct README published-alpha release status | 🟢 | 100% |
+| 🆕 NEW — Pin central GRS control plane to validated immutable SHA | 🟢 | 100% |
+| 🆕 NEW — Disable persisted credentials in read-only GRS checkouts | 🟢 | 100% |
+
+## Local GRS dependency policy
+
+The Haversine `.github/workflows/grs.yml` consumer pins the existing central GRS v1 validator and repository auditor to commit `ec50b680e6b3620772c1fbecbbc93349621ecfe1` in `DaniilSydorenko/.github`. Both checkouts use `persist-credentials: false` and the workflow grants only `contents: read`. This is a local, read-only dependency contract, not C01–C07 adoption.
+
+**Update:** review central validator, auditor, schema and `oss-library` profile changes; replace the 40-character SHA through a scoped Haversine PR; require the GRS validation job and applicable existing local CI to pass on the exact PR head before merging. No floating branch fallback.
+
+**Rollback:** revert the Haversine PR (or submit a new Haversine PR restoring the last CI-verified GRS commit SHA), then re-run the exact-head GRS and CI checks. Never downgrade central validation or introduce central policy edits as an emergency workaround. Central C01–C07 enforcement remains subject to GitHub HQ owner issue #56.
