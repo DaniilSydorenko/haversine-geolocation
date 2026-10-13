@@ -68,9 +68,13 @@ class HaversineGeolocation {
 
     getDistanceBetween(p1: ILocationPoint, p2: ILocationPoint, measurement: string): number {
         if (
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
             Object.prototype.hasOwnProperty.call(p1, 'latitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
             Object.prototype.hasOwnProperty.call(p1, 'longitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
             Object.prototype.hasOwnProperty.call(p2, 'latitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
             Object.prototype.hasOwnProperty.call(p2, 'longitude')
         ) {
             const distance: number = this._haversine(
