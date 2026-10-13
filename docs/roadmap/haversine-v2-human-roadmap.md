@@ -82,6 +82,7 @@
 | 🆕 NEW — Disable persisted credentials in read-only GRS checkouts | 🟢 | 100% |
 | 🆕 NEW — Reconcile V2 release runbook with published alpha | 🟢 | 100% |
 | 🆕 NEW — Add bounded agent engineering round map | 🟢 | 100% |
+| 🆕 NEW — Adopt 12-step agent engineering round protocol and repository entrypoints | 🟢 | 100% |
 | 🆕 NEW — Eliminate or explicitly justify 27 Biome warnings from accepted CI | 🟢 | 100% |
 | 🆕 NEW — Evaluate TypeScript 7 major upgrade (PR #152) | 🔵 | 0% |
 | 🆕 NEW — Decide default-branch protection / minimal ruleset | 🟠 | 0% |
@@ -89,14 +90,14 @@
 
 ## Status and scoring methodology
 
-**Audited 2026-10-14** against accepted default branch `master` at `ae615ba1980184d84533faa0aea4e200e16b8215`, the current open-PR/issue inventory and the public `v2.0.0-alpha.1` release. This commit is the *audit baseline*, not a claim that the live branch will remain unchanged.
+**Audited 2026-10-14** against accepted default branch `master` at `c8a614f55f5591faf6fd4df4bc61f84afb08b46c`, the current open-PR/issue inventory and the public `v2.0.0-alpha.1` release. This commit is the *audit baseline*, not a claim that the live branch will remain unchanged.
 
-- **86% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 83 distinct task rows, 71 at 100%, one historical 55% alpha-hardening estimate and 11 at 0%: `(71 × 100 + 55) / 83 = 86%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
-- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 85% for the release gate.
+- **86% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 84 distinct task rows, 72 at 100%, one historical 55% alpha-hardening estimate and 11 at 0%: `(72 × 100 + 55) / 84 = 86%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
+- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 86% checklist score for the release gate.
 - **Legacy estimate disclaimer:** `Alpha feedback and compatibility hardening | 55%` was carried from earlier planning and is *not* independently measured from user feedback in this audit. The next alpha round must reconcile it with concrete evidence, and adjust the row without inventing progress.
 - **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
 - **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); TypeScript 7 PR #152 remains open on package/lockfile; stable staging still explicitly rejects stable releases.
-- **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md). That document provides ordered task IDs, dependencies, touched-path limits, CI/acceptance, owner gates and stop conditions. It is not a separate progress tracker, autonomous worker or a request to modify central GitHub HQ.
+- **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md) provides the twelve *task IDs and dependencies*. Every substantive agent-managed round follows the distinct [12-Step Engineering Round Protocol](../engineering/round-protocol.md), discovered through [AGENTS.md](../../AGENTS.md); [round evidence template](../engineering/round-evidence-template.md) supplies PR/issue records, not a second tracker. No autonomous worker, scheduled Haversine Autopilot, mandatory new CI, or modification of central GitHub HQ is implied.
 - **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
 
 ## Accepted engineering round — HV-ALPHA-01 (2026-10-14)
@@ -106,6 +107,15 @@
 - **PR [#156](https://github.com/DaniilSydorenko/haversine-geolocation/pull/156), DONE:** accepted merge `ae615ba1980184d84533faa0aea4e200e16b8215`. Exact reviewed PR head `2e96301e2871ec3ca9fa41babb25bd6c48abc8ae`. `npm run quality -- --error-on-warnings --max-diagnostics=none` now runs in normal CI, non-publishing release-candidate validation and owner-controlled staged npm workflow. **2/2 applicable PR checks PASS** and **post-merge Test and build/Gitleaks PASS**. Manual release workflows were **NOT DISPATCHED** (N/A for publication/runtime execution); OIDC, staging confirmation, permissions and disabled stable-publication gate are unchanged.
 - **Safety/ownership:** no npm publication, no new scheduled worker, no central `.github` policy or C01–C07 adoption, no unrelated dependency update. `master` remained the accepted branch. These are local Haversine-owned implementation and CI improvements.
 - **Next:** HV-ALPHA-02 is still at a legacy **55% estimate pending actual external alpha feedback assessment**; HV-TOOL-01 major compiler PR #152 remains separately open; branch protection is an owner decision and stable 2.0.0 remains NOT READY.
+
+## Accepted engineering round — HV-PROC-01 (2026-10-14)
+
+- **Goal:** adopt the complete twelve-stage engineering delivery cycle as an explicit Haversine-local default, **separate from the twelve scoped queue tasks**. No scheduler, cross-repository authority, unapproved C01–C07 enforcement, npm account or release changes.
+- **PR [#158](https://github.com/DaniilSydorenko/haversine-geolocation/pull/158), DONE:** merged implementation `c8a614f55f5591faf6fd4df4bc61f84afb08b46c`, based on `b29638cdc023b9d1384da1442202997d532e7c92`; exact-head proposal `29a0553c9a2d98c9fbc45f97aa88a00a8f45ce8b`. Added root `AGENTS.md`, [local twelve-step protocol](../engineering/round-protocol.md), [12-stage PR evidence template](../engineering/round-evidence-template.md) and links from the existing task queue, `CONTRIBUTING.md` and PR template. All 12 step headings and 12 evidence headings were verified. Existing Dependabot #152 touched only package and lockfile, no collision.
+- **Checks:** on the immutable #158 head, **Test and build / Gitleaks / Validate GRS contract all PASS**. On the accepted merge commit, [Test and build](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/38487330557), [Gitleaks](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/38487330526) and [GRS](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/38487330487) also **PASS**. An unrelated GitHub Autopilot `help/signal` run was cancelled while another `help/signal` run succeeded; do not treat either as domain engineering validation.
+- **Publication:** npm release, tag, registry/publication/2FA and external deployment checks **NOT APPLICABLE** to this documentation-only round. Central GitHub HQ protocol remains **proposed/non-enforcing**; this is a local, read-only-reference adoption.
+- **Scoring:** 84 roadmap tasks, 72 complete, one historically estimated at 55%, 11 at 0%. The rounded **86% unweighted checklist** is **unchanged** by this accepted additional task; V2 stable readiness remains **NOT READY**.
+- **Next:** HV-ALPHA-02 (audit real alpha feedback), HV-TOOL-01 (evaluate existing TypeScript 7 PR #152), followed by owner-gated beta/RC/stable stages. Maintain the twelve-step procedure for those substantive rounds.
 
 ## Local GRS dependency policy
 
