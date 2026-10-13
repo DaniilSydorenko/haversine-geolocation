@@ -16,6 +16,12 @@ Good contribution areas include:
 
 Large rewrites or unrelated feature expansion should not be started without prior discussion.
 
+## Agent-managed engineering rounds
+
+Substantive agent-managed Haversine engineering follows the [local 12-step engineering round protocol](docs/engineering/round-protocol.md) through discovery, implementation, exact-head CI, integration, post-merge verification, canonical roadmap sync and handoff. The [bounded V2 engineering queue](docs/roadmap/haversine-v2-agent-rounds.md) is **a list of tasks**, not those twelve process steps.
+
+For these rounds, attach the [twelve-stage evidence template](docs/engineering/round-evidence-template.md) to a PR or linked record. No new scheduler, permission or release publication is implied. Routine external contributions can still use the simple development workflow below; do not treat local agent-process guidance as central or global governance.
+
 ## Development
 
 1. Fork the repository and create a focused branch.
