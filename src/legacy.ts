@@ -97,7 +97,7 @@ class HaversineGeolocation {
             accuracy: number;
         };
     } {
-        const distances: number[] = otherPoints.map((value: any) =>
+        const distances: number[] = otherPoints.map((value) =>
             this.getDistanceBetween(current, value, measurement),
         );
         const indexOfSmallest: number = distances.indexOf(Math.min(...distances));

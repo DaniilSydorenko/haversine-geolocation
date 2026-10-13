@@ -21,5 +21,12 @@
       "semicolons": "always",
       "trailingCommas": "all"
     }
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!src/common/interfaces.js",
+      "!src/interfaces/ILocationPoint.js"
+    ]
   }
 }

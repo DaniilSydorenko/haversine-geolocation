@@ -47,7 +47,7 @@ describe('V2 distance units', () => {
 
     it('rejects unknown units', () => {
         expect(() => assertDistanceUnit('yards')).toThrowError(TypeError);
-        expect(() => convertDistance(1, 'yards' as any, 'm')).toThrowError(TypeError);
-        expect(() => convertDistance(1, 'm', 'yards' as any)).toThrowError(TypeError);
+        expect(() => convertDistance(1, 'yards' as unknown as Parameters<typeof convertDistance>[1], 'm')).toThrowError(TypeError);
+        expect(() => convertDistance(1, 'm', 'yards' as unknown as Parameters<typeof convertDistance>[2])).toThrowError(TypeError);
     });
 });
