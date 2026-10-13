@@ -10,7 +10,7 @@ Describe the change and why it is needed.
 
 ## Engineering round evidence (for agent-managed / substantial scoped rounds)
 
-For an agent-managed Haversine round, use the [12-step protocol](../docs/engineering/round-protocol.md) and put the [completed round evidence](../docs/engineering/round-evidence-template.md) in this PR description or a linked PR/issue comment. For a multi-PR round, reference the shared round record and the specific PR HEAD/check runs. **Do not mark a stage completed based on a draft or old HEAD.**
+For an agent-managed Haversine round, use the [12-step protocol](https://github.com/DaniilSydorenko/haversine-geolocation/blob/master/docs/engineering/round-protocol.md) and put the [completed round evidence](https://github.com/DaniilSydorenko/haversine-geolocation/blob/master/docs/engineering/round-evidence-template.md) in this PR description or a linked PR/issue comment. For a multi-PR round, reference the shared round record and the specific PR HEAD/check runs. **Do not mark a stage completed based on a draft or old HEAD.**
 
 - **Round ID(s) / goal / owner:** …
 - **Accepted baseline `master` SHA / impacted paths / excluded paths:** …

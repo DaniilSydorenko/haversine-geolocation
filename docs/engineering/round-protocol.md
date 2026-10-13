@@ -1,6 +1,6 @@
 # Haversine — 12-Step Engineering Round Protocol
 
-**Status: ADOPTED as a local, on-demand Haversine engineering practice.** It is procedural guidance for work in `DaniilSydorenko/haversine-geolocation`, **not** new GitHub governance, a scheduler, automatic merge/publishing system, additional mandatory CI, or a second status store. The central GitHub HQ [Engineering Round Protocol](https://github.com/DaniilSydorenko/.github/blob/master/reports/github-hq/ENGINEERING-ROUND-PROTOCOL.md) is a **proposed/non-enforcing reference**, not inherited central authorization.
+**Status: ADOPTED as a local, on-demand Haversine engineering practice.** It is procedural guidance for work in `DaniilSydorenko/haversine-geolocation`, **not** new GitHub governance, a scheduler, automatic merge/publishing system, additional mandatory CI, or a second status store. The central GitHub HQ [Engineering Round Protocol](https://github.com/DaniilSydorenko/.github/blob/main/reports/github-hq/ENGINEERING-ROUND-PROTOCOL.md) is a **proposed/non-enforcing reference**, not inherited central authorization.
 
 ## Two different sets of twelve
 
