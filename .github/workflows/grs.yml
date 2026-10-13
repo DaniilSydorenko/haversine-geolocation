@@ -38,12 +38,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
       - name: Checkout GRS control plane
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: DaniilSydorenko/.github
-          ref: main
+          # Reviewed GRS v1 contract; update intentionally via a tested local PR.
+          ref: ec50b680e6b3620772c1fbecbbc93349621ecfe1
           path: .grs-control
+          persist-credentials: false
       - name: Validate GRS manifest
         run: python3 .grs-control/grs/validator.py .github/repository.json
       - name: Audit deterministic repository surfaces
