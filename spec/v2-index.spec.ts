@@ -29,6 +29,6 @@ describe('V2 core barrel', () => {
         ];
 
         expect(distance(origin, candidates[0])).toBeGreaterThan(0);
-        expect(nearest(origin, candidates)!.point.id).toBe('near');
+        expect(nearest(origin, candidates)?.point.id).toBe('near');
     });
 });

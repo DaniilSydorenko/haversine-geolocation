@@ -39,9 +39,9 @@ describe('V1 characterization', () => {
     });
 
     it('uses kilometres when measurement is omitted at runtime', () => {
-        expect(HaversineGeolocation.getDistanceBetween(pointA, pointB, undefined as any)).toBe(
-            1133.1,
-        );
+        expect(
+            HaversineGeolocation.getDistanceBetween(pointA, pointB, undefined as unknown as string),
+        ).toBe(1133.1);
     });
 
     it('legacy behavior: unknown measurements silently fall back to kilometre-style output', () => {
@@ -93,7 +93,11 @@ describe('V1 characterization', () => {
         };
 
         expect(() =>
-            HaversineGeolocation.getDistanceBetween(missingLongitude as any, pointB, 'km'),
+            HaversineGeolocation.getDistanceBetween(
+                missingLongitude as unknown as typeof pointA,
+                pointB,
+                'km',
+            ),
         ).toThrowError('Error: Position latitude or longitude is not correct');
     });
 
@@ -121,14 +125,10 @@ describe('V1 characterization', () => {
             },
         ];
 
-        const result = HaversineGeolocation.getClosestPosition(
-            current,
-            candidates as any,
-            'km',
-        ) as any;
+        const result = HaversineGeolocation.getClosestPosition(current, candidates, 'km');
 
-        expect(result.id).toBe('near');
-        expect(result.title).toBe('Near');
+        expect(result).toHaveProperty('id', 'near');
+        expect(result).toHaveProperty('title', 'Near');
         expect(result.haversine.measurement).toBe('km');
         expect(result.haversine.accuracy).toBe(7);
         expect(result.haversine.distance).toBeGreaterThan(0);
@@ -156,13 +156,9 @@ describe('V1 characterization', () => {
             },
         ];
 
-        const result = HaversineGeolocation.getClosestPosition(
-            current,
-            candidates as any,
-            'km',
-        ) as any;
+        const result = HaversineGeolocation.getClosestPosition(current, candidates, 'km');
 
-        expect(result.id).toBe('first');
+        expect(result).toHaveProperty('id', 'first');
     });
 
     it('legacy behavior: empty candidate collections produce only haversine metadata', () => {
@@ -172,7 +168,7 @@ describe('V1 characterization', () => {
             accuracy: 3,
         };
 
-        const result = HaversineGeolocation.getClosestPosition(current, [], 'km') as any;
+        const result = HaversineGeolocation.getClosestPosition(current, [], 'km');
 
         expect(result.haversine.distance).toBeUndefined();
         expect(result.haversine.measurement).toBe('km');

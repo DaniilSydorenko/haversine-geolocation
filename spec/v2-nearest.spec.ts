@@ -25,8 +25,8 @@ describe('V2 nearest', () => {
         const result = nearest(origin, candidates);
 
         expect(result).toBeDefined();
-        expect(result!.point.id).toBe('warsaw-nearby');
-        expect(result!.distance).toBeGreaterThanOrEqual(0);
+        expect(result?.point.id).toBe('warsaw-nearby');
+        expect(result?.distance).toBeGreaterThanOrEqual(0);
     });
 
     it('preserves the original candidate object identity and metadata', () => {
@@ -42,8 +42,8 @@ describe('V2 nearest', () => {
 
         const result = nearest(origin, [candidate]);
 
-        expect(result!.point).toBe(candidate);
-        expect(result!.point.metadata.category).toBe('example');
+        expect(result?.point).toBe(candidate);
+        expect(result?.point.metadata.category).toBe('example');
     });
 
     it('does not mutate candidates or their array', () => {
@@ -56,7 +56,7 @@ describe('V2 nearest', () => {
 
         const result = nearest(origin, candidates);
 
-        expect(result!.point).toBe(candidate);
+        expect(result?.point).toBe(candidate);
         expect(candidates.length).toBe(1);
         expect(Object.keys(candidate)).toEqual(['id', 'latitude', 'longitude']);
     });
@@ -81,7 +81,7 @@ describe('V2 nearest', () => {
 
         const result = nearest({ latitude: 0, longitude: 0 }, candidates);
 
-        expect(result!.point.id).toBe('first');
+        expect(result?.point.id).toBe('first');
     });
 
     it('propagates the requested distance unit', () => {
@@ -92,11 +92,14 @@ describe('V2 nearest', () => {
 
         const kilometres = nearest({ latitude: 0, longitude: 0 }, [candidate], {
             unit: 'km',
-        })!.distance;
+        });
+        const metres = nearest({ latitude: 0, longitude: 0 }, [candidate], { unit: 'm' });
 
-        const metres = nearest({ latitude: 0, longitude: 0 }, [candidate], { unit: 'm' })!.distance;
+        if (kilometres === undefined || metres === undefined) {
+            throw new Error('Expected nonempty candidates to yield a nearest result');
+        }
 
-        expect(metres).toBeCloseTo(kilometres * 1000, 8);
+        expect(metres.distance).toBeCloseTo(kilometres.distance * 1000, 8);
     });
 
     it('propagates a custom spherical radius', () => {
@@ -105,7 +108,7 @@ describe('V2 nearest', () => {
             radius: 1000,
         });
 
-        expect(result!.distance).toBeCloseTo((1000 * Math.PI) / 2, 12);
+        expect(result?.distance).toBeCloseTo((1000 * Math.PI) / 2, 12);
     });
 
     it('validates candidate coordinates through distance()', () => {

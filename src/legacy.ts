@@ -68,10 +68,14 @@ class HaversineGeolocation {
 
     getDistanceBetween(p1: ILocationPoint, p2: ILocationPoint, measurement: string): number {
         if (
-            p1.hasOwnProperty('latitude') &&
-            p1.hasOwnProperty('longitude') &&
-            p2.hasOwnProperty('latitude') &&
-            p2.hasOwnProperty('longitude')
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
+            Object.prototype.hasOwnProperty.call(p1, 'latitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
+            Object.prototype.hasOwnProperty.call(p1, 'longitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
+            Object.prototype.hasOwnProperty.call(p2, 'latitude') &&
+            // biome-ignore lint/suspicious/noPrototypeBuiltins: Preserve ES2020-compatible V1 own-property checks without Object.hasOwn (ES2022).
+            Object.prototype.hasOwnProperty.call(p2, 'longitude')
         ) {
             const distance: number = this._haversine(
                 p1.latitude,
@@ -97,7 +101,7 @@ class HaversineGeolocation {
             accuracy: number;
         };
     } {
-        const distances: number[] = otherPoints.map((value: any) =>
+        const distances: number[] = otherPoints.map((value) =>
             this.getDistanceBetween(current, value, measurement),
         );
         const indexOfSmallest: number = distances.indexOf(Math.min(...distances));
