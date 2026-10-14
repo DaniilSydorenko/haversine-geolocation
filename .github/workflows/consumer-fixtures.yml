@@ -53,6 +53,14 @@ jobs:
           node-version: 22
           cache: npm
 
+      # npm 10's Arborist can crash while resolving Nuxt/Vite optional peers
+      # (upstream npm/cli#9787). Keep other framework jobs on their original npm.
+      - name: Use npm 11 for Nuxt fixture dependency resolution
+        if: matrix.consumer == 'nuxt'
+        run: |
+          npm install --global npm@11.21.0
+          npm --version
+
       - name: Install library dependencies
         run: npm ci
 
