@@ -46,6 +46,7 @@ The twelve entries **below** are individual **work items**, not these process st
 - **Owner:** Haversine domain; **dependency:** review real alpha feedback and existing fixtures before selecting any change. The roadmap's prior 55% is a historical planning estimate, not an externally validated acceptance score.
 - **Allowed:** targeted `spec/**`, `src/**`, `fixtures/**`, `docs/compatibility.md`, migration/API docs only when a proven issue requires them.
 - **Acceptance:** classify real feedback or regressions, add reproductions for confirmed defects, verify published/packed CJS, ESM, TypeScript, Vite, Next.js, Nuxt and Chrome when impacted. Do not promise Safari/Firefox coverage without running those browsers.
+- **Accepted internal compatibility increment (2026-10-14):** [PR #161](https://github.com/DaniilSydorenko/haversine-geolocation/pull/161) fixes empty-candidate invalid-origin validation and null/incomplete browser Geolocation provider detection with regression tests; exact-head and post-merge Node/framework/Chrome checks PASS, 74/74 tests. This does **not** establish user-reported alpha feedback completion, change the historical 55% roadmap estimate, or authorize beta publication. Continue from actual external feedback or new reproducible compatibility evidence; do not repeat these fixes.
 - **Stop / rollback:** if no genuine defect or actionable feedback is found, report no implementation needed; do not invent feature work to satisfy a round.
 
 ### HV-TOOL-01 — Decide TypeScript 7 major upgrade (existing PR #152)
