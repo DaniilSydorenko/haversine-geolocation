@@ -49,12 +49,12 @@ The twelve entries **below** are individual **work items**, not these process st
 - **Accepted internal compatibility increment (2026-10-14):** [PR #161](https://github.com/DaniilSydorenko/haversine-geolocation/pull/161) fixes empty-candidate invalid-origin validation and null/incomplete browser Geolocation provider detection with regression tests; exact-head and post-merge Node/framework/Chrome checks PASS, 74/74 tests. This does **not** establish user-reported alpha feedback completion, change the historical 55% roadmap estimate, or authorize beta publication. Continue from actual external feedback or new reproducible compatibility evidence; do not repeat these fixes.
 - **Stop / rollback:** if no genuine defect or actionable feedback is found, report no implementation needed; do not invent feature work to satisfy a round.
 
-### HV-TOOL-01 — Decide TypeScript 7 major upgrade (existing PR #152)
+### HV-TOOL-01 — Decide TypeScript 7 major upgrade (ACCEPTED via PR #165)
 
-- **Owner:** Haversine domain; **dependency:** explicit review of upstream major changes and current TypeScript consumer contract.
-- **Allowed:** PR #152's `package.json` / `package-lock.json` scope, with separately justified fixture/config changes if required; use existing PR where possible.
+- **Owner:** Haversine domain; **dependency:** explicit review of upstream major changes and current TypeScript consumer contract. **Accepted 2026-10-14:** `typescript@7.0.2` through replacement PR #165, after fixing npm Nuxt fixture bug via #164; historical bot #152 and assessment draft #163 both closed unmerged.
+- **Allowed:** original PR #152's `package.json` / `package-lock.json` intent, with separately justified fixture/config changes if required. The bot's branch was never modified; fresh-base replacement #165 was validated instead.
 - **Acceptance:** compare current TypeScript 5.9.3 behavior with the proposed upgrade across packed declaration consumers and NodeNext; exact-head full CI + Node / framework compatibility evidence. Choose KEEP, DEFER or CLOSE with reason.
-- **Stop / rollback:** do not merge based only on a green initial Dependabot PR; no compiler-major adoption if consumers regress.
+- **Stop / rollback:** do not merge based only on a green initial Dependabot PR; no compiler-major adoption if consumers regress. **Accepted evidence:** 10/10 exact-head #165 checks plus 9/9 applicable accepted master checks passed; see [compatibility assessment](../engineering/typescript-7-compatibility.md) and [canonical roadmap](haversine-v2-human-roadmap.md). Do not reopen this resolved round without a new regression. Roll back #165 if a proven consumer failure occurs.
 
 ### HV-SEC-01 — Decide default-branch protection
 
