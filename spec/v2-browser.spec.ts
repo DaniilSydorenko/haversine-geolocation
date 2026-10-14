@@ -30,6 +30,20 @@ describe('V2 browser geolocation adapter', () => {
         expect(isGeolocationSupported()).toBe(false);
     });
 
+    it('treats a null or incomplete geolocation provider as unsupported', async () => {
+        vi.stubGlobal('navigator', { geolocation: null });
+        expect(isGeolocationSupported()).toBe(false);
+        await expect(getCurrentPosition()).rejects.toThrow(
+            'Geolocation API is not available in this environment',
+        );
+
+        vi.stubGlobal('navigator', { geolocation: {} });
+        expect(isGeolocationSupported()).toBe(false);
+        await expect(getCurrentPosition()).rejects.toThrow(
+            'Geolocation API is not available in this environment',
+        );
+    });
+
     it('resolves with the native GeolocationPosition', async () => {
         const position = {
             coords: {

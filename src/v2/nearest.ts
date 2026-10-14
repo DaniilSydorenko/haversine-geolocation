@@ -1,3 +1,4 @@
+import { assertCoordinate } from './coordinate.js';
 import type { Coordinate } from './coordinate.js';
 import { distance } from './distance.js';
 import type { DistanceOptions } from './distance.js';
@@ -12,6 +13,8 @@ export const nearest = <T extends Coordinate>(
     candidates: readonly T[],
     options: DistanceOptions = {},
 ): NearestResult<T> | undefined => {
+    assertCoordinate(origin);
+
     let closestPoint: T | undefined;
     let closestDistance = Infinity;
 

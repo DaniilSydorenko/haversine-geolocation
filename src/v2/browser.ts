@@ -3,7 +3,8 @@ const getGeolocation = (): Geolocation | undefined => {
         return undefined;
     }
 
-    return navigator.geolocation;
+    const geolocation = navigator.geolocation;
+    return typeof geolocation?.getCurrentPosition === 'function' ? geolocation : undefined;
 };
 
 export const isGeolocationSupported = (): boolean => getGeolocation() !== undefined;
