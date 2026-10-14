@@ -90,7 +90,7 @@
 
 ## Status and scoring methodology
 
-**Re-audited 2026-10-14** against accepted default branch `master` at `0f11963ed5dc3d0384ce8899924f56d2a4b97022`, the complete open-PR inventory (none), exact-head and accepted domain CI, and the visible GitHub release inventory. This SHA is the *accepted implementation baseline before this roadmap-only reconciliation*, not a frozen assertion about future `master`.
+**Re-audited 2026-10-14** against accepted default branch `master` at `ce435b7de0996065fb7941809800e368c7973448`, the complete open-PR inventory (none), completed accepted-domain CI, release issue #74, and the visible GitHub release inventory. This SHA is the *accepted state before this documentation-only synchronization*, not a frozen assertion about future `master`.
 
 - **88% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 84 distinct task rows, 73 at 100%, one historical 55% alpha-hardening estimate and 10 at 0%: `(73 × 100 + 55) / 84 = 88%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
 - **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 88% checklist score for the release gate.
@@ -109,6 +109,28 @@
 - **Owner and governance boundaries:** live `master` branch protection is **disabled**; proposed minimal protection remains owner-only (existing roadmap task). The existing local GRS consumer is pinned; HQ C01–C07 adoption and npm stable publication remain separate owner approvals.
 - **Progress accounting:** the accepted 84 task rows are unchanged: 72 at 100%, one **historical/unverified** alpha hardening estimate at 55%, and 11 at 0%; `(72 × 100 + 55) / 84 = 86%` rounded. This is not a stable release-readiness metric. **No task status was promoted by this audit.**
 - **Method:** this is an evidence-only 12-step engineering reconciliation cycle under the [local protocol](../engineering/round-protocol.md). Source-code/release mutation and new CI gates are **NOT APPLICABLE**. Any review-only sync PR must still pass its own exact-head applicable checks and be verified on the accepted default branch before handoff.
+
+## Current-state audit and remaining release path — 2026-10-14
+
+**Verified accepted implementation baseline:** `master` `ce435b7de0996065fb7941809800e368c7973448`; `typescript@7.0.2` as dev/compiler dependency; package version `2.0.0-alpha.1`. The `master` Test and build and Gitleaks check runs are **SUCCESS**. Several `help/signal` runs are GitHub Autopilot results, **not** additional Haversine domain validation. There were **zero open Haversine PRs**, and [release issue #74](https://github.com/DaniilSydorenko/haversine-geolocation/issues/74) remains OPEN. Branch protection reports `protected: false`.
+
+**External release evidence:** GitHub release inventory still lists [`v2.0.0-alpha.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-alpha.1) as the latest V2 release (published 2026-10-11); **no V2 beta, RC or stable GitHub release** was observed. Previously verified npm alpha/provenance evidence is historical; a fresh npm registry dist-tag inspection was **not performed** in this read-only audit. Do not infer new publication or stable readiness from repository version, PR merge, or checklist percentage.
+
+**GitHub HQ coordination update:** the HQ-owned [PR #79](https://github.com/DaniilSydorenko/.github/pull/79), previously documented as awaiting integration, is now **MERGED** (HQ merge `74e36c018602dca61ee6efe5db83e0b31ee988f6`). This is an HQ roadmap coordination update only, **not** Haversine feature or release approval. The Haversine domain roadmap stays locally owned; central registry `discovery.agent` correction and C01–C07 owner gate remain HQ-owned decisions.
+
+### Remaining work in dependency order (no invented progress)
+
+| Order | Domain task(s) | Required evidence / ownership |
+|---|---|---|
+| 1 | **HV-ALPHA-02** — alpha feedback and compatibility hardening (historical 55%) | Confirm real feedback channels, reproduce and resolve actual compatibility issues, assess missing relevant browser/runtime evidence; establish an explicit beta-readiness decision. Existing internal edge-case fixes #161 are already accepted. **55% is not independently measured feedback acceptance.** |
+| 2 | **HV-SEC-01** — default-branch protection/ruleset decision (0%) | Propose smallest safe ruleset based on actually executed check names and path-filter behavior. **Owner approval and administrative application only**; do not turn this into a fictitious beta block without an approved dependency. |
+| 3 | **HV-BETA-01** — `2.0.0-beta.1` (0%) | After beta-readiness evidence: prepare version/notes/tag candidate, exact-head CI and packed consumer checks, explicitly owner-approved prerelease publication, then independently verify npm package and GitHub release. |
+| 4 | **HV-BETA-02** — beta feedback/compatibility (0%) | Triage real beta feedback and reconcile any reproduced regressions; preserve an auditable acceptance decision. |
+| 5 | **HV-RC-01 / HV-RC-02** — `2.0.0-rc.1` and RC hardening (both 0%) | Review beta acceptance, owner-gated RC publication, independent real-package verification, release-candidate compatibility hardening. |
+| 6 | **HV-STABLE-01 / HV-STABLE-02 / HV-STABLE-03** — owner stable approval, safe stable-capable workflow and public `2.0.0` npm publication (all 0%) | Explicit stable-release approval, independently reviewed safe workflow enablement, maintainer npm action/2FA, provenance and actual published package verification; **current stable staging remains disabled**. |
+| 7 | **HV-POST-01** — README/status and migration-guide finalization (both 0%) | Only after verified public stable: align docs, version/status labels, migration and install guidance with real npm/GitHub release state. |
+
+**Accounting:** 84 existing task rows; 73 at 100%, one historically estimated at 55%, and 10 at 0%. `(73 × 100 + 55) / 84 = 87.56%` → **88% unweighted checklist**, unchanged by this documentation-only round. **Stable V2: NOT READY.** Do not add a new task or increase progress merely because this state was re-audited.
 
 ## Accepted engineering round — HV-TOOL-01: TypeScript 7 compiler modernization (2026-10-14)
 
