@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **86%** |
+| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **88%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -84,19 +84,19 @@
 | 🆕 NEW — Add bounded agent engineering round map | 🟢 | 100% |
 | 🆕 NEW — Adopt 12-step agent engineering round protocol and repository entrypoints | 🟢 | 100% |
 | 🆕 NEW — Eliminate or explicitly justify 27 Biome warnings from accepted CI | 🟢 | 100% |
-| 🆕 NEW — Evaluate TypeScript 7 major upgrade (PR #152) | 🔵 | 0% |
+| 🆕 NEW — Evaluate and adopt TypeScript 7 (superseding PR #152) | 🟢 | 100% |
 | 🆕 NEW — Decide default-branch protection / minimal ruleset | 🟠 | 0% |
 | 🆕 NEW — Enable manual stable npm staging safely, after owner approval | 🔵 | 0% |
 
 ## Status and scoring methodology
 
-**Re-audited 2026-10-14** against accepted default branch `master` at `31faada35eb6dc2b2cb9bcbbf32aa456c24fdacd`, the full open-PR/issue inventory, current accepted CI and the visible GitHub release inventory. The SHA is the *accepted implementation baseline before this roadmap-only reconciliation*, not a frozen assertion about future `master`.
+**Re-audited 2026-10-14** against accepted default branch `master` at `0f11963ed5dc3d0384ce8899924f56d2a4b97022`, the complete open-PR inventory (none), exact-head and accepted domain CI, and the visible GitHub release inventory. This SHA is the *accepted implementation baseline before this roadmap-only reconciliation*, not a frozen assertion about future `master`.
 
-- **86% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 84 distinct task rows, 72 at 100%, one historical 55% alpha-hardening estimate and 11 at 0%: `(72 × 100 + 55) / 84 = 86%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
-- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 86% checklist score for the release gate.
+- **88% is an unweighted task-checklist score, NOT a stable-release probability or production-readiness score.** Calculation: 84 distinct task rows, 73 at 100%, one historical 55% alpha-hardening estimate and 10 at 0%: `(73 × 100 + 55) / 84 = 88%` (rounded). Tasks have different sizes; the score can drop when real missing work is discovered.
+- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` is verified; beta, RC, owner stable gate, stable-capable manual staging and public stable publication are not accepted. Never substitute this 88% checklist score for the release gate.
 - **Legacy estimate disclaimer:** `Alpha feedback and compatibility hardening | 55%` was carried from earlier planning and is *not* independently measured from user feedback in this audit. Accepted internal edge-case fixes under #161 do **not** prove externally measured alpha-feedback acceptance or beta readiness. Keep the 55% historical/unverified until genuine feedback and readiness evidence justify a supported update.
 - **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
-- **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); TypeScript 7 PR #152 remains open on package/lockfile; stable staging still explicitly rejects stable releases.
+- **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); obsolete TypeScript 7 Dependabot PR #152 is now **closed/unmerged**, superseded by accepted TypeScript 7 upgrade #165. Stable staging still explicitly rejects stable releases.
 - **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md) provides the twelve *task IDs and dependencies*. Every substantive agent-managed round follows the distinct [12-Step Engineering Round Protocol](../engineering/round-protocol.md), discovered through [AGENTS.md](../../AGENTS.md); [round evidence template](../engineering/round-evidence-template.md) supplies PR/issue records, not a second tracker. No autonomous worker, scheduled Haversine Autopilot, mandatory new CI, or modification of central GitHub HQ is implied.
 - **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
 
@@ -109,6 +109,17 @@
 - **Owner and governance boundaries:** live `master` branch protection is **disabled**; proposed minimal protection remains owner-only (existing roadmap task). The existing local GRS consumer is pinned; HQ C01–C07 adoption and npm stable publication remain separate owner approvals.
 - **Progress accounting:** the accepted 84 task rows are unchanged: 72 at 100%, one **historical/unverified** alpha hardening estimate at 55%, and 11 at 0%; `(72 × 100 + 55) / 84 = 86%` rounded. This is not a stable release-readiness metric. **No task status was promoted by this audit.**
 - **Method:** this is an evidence-only 12-step engineering reconciliation cycle under the [local protocol](../engineering/round-protocol.md). Source-code/release mutation and new CI gates are **NOT APPLICABLE**. Any review-only sync PR must still pass its own exact-head applicable checks and be verified on the accepted default branch before handoff.
+
+## Accepted engineering round — HV-TOOL-01: TypeScript 7 compiler modernization (2026-10-14)
+
+- **Decision: ADOPT `typescript@7.0.2` for Haversine authoring/build.** This is a **dev/compiler** upgrade only; current npm version remains `2.0.0-alpha.1`. The existing packed declaration consumer already used TS7 before this migration. See [compiler migration assessment](../engineering/typescript-7-compatibility.md).
+- **Current-master assessment:** the old bot PR [#152](https://github.com/DaniilSydorenko/haversine-geolocation/pull/152) had historical green checks but a stale base. The **temporary DRAFT probe [#163](https://github.com/DaniilSydorenko/haversine-geolocation/pull/163)** was created from then-current `master` with the same candidate package and lockfile; compiler/type declarations, 74 tests, Node/Chrome/other consumer CI passed. Its Nuxt job failed **twice during npm 10 dependency installation**, `Cannot read properties of null (reading 'edgesOut')`, prior to any consumer build. This matches [npm/cli#9787](https://github.com/npm/cli/issues/9787), not a proven TypeScript regression. The probe was **CLOSED, never merged**.
+- **Independent CI blocker fix — [PR #164](https://github.com/DaniilSydorenko/haversine-geolocation/pull/164), ACCEPTED:** Nuxt-only `npm@11.21.0` pin in `.github/workflows/consumer-fixtures.yml`, preserving other framework jobs. Merge SHA `45b249389030085049842df9248945324d76031c`. **5/5 applicable exact-head jobs PASS and 5/5 triggered accepted master checks PASS**, including the Nuxt packed consumer.
+- **Accepted TypeScript 7 upgrade — [PR #165](https://github.com/DaniilSydorenko/haversine-geolocation/pull/165), DONE:** built from accepted `master` `45b249389030085049842df9248945324d76031c` with only `package.json`, `package-lock.json` and the domain compatibility assessment. Immutable reviewed head `fb642c6c4e50fbb818ed7dc39cfa8a7f6afb60dd`, merged as `0f11963ed5dc3d0384ce8899924f56d2a4b97022`. **10/10 exact-head jobs SUCCESS**: TypeScript authoring typecheck/declaration emit, 74/74 tests, strict quality, package size and packed CJS/ESM/TS consumer; Node 22/24/26, Vite, Next, Nuxt, Chrome UMD, Gitleaks and baseline. **9/9 applicable post-merge domain checks SUCCESS**. Separate GitHub Autopilot `help/signal` is not domain validation.
+- **PR hygiene:** original Dependabot [#152](https://github.com/DaniilSydorenko/haversine-geolocation/pull/152) was commented and **CLOSED without merge**, as its exact manifest/lockfile intent is accepted via #165. No mutation of the bot's branch; temporary #163 also closed, and no open Haversine PRs remain at this audit.
+- **Limitations:** TS7 lacks a compatible programmatic compiler API; the successful Nuxt production bundle is **not** comprehensive `vue-tsc`/Volar/editor tooling support. No new support guarantee for Vue template compilers, exact Safari/Firefox versions or untested platforms. No npm version bump/publication, central HQ policy change, branch-admin rule or C01–C07 adoption.
+- **Roadmap math:** Task *Evaluate and adopt TypeScript 7* now 100%; **84 tasks, 73 done, one historical/unverified 55% alpha feedback, 10 at 0%; rounded 88%**. The distinct Nuxt CI fix is covered within this engineering round, not added as a second checklist task to inflate progress. Beta, RC, stable gate and npm stable release remain **NOT READY**.
+- **Next:** HV-ALPHA-02 external feedback and beta gate evidence; HV-SEC-01 branch protection remains owner-only. Continue bounded beta preparation with explicit maintainer release authority.
 
 ## HV-ALPHA-02 — accepted internal compatibility hardening, feedback gate still open (2026-10-14)
 
