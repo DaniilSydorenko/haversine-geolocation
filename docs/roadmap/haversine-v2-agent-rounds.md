@@ -36,9 +36,9 @@ The twelve entries **below** are individual **work items**, not these process st
 
 ### HV-ALPHA-01 — Resolve existing Biome warning debt
 
-- **Owner:** Haversine domain agent; **dependency:** none. Begin from the accepted baseline with 27 warnings reported by `npm run quality` in the 2026-10-14 verified CI run. Recheck the number on the exact task head.
+- **Owner:** Haversine domain agent; **dependency:** none. The original 2026-10-14 CI baseline had **27 Biome warnings**, now eliminated or narrowly justified in accepted PR #155 and enforced by the strict quality gates in accepted PR #156. This section preserves the historical task contract; consult the canonical roadmap before scheduling it again and do **not** repeat the cleanup without a new observed regression.
 - **Allowed:** focused `src/**`, `spec/**`, and explicitly required Biome test/quality configuration only. Do not disable rules globally to make the warning count disappear; preserve characterization semantics.
-- **Acceptance:** eliminate or explicitly justify each warning with a narrow documented exception; source tests, typecheck, build and CI stay green. Separate behavioral corrections into their own PR if needed. No public API changes.
+- **Acceptance:** eliminate or explicitly justify each warning with a narrow documented exception; source tests, typecheck, build and CI stay green. This was verified for the accepted warning-cleanup round. Reopen only against a new reproducible regression; no public API changes.
 - **Stop / rollback:** if an apparently mechanical fix changes V1 compatibility or V2 behavior, stop and split the task; revert the scoped PR if tests regress.
 
 ### HV-ALPHA-02 — Finish alpha feedback and compatibility hardening
