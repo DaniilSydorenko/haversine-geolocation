@@ -65,6 +65,13 @@ describe('V2 nearest', () => {
         expect(nearest(origin, [])).toBeUndefined();
     });
 
+    it('rejects invalid origin even when candidates are empty', () => {
+        expect(() => nearest({ latitude: 91, longitude: 0 }, [])).toThrowError(RangeError);
+        expect(() =>
+            nearest(null as unknown as { latitude: number; longitude: number }, []),
+        ).toThrowError(TypeError);
+    });
+
     it('selects the first candidate when distances are equal', () => {
         const candidates = [
             {
