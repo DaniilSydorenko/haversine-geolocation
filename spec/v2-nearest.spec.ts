@@ -72,6 +72,16 @@ describe('V2 nearest', () => {
         ).toThrowError(TypeError);
     });
 
+    it('validates distance options even when candidates are empty', () => {
+        expect(nearest(origin, [], { unit: 'm', radius: 1000 })).toBeUndefined();
+
+        expect(() => nearest(origin, [], { unit: 'yards' as unknown as 'km' })).toThrowError(
+            TypeError,
+        );
+        expect(() => nearest(origin, [], { radius: Infinity })).toThrowError(TypeError);
+        expect(() => nearest(origin, [], { radius: 0 })).toThrowError(RangeError);
+    });
+
     it('selects the first candidate when distances are equal', () => {
         const candidates = [
             {
