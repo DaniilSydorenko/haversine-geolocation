@@ -6,6 +6,19 @@ This project keeps the historical V1 release line stable while Haversine 2 evolv
 
 ## Unreleased
 
+### Prepared `2.0.0-beta.1` candidate (not published)
+
+This release-candidate changeset sets the repository package version to `2.0.0-beta.1` **without creating a tag or publishing to npm**. Public npm `latest` is still V1 `1.6.0`; the last independently verified public V2 remains `2.0.0-alpha.1`.
+
+- hardened `nearest()` validation for malformed origins and invalid distance options on empty candidate collections;
+- improved browser geolocation capability detection for null/malformed providers;
+- corrected the migration guide's inaccurate statements about already published V2 alpha exports;
+- verified the immutable public alpha across Node 22/24/26, CJS/ESM, TypeScript 7 and npm package signatures;
+- adopted TypeScript 7 for authoring, stabilized Nuxt CI with npm 11 and preserved zero-runtime-dependency V2 package contracts;
+- maintained successful Vite, Next.js, Nuxt, Chrome and packed package consumer gates.
+
+**Next publication gate:** owner review/approval; exact candidate commit and tag matching; manual existing npm OIDC staging with maintainer 2FA, then public artifact/provenance verification. This heading is *preparation evidence*, not a release announcement.
+
 ### V2 prerelease hardening
 
 - continue compatibility, documentation and release-quality work after the first public alpha;
