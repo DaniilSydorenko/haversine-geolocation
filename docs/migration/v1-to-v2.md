@@ -1,10 +1,10 @@
 # Migrating from Haversine V1 to V2
 
-Status: draft for the unreleased Haversine V2 line
+Status: V2 prerelease migration guide (published `2.0.0-alpha.1`; beta and stable not yet published)
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
-This guide describes the intended V2 contract as implemented on the repository `master` branch and as accepted in the V2 architecture ADRs. **Haversine V2 has not yet been published to npm.** Package subpaths described as "planned" are not consumer-ready until the V2 package-output work is complete.
+This guide describes the V2 contract implemented on repository `master` and in the accepted ADRs. **`haversine-geolocation@2.0.0-alpha.1` has been published as a prerelease**, including root, `./browser` and `./legacy` package exports. Stable V2 `2.0.0` has **not** been published. Fixes accepted on `master` after the alpha tag do not ship in the immutable published alpha tarball.
 
 ## Migration strategy
 
@@ -260,7 +260,7 @@ getCurrentPosition()
 isGeolocationSupported()
 ```
 
-The planned final package surface is:
+The published V2 prerelease package surface is:
 
 ```ts
 import {
@@ -269,7 +269,7 @@ import {
 } from 'haversine-geolocation/browser';
 ```
 
-**This subpath is planned but is not yet available in the published npm package.**
+**The `./browser` subpath is available in the published `2.0.0-alpha.1` package.** Browser permissions and secure-context requirements still apply.
 
 Browser globals are checked at function-call time rather than package-import time.
 
@@ -279,7 +279,7 @@ The package root must remain safe in Node and SSR environments.
 
 The historical compatibility facade has been physically separated into its own module in the repository.
 
-The planned final package surface is:
+The published V2 prerelease package surface is:
 
 ```ts
 import HaversineGeolocation from 'haversine-geolocation/legacy';
@@ -287,7 +287,7 @@ import HaversineGeolocation from 'haversine-geolocation/legacy';
 
 The default root compatibility import is also intended to remain available during 2.x.
 
-**The explicit `./legacy` package subpath is not published yet.**
+**The explicit `./legacy` subpath is available in the published `2.0.0-alpha.1` package.**
 
 ## Node.js compatibility
 
@@ -300,7 +300,7 @@ Repository CI now performs an actual Node CommonJS smoke test against the built 
 
 This fixes the architectural class of failure reported in issue #12 on the development branch.
 
-The npm-published V1.6.0 package still contains the historical bundle, so existing npm users do not receive this fix until a new version is published.
+The npm `latest` tag still points to stable V1 `1.6.0`; consumers installing V2 explicitly at `2.0.0-alpha.1` receive the published Node-safe exports. Post-alpha fixes on `master` will become public only with a later V2 prerelease.
 
 ## Deep imports and explicit exports
 
@@ -308,7 +308,7 @@ V1 published a broad tarball containing source files, tests and development conf
 
 Some consumers may therefore have imported internal paths that were never intended as supported API.
 
-The final V2 package will use an explicit `exports` map.
+The published V2 prerelease already uses an explicit `exports` map.
 
 That means imports such as:
 
@@ -363,13 +363,13 @@ For an existing V1 application:
 4. move presentation rounding into application/UI code;
 5. migrate nearest-position calls to `nearest()`;
 6. fix invalid coordinates or unknown unit strings that V1 silently tolerated;
-7. move browser geolocation imports to the browser subpath when package exports ship;
+7. move browser geolocation imports to the already published browser subpath;
 8. remove any deep imports into V1 internal source files;
 9. verify application-specific output changes caused by the new mean-radius default;
 10. remove reliance on the legacy facade when migration is complete.
 
 ## Release status
 
-Haversine V2 is currently under development.
+Haversine V2 is publicly available as prerelease `2.0.0-alpha.1`, while an unqualified `npm install haversine-geolocation` still installs stable V1 `1.6.0`.
 
-Do not treat examples in this document as evidence that `haversine-geolocation@2` is available on npm until an explicit V2 prerelease or stable release is published.
+Use `npm install haversine-geolocation@2.0.0-alpha.1` to evaluate the currently published V2 alpha. Do not describe unpublished fixes on `master` as shipping in `alpha.1`. Beta, RC and stable `2.0.0` remain subject to release validation and maintainer approval.

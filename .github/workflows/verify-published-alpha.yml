@@ -40,7 +40,7 @@ jobs:
           cd "$RUNNER_TEMP/haversine-published"
           npm init -y >/dev/null
           npm install --no-audit --no-fund haversine-geolocation@2.0.0-alpha.1
-          npm install --no-audit --no-fund --save-dev typescript@5.9.3
+          npm install --no-audit --no-fund --save-dev typescript@7.0.2
 
       - name: Verify published package metadata
         shell: bash
@@ -87,6 +87,34 @@ jobs:
           if (!legacy.default || typeof legacy.default.getDistanceBetween !== 'function') {
             throw new Error('published CJS legacy subpath is invalid');
           }
+          NODE
+
+      - name: Verify published alpha nearest boundary baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/haversine-published"
+          node <<'NODE'
+          const { nearest } = require('haversine-geolocation');
+          const origin = { latitude: 0, longitude: 0 };
+          if (nearest(origin, []) !== undefined) {
+            throw new Error('Published alpha nearest() changed its valid empty-result contract');
+          }
+          let rejected = false;
+          try {
+            nearest(origin, [{ latitude: 91, longitude: 0 }]);
+          } catch (error) {
+            rejected = error instanceof RangeError;
+          }
+          if (!rejected) {
+            throw new Error('Published alpha must reject invalid nonempty candidates');
+          }
+          // alpha.1 is immutable: later empty-candidate fixes are not shipped yet.
+          // This version-scoped assertion documents a known alpha delta, not acceptance of it.
+          if (nearest({ latitude: 91, longitude: 0 }, []) !== undefined) {
+            throw new Error('Unexpected alpha.1 baseline; re-audit published artifact');
+          }
+          console.log('alpha.1 baseline verified; later candidates must reject invalid origins with [].');
           NODE
 
       - name: Verify ESM consumer

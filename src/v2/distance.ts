@@ -1,6 +1,6 @@
 import { assertCoordinate } from './coordinate.js';
 import type { Coordinate } from './coordinate.js';
-import { convertDistance } from './units.js';
+import { assertDistanceUnit, convertDistance } from './units.js';
 import type { DistanceUnit } from './units.js';
 
 export const EARTH_MEAN_RADIUS_M = 6_371_008.8;
@@ -20,6 +20,12 @@ const assertRadius = (radius: number): void => {
     if (radius <= 0) {
         throw new RangeError('Radius must be greater than zero');
     }
+};
+
+// Validate options even when nearest() receives no candidates to measure.
+export const assertDistanceOptions = (options: DistanceOptions = {}): void => {
+    assertRadius(options.radius ?? EARTH_MEAN_RADIUS_M);
+    assertDistanceUnit(options.unit ?? 'km');
 };
 
 export const distance = (
