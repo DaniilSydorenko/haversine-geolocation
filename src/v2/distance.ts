@@ -41,6 +41,10 @@ export const distance = (
 
     assertRadius(radius);
 
+    if (from.latitude === to.latitude && (from.latitude === 90 || from.latitude === -90)) {
+        return convertDistance(0, 'm', unit);
+    }
+
     const latitude1 = degreesToRadians(from.latitude);
     const longitude1 = degreesToRadians(from.longitude);
     const latitude2 = degreesToRadians(to.latitude);

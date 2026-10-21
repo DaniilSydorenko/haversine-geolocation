@@ -9,6 +9,26 @@ describe('V2 spherical distance', () => {
         expect(distance(origin, origin)).toBe(0);
     });
 
+    it('returns exactly zero between North Pole coordinates that differ only in longitude', () => {
+        expect(
+            distance(
+                { latitude: 90, longitude: 0 },
+                { latitude: 90, longitude: 180 },
+                { unit: 'm' },
+            ),
+        ).toBe(0);
+    });
+
+    it('returns exactly zero between South Pole coordinates that differ only in longitude', () => {
+        expect(
+            distance(
+                { latitude: -90, longitude: 0 },
+                { latitude: -90, longitude: 180 },
+                { unit: 'm' },
+            ),
+        ).toBe(0);
+    });
+
     it('defaults to kilometres without presentation rounding', () => {
         const expected = (EARTH_MEAN_RADIUS_M * Math.PI) / 180 / 1000;
 
