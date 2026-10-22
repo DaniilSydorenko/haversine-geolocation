@@ -66,8 +66,11 @@ jobs:
 
           if [[ "$VERSION" == *-* ]]; then
             DIST_TAG="next"
+          elif [[ "$VERSION" == "2.0.1" ]]; then
+            # Owner-approved first stable V2 version only; keep all other stable releases blocked.
+            DIST_TAG="latest"
           else
-            echo "Stable npm publication is not enabled by this workflow yet."
+            echo "Refusing stable npm staging: only the explicitly selected version 2.0.1 is allowed."
             exit 1
           fi
 
