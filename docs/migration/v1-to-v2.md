@@ -1,10 +1,10 @@
 # Migrating from Haversine V1 to V2
 
-Status: V2 prerelease migration guide (published `2.0.0-alpha.1`; beta and stable not yet published)
+Status: V2 prerelease migration guide (published `2.0.0-beta.1`; RC and stable not yet published)
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
-This guide describes the V2 contract implemented on repository `master` and in the accepted ADRs. **`haversine-geolocation@2.0.0-alpha.1` has been published as a prerelease**, including root, `./browser` and `./legacy` package exports. Stable V2 `2.0.0` has **not** been published. Fixes accepted on `master` after the alpha tag do not ship in the immutable published alpha tarball.
+This guide describes the V2 contract implemented on repository `master` and in the accepted ADRs. **`haversine-geolocation@2.0.0-beta.1` is published and independently verified**, including root, `./browser` and `./legacy` exports. Stable V2 `2.0.0` has **not** been published. Later fixes on `master` (including exact-pole distance correction) are not part of the immutable beta tarball; they are RC candidates.
 
 ## Migration strategy
 
@@ -269,7 +269,7 @@ import {
 } from 'haversine-geolocation/browser';
 ```
 
-**The `./browser` subpath is available in the published `2.0.0-alpha.1` package.** Browser permissions and secure-context requirements still apply.
+**The `./browser` subpath is available in the published `2.0.0-beta.1` package.** Browser permissions and secure-context requirements still apply.
 
 Browser globals are checked at function-call time rather than package-import time.
 
@@ -287,7 +287,7 @@ import HaversineGeolocation from 'haversine-geolocation/legacy';
 
 The default root compatibility import is also intended to remain available during 2.x.
 
-**The explicit `./legacy` subpath is available in the published `2.0.0-alpha.1` package.**
+**The explicit `./legacy` subpath is available in the published `2.0.0-beta.1` package.**
 
 ## Node.js compatibility
 
@@ -300,7 +300,7 @@ Repository CI now performs an actual Node CommonJS smoke test against the built 
 
 This fixes the architectural class of failure reported in issue #12 on the development branch.
 
-The npm `latest` tag still points to stable V1 `1.6.0`; consumers installing V2 explicitly at `2.0.0-alpha.1` receive the published Node-safe exports. Post-alpha fixes on `master` will become public only with a later V2 prerelease.
+The npm `latest` tag still points to stable V1 `1.6.0`; consumers installing V2 explicitly at `2.0.0-beta.1` receive the published Node-safe exports. Post-beta fixes on `master` will become public only with a later authorized V2 release.
 
 ## Deep imports and explicit exports
 
@@ -370,6 +370,6 @@ For an existing V1 application:
 
 ## Release status
 
-Haversine V2 is publicly available as prerelease `2.0.0-alpha.1`, while an unqualified `npm install haversine-geolocation` still installs stable V1 `1.6.0`.
+Haversine V2 is publicly available as prerelease `2.0.0-beta.1`, while an unqualified `npm install haversine-geolocation` still installs stable V1 `1.6.0`.
 
-Use `npm install haversine-geolocation@2.0.0-alpha.1` to evaluate the currently published V2 alpha. Do not describe unpublished fixes on `master` as shipping in `alpha.1`. Beta, RC and stable `2.0.0` remain subject to release validation and maintainer approval.
+Use `npm install haversine-geolocation@2.0.0-beta.1` or `npm install haversine-geolocation@next` for the published beta. Do not present fixes accepted after its tag as shipping in beta. RC and stable `2.0.0` require separate release validation and maintainer approval.
