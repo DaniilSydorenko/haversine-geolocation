@@ -6,9 +6,15 @@ This project keeps the historical V1 release line stable while Haversine 2 evolv
 
 ## Unreleased
 
-### Prepared `2.0.0-beta.1` candidate (not published)
+### Prepared `2.0.0-rc.1` candidate (NOT published)
 
-This release-candidate changeset sets the repository package version to `2.0.0-beta.1` **without creating a tag or publishing to npm**. Public npm `latest` is still V1 `1.6.0`; the last independently verified public V2 remains `2.0.0-alpha.1`.
+This candidate includes the **already merged** same-pole longitude correction (#175), while preserving the beta API, browser/legacy entrypoints, TypeScript declarations and zero runtime dependencies. No tag, release or npm staging has been created. Owner review, manual validation and npm 2FA remain mandatory. Published beta.1 is immutable.
+
+## 2.0.0-beta.1 — published 2026-10-22
+
+### Improvements since alpha.1
+
+The public beta.1 release was approved by the maintainer via npm staged Trusted Publishing and independently verified from the registry. npm `next` points to `2.0.0-beta.1`; `latest` remains V1 `1.6.0`.
 
 - hardened `nearest()` validation for malformed origins and invalid distance options on empty candidate collections;
 - improved browser geolocation capability detection for null/malformed providers;
@@ -17,7 +23,7 @@ This release-candidate changeset sets the repository package version to `2.0.0-b
 - adopted TypeScript 7 for authoring, stabilized Nuxt CI with npm 11 and preserved zero-runtime-dependency V2 package contracts;
 - maintained successful Vite, Next.js, Nuxt, Chrome and packed package consumer gates.
 
-**Next publication gate:** owner review/approval; exact candidate commit and tag matching; manual existing npm OIDC staging with maintainer 2FA, then public artifact/provenance verification. This heading is *preparation evidence*, not a release announcement.
+**Published proof:** [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-beta.1) and [real npm registry consumer/signature verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704) (6/6 successful Node jobs).
 
 ### V2 prerelease hardening
 
