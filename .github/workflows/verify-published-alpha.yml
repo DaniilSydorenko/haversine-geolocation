@@ -1,4 +1,4 @@
-name: Verify Published Alpha
+name: Verify Published V2 Prereleases
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   published-package:
-    name: Node ${{ matrix.node }}
+    name: Node ${{ matrix.node }} / ${{ matrix.version }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -21,6 +21,11 @@ jobs:
           - 22
           - 24
           - 26
+        version:
+          - 2.0.0-alpha.1
+          - 2.0.0-beta.1
+    env:
+      PUBLISHED_VERSION: ${{ matrix.version }}
 
     steps:
       - name: Checkout
@@ -32,14 +37,14 @@ jobs:
           node-version: ${{ matrix.node }}
           registry-url: https://registry.npmjs.org
 
-      - name: Install published alpha
+      - name: Install published version
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/haversine-published"
           cd "$RUNNER_TEMP/haversine-published"
           npm init -y >/dev/null
-          npm install --no-audit --no-fund haversine-geolocation@2.0.0-alpha.1
+          npm install --no-audit --no-fund "haversine-geolocation@$PUBLISHED_VERSION"
           npm install --no-audit --no-fund --save-dev typescript@7.0.2
 
       - name: Verify published package metadata
@@ -47,7 +52,27 @@ jobs:
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP/haversine-published"
-          node -e "const p=require('haversine-geolocation/package.json'); if(p.version!=='2.0.0-alpha.1') throw new Error('unexpected published version: '+p.version);"
+          node -e "const p=require('haversine-geolocation/package.json'); if(p.version!==process.env.PUBLISHED_VERSION) throw new Error('unexpected published version: '+p.version);"
+
+      - name: Verify public registry tags and beta integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/haversine-published"
+          node <<'NODE'
+          const { execFileSync } = require('node:child_process');
+          const pkg = require('haversine-geolocation/package.json');
+          const tags = JSON.parse(execFileSync('npm', ['view', 'haversine-geolocation', 'dist-tags', '--json'], { encoding: 'utf8' }));
+          if (tags.latest !== '1.6.0' || tags.next !== '2.0.0-beta.1') {
+            throw new Error('Unexpected public npm dist-tags: ' + JSON.stringify(tags));
+          }
+          if (pkg.version === '2.0.0-beta.1') {
+            const shasum = execFileSync('npm', ['view', 'haversine-geolocation@2.0.0-beta.1', 'dist.shasum'], { encoding: 'utf8' }).trim();
+            if (shasum !== '5ecd0e5da2d8d13653ad19b24ec0a5bc57183ad4') {
+              throw new Error('Published beta tarball does not match reviewed staging SHA-1: ' + shasum);
+            }
+          }
+          NODE
 
       - name: Verify CommonJS consumer
         shell: bash
@@ -89,7 +114,7 @@ jobs:
           }
           NODE
 
-      - name: Verify published alpha nearest boundary baseline
+      - name: Verify version-specific nearest boundary behavior
         shell: bash
         run: |
           set -euo pipefail
@@ -109,12 +134,32 @@ jobs:
           if (!rejected) {
             throw new Error('Published alpha must reject invalid nonempty candidates');
           }
-          // alpha.1 is immutable: later empty-candidate fixes are not shipped yet.
-          // This version-scoped assertion documents a known alpha delta, not acceptance of it.
-          if (nearest({ latitude: 91, longitude: 0 }, []) !== undefined) {
-            throw new Error('Unexpected alpha.1 baseline; re-audit published artifact');
+          if (process.env.PUBLISHED_VERSION === '2.0.0-alpha.1') {
+            // This immutable alpha version deliberately preserves the original boundary behavior.
+            if (nearest({ latitude: 91, longitude: 0 }, []) !== undefined) {
+              throw new Error('Unexpected alpha.1 baseline; re-audit published artifact');
+            }
+          } else {
+            let rejectedOrigin = false;
+            try {
+              nearest({ latitude: 91, longitude: 0 }, []);
+            } catch (error) {
+              rejectedOrigin = error instanceof RangeError;
+            }
+            if (!rejectedOrigin) {
+              throw new Error('Published beta must reject invalid origins even with empty candidates');
+            }
+            let rejectedOptions = false;
+            try {
+              nearest(origin, [], { unit: 'yards' });
+            } catch (error) {
+              rejectedOptions = error instanceof TypeError;
+            }
+            if (!rejectedOptions) {
+              throw new Error('Published beta must validate options even with empty candidates');
+            }
           }
-          console.log('alpha.1 baseline verified; later candidates must reject invalid origins with [].');
+          console.log(process.env.PUBLISHED_VERSION + ' nearest() boundary behavior verified');
           NODE
 
       - name: Verify ESM consumer
