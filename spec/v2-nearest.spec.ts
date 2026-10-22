@@ -138,4 +138,48 @@ describe('V2 nearest', () => {
             ]),
         ).toThrowError(RangeError);
     });
+
+    it('selects a North Pole candidate at the same pole when longitude differs', () => {
+        const northPoleOrigin = { latitude: 90, longitude: 0 };
+        const samePoleCandidate = Object.freeze({
+            id: 'north-pole-opposite-meridian',
+            latitude: 90,
+            longitude: 180,
+        });
+        const candidates = [
+            {
+                id: 'equator',
+                latitude: 0,
+                longitude: 0,
+            },
+            samePoleCandidate,
+        ];
+
+        const result = nearest(northPoleOrigin, candidates, { unit: 'm' });
+
+        expect(result?.point).toBe(samePoleCandidate);
+        expect(result?.distance).toBe(0);
+    });
+
+    it('selects a South Pole candidate at the same pole when longitude differs', () => {
+        const southPoleOrigin = { latitude: -90, longitude: 0 };
+        const samePoleCandidate = Object.freeze({
+            id: 'south-pole-opposite-meridian',
+            latitude: -90,
+            longitude: 180,
+        });
+        const candidates = [
+            {
+                id: 'equator',
+                latitude: 0,
+                longitude: 0,
+            },
+            samePoleCandidate,
+        ];
+
+        const result = nearest(southPoleOrigin, candidates, { unit: 'm' });
+
+        expect(result?.point).toBe(samePoleCandidate);
+        expect(result?.distance).toBe(0);
+    });
 });
