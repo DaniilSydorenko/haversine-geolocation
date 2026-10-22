@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **89%** |
+| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **90%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -58,7 +58,7 @@
 | Resolve historical Node import issue #12 after published verification | 🟢 | 100% |
 | Alpha feedback and compatibility hardening / beta readiness review | 🟢 | 100% |
 | 2.0.0-beta.1 | 🟢 | 100% |
-| Beta feedback and compatibility hardening | 🔵 | 0% |
+| Beta feedback and compatibility hardening | 🟢 | 100% |
 | 2.0.0-rc.1 | 🔵 | 0% |
 | Release-candidate hardening | 🔵 | 0% |
 | Stable-release approval gate | 🔵 | 0% |
@@ -92,13 +92,25 @@
 
 **Original baseline re-audit (2026-10-16)** against accepted default branch `master` at `99d72e3e6bff7ae06bbb7cf2628dd645e154599c`, complete open PR inventory, exact-head and accepted beta candidate CI, verified public npm alpha smoke, release issue #74 and current GitHub release inventory. This SHA is the accepted implementation baseline before roadmap reconciliation, not a frozen assertion about future `master`.
 
-- **89% is an unweighted task-checklist score, NOT stable-release readiness.** Current calculation after verified public beta: 84 distinct task rows, 75 at 100% and 9 at 0%: `(75 × 100) / 84 = 89.29%`, rounded **89%**. The previous 55% alpha estimate has been replaced by a verified, bounded beta-readiness review, not by an assertion of comprehensive customer feedback. Tasks have different sizes; score can decrease when genuine new work is found.
-- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` and beta `2.0.0-beta.1` are verified; beta feedback hardening, RC, owner stable gate, stable-capable manual staging and public stable publication are pending. Never substitute this 89% checklist score for the release gate.
+- **90% is an unweighted task-checklist score, NOT stable-release readiness.** Current calculation after verified bounded beta feedback/hardening review: 84 distinct task rows, 76 at 100% and 8 at 0%: `(76 × 100) / 84 = 90.48%`, rounded **90%**. The previous 55% alpha estimate has been replaced by a verified, bounded beta-readiness review, not by an assertion of comprehensive customer feedback. Tasks have different sizes; score can decrease when genuine new work is found.
+- **Stable V2 release readiness: NOT READY.** Public alpha `2.0.0-alpha.1` and beta `2.0.0-beta.1` are verified; beta feedback hardening, RC, owner stable gate, stable-capable manual staging and public stable publication are pending. Never substitute this 90% checklist score for the release gate.
 - **Alpha readiness decision:** the previous 55% was an unverified planning estimate; it is superseded by the accepted evidence-backed alpha compatibility review below. **READY FOR BETA CANDIDATE PREPARATION** means no currently known critical regression in the tested matrix, not proof of universal user coverage, Safari/Firefox support, beta publication or npm approval. Distinguish the immutable published alpha.1 from corrected code on `master`.
 - **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
 - **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); obsolete TypeScript 7 Dependabot PR #152 is now **closed/unmerged**, superseded by accepted TypeScript 7 upgrade #165. Stable staging still explicitly rejects stable releases.
 - **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md) provides the twelve *task IDs and dependencies*. Every substantive agent-managed round follows the distinct [12-Step Engineering Round Protocol](../engineering/round-protocol.md), discovered through [AGENTS.md](../../AGENTS.md); [round evidence template](../engineering/round-evidence-template.md) supplies PR/issue records, not a second tracker. No autonomous worker, scheduled Haversine Autopilot, mandatory new CI, or modification of central GitHub HQ is implied.
 - **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
+
+## Accepted engineering round — HV-BETA-02 review and RC candidate preparation (2026-10-22)
+
+**Beta compatibility/hardening: DONE within the defined reviewed public feedback and tested support matrix.** **RC candidate: PREPARED, NOT PUBLISHED.** The reviewed `2.0.0-rc.1` candidate is now on accepted `master` but has no public tag or registry artifact.
+
+- **Public beta evidence:** `2.0.0-beta.1` independently verified via [real npm Node 22/24/26 matrix #39741835704](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704), with CJS/ESM/TS, browser/legacy subpaths, `nearest()` validation, npm signatures and stable/beta dist-tags.
+- **Beta feedback inventory:** open issues at review were only [#74](https://github.com/DaniilSydorenko/haversine-geolocation/issues/74) (release) and [#177](https://github.com/DaniilSydorenko/haversine-geolocation/issues/177) (owner-controlled Cursor experiment); no observed open external beta-blocking regression. This is a **bounded no-new-customer-report conclusion**, not proof of comprehensive customer coverage.
+- **Known correction ahead of beta artifact:** accepted [#175](https://github.com/DaniilSydorenko/haversine-geolocation/pull/175) provides exact same-pole zero distance, with North/South regression tests, and was merged into `master` after the immutable beta tag. It is included in the RC candidate, **not** retroactively in published beta.
+- **Accepted RC preparation:** [PR #181](https://github.com/DaniilSydorenko/haversine-geolocation/pull/181) merged as `da21beb66e441a81583b3680bc8b1c9a88a7e19e`, updating only package + lockfile version to `2.0.0-rc.1`, CHANGELOG, README, migration guide, and [candidate release notes](../release/2.0.0-rc.1.md). Exact candidate HEAD `77ea243ad5d3df3d2d46da8c85db5eae4c579959`: **11/11 applicable checks SUCCESS** (Node 22/24/26, Vite/Next/Nuxt, real Chrome UMD, GRS, Gitleaks, source CI). All applicable postmerge domain runs SUCCESS. The cancelled redundant Autopilot help signal is not a product check.
+- **Owner-separated pending gates:** run manual nonpublishing `Validate npm Release Candidate` with `2.0.0-rc.1` on the reviewed current `master` commit; if green, obtain explicit maintainer authorization before creating `v2.0.0-rc.1` / GitHub prerelease / npm staged publishing + 2FA; independently verify published RC. RC task stays **0%** until that proof. Do **not** approve stable yet, enable stable `latest` or change release workflows outside the owner gate.
+- **Other open PRs:** [#178](https://github.com/DaniilSydorenko/haversine-geolocation/pull/178) is an intentional two-stage Cursor Pilot Draft awaiting an explicit owner follow-up; no merge. [#172](https://github.com/DaniilSydorenko/haversine-geolocation/pull/172) changes Vitest dev dependency and overlaps version files; deferred, no indirect merge. No active product blocker from either has been asserted.
+- **Progress:** the beta feedback/hardening row advances on accepted evidence to 100%; **76/84 complete, 8 pending = 90% rounded**. Stable `2.0.0` remains **NOT READY** pending RC evidence, RC hardening, explicit owner stable approval, safe stable staging enablement and public stable verification.
 
 ## Accepted release round — HV-BETA-01 public npm beta verified (2026-10-22)
 
