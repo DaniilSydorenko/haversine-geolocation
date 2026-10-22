@@ -1,10 +1,10 @@
 # Migrating from Haversine V1 to V2
 
-Status: V2 prerelease migration guide (published `2.0.0-beta.1`; RC and stable not yet published)
+Status: V2 migration guide; public RC `2.0.0-rc.1` independently verified, initial stable V2 candidate `2.0.1` awaiting publication.
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
-This guide describes the V2 contract implemented on repository `master` and in the accepted ADRs. **`haversine-geolocation@2.0.0-beta.1` is published and independently verified**, including root, `./browser` and `./legacy` exports. Stable V2 `2.0.0` has **not** been published. Later fixes on `master` (including exact-pole distance correction) are not part of the immutable beta tarball; they are RC candidates.
+This guide describes the V2 contract on `master` and in accepted ADRs. The public `2.0.0-rc.1` was independently verified (root, `./browser`, `./legacy`, Node/TS consumers, exact-pole behavior). The maintainer selected `2.0.1` as the **initial stable V2 version** without publishing `2.0.0`. The prepared stable candidate includes the later merged Cursor Pilot `nearest()` pole regression tests. Neither a GitHub candidate commit nor a tagged prerelease means the new stable version has been published in npm.
 
 ## Migration strategy
 
@@ -269,7 +269,7 @@ import {
 } from 'haversine-geolocation/browser';
 ```
 
-**The `./browser` subpath is available in the published `2.0.0-beta.1` package.** Browser permissions and secure-context requirements still apply.
+**The `./browser` subpath is available in the published RC.1 and is part of the stable V2 package contract.** Browser permissions and secure-context requirements still apply.
 
 Browser globals are checked at function-call time rather than package-import time.
 
@@ -287,7 +287,7 @@ import HaversineGeolocation from 'haversine-geolocation/legacy';
 
 The default root compatibility import is also intended to remain available during 2.x.
 
-**The explicit `./legacy` subpath is available in the published `2.0.0-beta.1` package.**
+**The explicit `./legacy` subpath is available in the published RC.1 and remains part of the stable V2 package contract.**
 
 ## Node.js compatibility
 
@@ -300,7 +300,7 @@ Repository CI now performs an actual Node CommonJS smoke test against the built 
 
 This fixes the architectural class of failure reported in issue #12 on the development branch.
 
-The npm `latest` tag still points to stable V1 `1.6.0`; consumers installing V2 explicitly at `2.0.0-beta.1` receive the published Node-safe exports. Post-beta fixes on `master` will become public only with a later authorized V2 release.
+Historically, npm `latest` pointed to V1 `1.6.0` while `next` exposed V2 RC.1; installing `2.0.0-rc.1` explicitly receives Node-safe exports. The owner-approved stable V2 `2.0.1` will become the default only after separately verified npm publication under `latest`.
 
 ## Deep imports and explicit exports
 
@@ -370,6 +370,11 @@ For an existing V1 application:
 
 ## Release status
 
-Haversine V2 is publicly available as prerelease `2.0.0-beta.1`, while an unqualified `npm install haversine-geolocation` still installs stable V1 `1.6.0`.
+The V2 stable release is designated `2.0.1`; unlike source code on `master`, this becomes publicly installable only after maintainer-approved npm staging and a successful registry check.
 
-Use `npm install haversine-geolocation@2.0.0-beta.1` or `npm install haversine-geolocation@next` for the published beta. Do not present fixes accepted after its tag as shipping in beta. RC and stable `2.0.0` require separate release validation and maintainer approval.
+- For deterministic stable V2 installation **after publication**: `npm install haversine-geolocation@2.0.1`.
+- After npm `latest` has been independently verified as `2.0.1`: `npm install haversine-geolocation`.
+- To reproduce the last verified public RC regardless of stable state: `npm install haversine-geolocation@2.0.0-rc.1`.
+- To retain the historical V1 stable line: `npm install haversine-geolocation@1.6.0`.
+
+The V1→V2 default-radius, rounding, input validation and restricted deep-import changes above remain relevant regardless of the chosen initial stable patch number.

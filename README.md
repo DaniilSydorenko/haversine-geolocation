@@ -9,32 +9,31 @@
 
 A small JavaScript/TypeScript geospatial library built around spherical Haversine distance calculations, nearest-point search and browser geolocation integration.
 
-## Release status
+## Versions and installation
 
-There are currently two public release lines:
+### Haversine V2 — stable `2.0.1` release line
 
-- **npm stable / `latest`:** `haversine-geolocation@1.6.0` — the historical V1 API;
-- **npm prerelease / `next`:** `haversine-geolocation@2.0.0-beta.1` — independently verified public V2 beta.
+Install a specific stable V2 version:
 
-A normal install still receives stable V1:
+```bash
+npm install haversine-geolocation@2.0.1
+```
+
+Or use the default install **once `latest` points to V2**:
 
 ```bash
 npm install haversine-geolocation
 ```
 
-To test V2 explicitly:
+The npm version badge above reflects the registry's `latest` dist-tag, **not** the version declared by this repository's `package.json`. During release preparation, `latest` may still refer to historical V1 `1.6.0`. Check the actual published version before installing without an explicit version.
 
-```bash
-npm install haversine-geolocation@2.0.0-beta.1
-```
+### Historical versions
 
-or:
+- **V1:** `npm install haversine-geolocation@1.6.0` (legacy stable behavior).
+- **V2 prerelease:** `2.0.0-alpha.1`, `2.0.0-beta.1` and `2.0.0-rc.1` remain immutable and installable explicitly.
+- **V2 stable target:** `2.0.1` (the maintainer elected to skip publishing `2.0.0`; this is the initial stable release of the V2 line).
 
-```bash
-npm install haversine-geolocation@next
-```
-
-V2 is public, but remains prerelease until stable `2.0.0`.
+This documentation describes the V2 stable package contract. A prepared GitHub commit or tag alone does not publish npm `latest`.
 
 See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
 
@@ -104,9 +103,9 @@ V1 couples browser geolocation to the historical singleton. That package design 
 
 ---
 
-## V2 beta — public prerelease
+## V2 functional API
 
-The canonical V2 API is available in the public `2.0.0-beta.1` prerelease and uses named exports. Later accepted changes on `master` do not rewrite this immutable beta.
+The canonical V2 API uses named exports. The stable V2 line incorporates verified prerelease behavior, including exact North/South Pole fixes, and retains the deprecated V1-compatible default facade.
 
 ### Distance
 

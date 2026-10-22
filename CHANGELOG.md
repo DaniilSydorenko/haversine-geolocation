@@ -6,15 +6,28 @@ This project keeps the historical V1 release line stable while Haversine 2 evolv
 
 ## Unreleased
 
-### Prepared `2.0.0-rc.1` candidate (NOT published)
+### Prepared `2.0.1` initial stable V2 release (publication pending)
 
-This candidate includes the **already merged** same-pole longitude correction (#175), while preserving the beta API, browser/legacy entrypoints, TypeScript declarations and zero runtime dependencies. No tag, release or npm staging has been created. Owner review, manual validation and npm 2FA remain mandatory. Published beta.1 is immutable.
+The maintainer explicitly selected `2.0.1` as the initial stable V2 release number; `2.0.0` has **never been published**. No additional alpha, beta or RC iteration is required. Publication under `latest` is still a separately controlled, manual npm stage/2FA action.
+
+- Maintain the published RC.1 production API, spherical model, rounding and legacy compatibility rules without introducing runtime breaking changes.
+- Carry the accepted exact North/South Pole regression correction (#175).
+- Include the latest merged test-only Cursor Pilot #178 regression coverage for `nearest()`, plus accepted #183 and release verification #184 evidence.
+- Publish a README that describes the stable V2 install without falsely equating the GitHub source version and public npm `latest`.
+- Preserve zero runtime dependencies, Node 22/24 and Node 26 forward smoke, TypeScript 7, CJS/ESM, browser and legacy export contracts.
+
+## 2.0.0-rc.1 — published 2026-10-22
+
+- Published under npm `next` using Trusted Publishing, reviewed manual staging and maintainer approval.
+- Fixed exact zero-distance behavior at the North and South Poles without near-pole snapping.
+- [Independent public RC test](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39846708004) passed 9/9 actual npm installations (Node 22/24/26 × alpha/beta/RC) and audit signatures.
+- Immutable prerelease remains available by explicit version; it does not automatically replace npm `latest`.
 
 ## 2.0.0-beta.1 — published 2026-10-22
 
 ### Improvements since alpha.1
 
-The public beta.1 release was approved by the maintainer via npm staged Trusted Publishing and independently verified from the registry. npm `next` points to `2.0.0-beta.1`; `latest` remains V1 `1.6.0`.
+The public beta.1 release was approved through staged Trusted Publishing and independently verified from npm. It remains installable by explicit version; the later RC.1 replaced it under the prerelease `next` tag.
 
 - hardened `nearest()` validation for malformed origins and invalid distance options on empty candidate collections;
 - improved browser geolocation capability detection for null/malformed providers;
@@ -28,7 +41,7 @@ The public beta.1 release was approved by the maintainer via npm staged Trusted 
 ### V2 prerelease hardening
 
 - continue compatibility, documentation and release-quality work after the first public alpha;
-- stable `2.0.0` remains separately owner-approved and is not published automatically.
+- stable V2 publication remains a separately controlled npm action, never an automatic consequence of merging a PR.
 
 ## 2.0.0-alpha.1 — 2026-10-11
 
