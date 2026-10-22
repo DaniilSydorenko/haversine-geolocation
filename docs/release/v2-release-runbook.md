@@ -1,13 +1,13 @@
 # Haversine V2 Release Runbook
 
-Status: **first public V2 alpha published and verified** (`v2.0.0-alpha.1`, 2026-10-11). Beta, release-candidate and stable publication remain future owner-gated phases. V1 `1.6.0` is the historical stable/latest line.
+Status: **public V2 beta published and independently verified** (`v2.0.0-beta.1`, 2026-10-22). Alpha remains verified; RC and stable are still owner-gated. At public-registry verification, `next=2.0.0-beta.1` and stable `latest=1.6.0`.
 
 ## Release sequence
 
 Use the staged progression:
 
 1. `2.0.0-alpha.1` — completed; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-alpha.1) and published npm package verified.
-2. `2.0.0-beta.1` — not published.
+2. `2.0.0-beta.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-beta.1), npm maintainer-approved staged publication and [public npm Node 22/24/26 installations + signature verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704) all PASS.
 3. `2.0.0-rc.1` — not published.
 4. `2.0.0` — not published; requires explicit stable approval.
 
@@ -73,7 +73,7 @@ Publishing a GitHub Release alone does not trigger npm mutation.
 
 ## Verification after each new prerelease
 
-The public `2.0.0-alpha.1` already passed independent published package / provenance verification. For each future beta or RC:
+The public `2.0.0-alpha.1` and `2.0.0-beta.1` have passed independent published-package / provenance verification. For future prereleases (including RC):
 
 1. verify the published package/version from npm;
 2. install the published prerelease into clean Node ESM and CommonJS consumers;
