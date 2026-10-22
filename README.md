@@ -14,7 +14,7 @@ A small JavaScript/TypeScript geospatial library built around spherical Haversin
 There are currently two public release lines:
 
 - **npm stable / `latest`:** `haversine-geolocation@1.6.0` — the historical V1 API;
-- **npm prerelease / `next`:** `haversine-geolocation@2.0.0-alpha.1` — the first public V2 alpha.
+- **npm prerelease / `next`:** `haversine-geolocation@2.0.0-beta.1` — independently verified public V2 beta.
 
 A normal install still receives stable V1:
 
@@ -25,7 +25,7 @@ npm install haversine-geolocation
 To test V2 explicitly:
 
 ```bash
-npm install haversine-geolocation@2.0.0-alpha.1
+npm install haversine-geolocation@2.0.0-beta.1
 ```
 
 or:
@@ -104,9 +104,9 @@ V1 couples browser geolocation to the historical singleton. That package design 
 
 ---
 
-## V2 alpha — public prerelease
+## V2 beta — public prerelease
 
-The canonical V2 API is available in the public `2.0.0-alpha.1` prerelease and uses named exports.
+The canonical V2 API is available in the public `2.0.0-beta.1` prerelease and uses named exports. Later accepted changes on `master` do not rewrite this immutable beta.
 
 ### Distance
 
