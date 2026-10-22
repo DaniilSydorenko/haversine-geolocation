@@ -1,6 +1,6 @@
 # Haversine V2 Release Runbook
 
-Status: **public V2 beta published and independently verified** (`v2.0.0-beta.1`, 2026-10-22). Alpha remains verified; RC and stable are still owner-gated. At public-registry verification, `next=2.0.0-beta.1` and stable `latest=1.6.0`.
+Status: **public V2 RC.1 independently verified** on 2026-10-22. Initial stable target is **`2.0.1`** by explicit maintainer selection (unusual but valid; no published stable `2.0.0`); stable npm publication remains gated. Registry evidence confirmed `next=2.0.0-rc.1`, `latest=1.6.0` before stable publication.
 
 ## Release sequence
 
@@ -8,8 +8,8 @@ Use the staged progression:
 
 1. `2.0.0-alpha.1` — completed; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-alpha.1) and published npm package verified.
 2. `2.0.0-beta.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-beta.1), npm maintainer-approved staged publication and [public npm Node 22/24/26 installations + signature verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704) all PASS.
-3. `2.0.0-rc.1` — not published.
-4. `2.0.0` — not published; requires explicit stable approval.
+3. `2.0.0-rc.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-rc.1), maintainer npm approval and [independent registry-installed smoke](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39846708004) (9/9 PASS).
+4. `2.0.1` — selected first stable V2 release; prepared candidate, **not yet published**. `2.0.0` will be skipped rather than retroactively published.
 
 Additional prereleases are allowed when validation evidence requires them.
 
@@ -73,7 +73,7 @@ Publishing a GitHub Release alone does not trigger npm mutation.
 
 ## Verification after each new prerelease
 
-The public `2.0.0-alpha.1` and `2.0.0-beta.1` have passed independent published-package / provenance verification. For future prereleases (including RC):
+The public alpha, beta, and RC.1 were independently verified including provenance. For new releases, including stable:
 
 1. verify the published package/version from npm;
 2. install the published prerelease into clean Node ESM and CommonJS consumers;
@@ -86,7 +86,7 @@ Historical Node import issue [#12](https://github.com/DaniilSydorenko/haversine-
 
 ## Stable release gate
 
-The existing `npm-stage-release.yml` **intentionally refuses stable versions**, so stable 2.0.0 requires a separately approved, narrowly reviewed release-workflow change **after** the owner accepts the final release candidate.
+The existing `npm-stage-release.yml` **intentionally refuses stable versions**, so stable `2.0.1` requires a separately approved, narrowly reviewed release-workflow change after owner decision. Preserve exact tag/package version matching, OIDC, `npm stage publish`, owner inspection and 2FA. Only the selected stable `2.0.1` version should be eligible for `latest`; other stable versions continue to be refused.
 
 Do not enable stable `latest` publication until:
 
@@ -97,4 +97,4 @@ Do not enable stable `latest` publication until:
 - issue #12 is resolved by an actually published Node-safe version;
 - the owner explicitly approves the stable release.
 
-Stable publication is intentionally disabled in the current staging workflow.
+Stable publication is intentionally disabled in the current staging workflow until a separately reviewed and accepted stable-enable PR. The owner-selected version does not authorize an agent to publish to npm without an additional manual staging run and npm approval.
