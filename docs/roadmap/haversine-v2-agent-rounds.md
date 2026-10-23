@@ -117,7 +117,7 @@ The twelve entries **below** are individual **work items**, not these process st
 ### HV-POST-01 — Reconcile public documentation and published-stable verifier after 2.0.1
 
 - **Owner:** Haversine domain; **dependency:** verified public stable.
-- **Allowed:** `README.md`, `CHANGELOG.md`, `docs/migration/**`, release/reference docs and the canonical roadmap.
+- **Allowed:** `README.md`, `CHANGELOG.md`, `docs/migration/**`, release/reference docs, the canonical roadmap and the existing published-prerelease verifier workflow only for narrowly scoped `2.0.1` registry checks under #189.
 - **Acceptance:** npm stable/latest instructions, migration behavior, published tag links and release status all match observed artifacts; tests and applicable docs-triggered checks pass.
 - **Stop:** do not claim publication before its evidence is available.
 
