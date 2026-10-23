@@ -32,6 +32,8 @@ The twelve entries **below** are individual **work items**, not these process st
 
 **Default exclusion for every round:** no cross-repository mutation, no C01–C07 enforcement, no visibility changes, no automatic publishing or release tags, no unrelated dependency upgrades, no generated-state churn.
 
+**2026-10-23 current gate:** stable candidate PR #190 and stable-capable workflow PR #191 are accepted; publication remains owner-only under #74. Historical stable `2.0.0` phrasing below is superseded by initial stable `2.0.1`. Existing #187/#188 closed, #189 waiting; #186 independent.
+
 ## Ordered, bounded rounds
 
 ### HV-ALPHA-01 — Resolve existing Biome warning debt
@@ -95,12 +97,12 @@ The twelve entries **below** are individual **work items**, not these process st
 
 - **Owner:** maintainer, **OWNER DECISION**. **Dependency:** completed beta/RC evidence and migration/compatibility review.
 - **Allowed:** release readiness review and documented accept/decline decision.
-- **Acceptance:** explicit approval of stable 2.0.0 behavior and publish gate. Green infrastructure alone is insufficient.
-- **Stop:** if approval is absent, keep stable publishing disabled.
+- **Acceptance:** final maintainer authorization of the owner-selected initial stable `2.0.1` tag, GitHub Release and npm publish gate. Green infrastructure alone is insufficient.
+- **Stop:** if final release authorization is absent, do not create the stable tag, dispatch manual staging or approve public npm publication.
 
 ### HV-STABLE-02 — Enable stable publication safely
 
-- **Owner:** Haversine release engineer; **dependency:** HV-STABLE-01 approval. The current `npm-stage-release.yml` explicitly rejects stable versions.
+- **Status: DONE via owner-approved PR #191** (merged `5964152e4abb7922d6d114a142fdebfe009151d8`). The `npm-stage-release.yml` now permits **only `2.0.1`** under `latest` and retains prerelease `next`; this is safe staging capability, not authorization to run it.
 - **Allowed:** scoped release workflow/runbook and corresponding regression checks; no changes to central GRS or npm account without owner action.
 - **Acceptance:** stable `latest` staging remains manual, with exact tag ↔ version, review-before-publish, 2FA and trusted OIDC/provenance; prerelease `next` behavior stays unchanged. Validate workflow logic before merge.
 - **Stop / rollback:** no direct push-to-npm step or bypass of maintainer approval; revert workflow change if safety checks regress.
@@ -109,10 +111,10 @@ The twelve entries **below** are individual **work items**, not these process st
 
 - **Owner:** maintainer; **dependencies:** explicit stable approval and verified stable-capable manual workflow.
 - **Allowed:** exact-version release artifacts only.
-- **Acceptance:** approved exact tag, reviewed package, stage + maintainer 2FA, independently verified public `2.0.0` under `latest`, provenance, packed smoke consumers and no silent V1/latest status mismatch.
+- **Acceptance:** approved exact `v2.0.1` tag, reviewed package, stage + maintainer 2FA, independently verified public `2.0.1` under `latest`, provenance, packed smoke consumers and no silent V1/latest status mismatch.
 - **Stop:** agent may prepare evidence, but never initiate or approve stable publication autonomously.
 
-### HV-POST-01 — Reconcile public documentation after stable
+### HV-POST-01 — Reconcile public documentation and published-stable verifier after 2.0.1
 
 - **Owner:** Haversine domain; **dependency:** verified public stable.
 - **Allowed:** `README.md`, `CHANGELOG.md`, `docs/migration/**`, release/reference docs and the canonical roadmap.
