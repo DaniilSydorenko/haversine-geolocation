@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **93%** |
+| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **94%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -62,7 +62,7 @@
 | 2.0.0-rc.1 | 🟢 | 100% |
 | Release-candidate hardening | 🟢 | 100% |
 | Stable-release approval gate | 🔵 | 0% |
-| 2.0.0 stable npm release | 🔵 | 0% |
+| 2.0.1 initial stable npm release | 🔵 | 0% |
 | Post-release README/status update | 🔵 | 0% |
 | Post-release migration-guide finalization | 🔵 | 0% |
 | 🆕 NEW — Modernize TypeScript compiler baseline from 4.4 | 🟢 | 100% |
@@ -86,23 +86,34 @@
 | 🆕 NEW — Eliminate or explicitly justify 27 Biome warnings from accepted CI | 🟢 | 100% |
 | 🆕 NEW — Evaluate and adopt TypeScript 7 (superseding PR #152) | 🟢 | 100% |
 | 🆕 NEW — Decide default-branch protection / minimal ruleset | 🟠 | 0% |
-| 🆕 NEW — Enable manual stable npm staging safely, after owner approval | 🔵 | 0% |
+| 🆕 NEW — Enable manual stable npm staging safely, after owner approval | 🟢 | 100% |
 
 ## Status and scoring methodology
 
 **Original baseline re-audit (2026-10-16)** against accepted default branch `master` at `99d72e3e6bff7ae06bbb7cf2628dd645e154599c`, complete open PR inventory, exact-head and accepted beta candidate CI, verified public npm alpha smoke, release issue #74 and current GitHub release inventory. This SHA is the accepted implementation baseline before roadmap reconciliation, not a frozen assertion about future `master`.
 
-- **93% is an unweighted task-checklist score, NOT stable-release readiness.** After independently verified published RC and bounded RC hardening: 84 tasks, 78 complete and 6 pending: `(78 × 100) / 84 = 92.86%`, rounded **93%**. The previous 55% alpha estimate has been replaced by a verified, bounded beta-readiness review, not by an assertion of comprehensive customer feedback. Tasks have different sizes; score can decrease when genuine new work is found.
-- **Stable V2 release readiness: NOT YET AUTHORIZED.** Public alpha, beta and RC are independently verified; the owner stable gate, stable-capable manual staging, public npm stable and postrelease tasks remain pending. The 93% score is not a stable release authorization.
+- **94% is an unweighted task-checklist score, NOT stable-release readiness.** After accepted PR #191 enabled manual 2.0.1-only stable staging: 84 tasks, 79 complete and 5 pending: `(79 × 100) / 84 = 94.05%`, rounded **94%**. The previous 55% alpha estimate has been replaced by a verified, bounded beta-readiness review, not by an assertion of comprehensive customer feedback. Tasks have different sizes; score can decrease when genuine new work is found.
+- **Stable V2 publication: OWNER-GATED, NOT YET PUBLISHED.** Public alpha, beta and RC are verified; the 2.0.1 candidate and exact-version manual `latest` staging capability are accepted. Final owner tag/GitHub Release, manual staging, npm 2FA and verified registry consumers remain pending. The separate stable-release approval row stays at 0% until the explicit final owner publication authorization.
 - **Alpha readiness decision:** the previous 55% was an unverified planning estimate; it is superseded by the accepted evidence-backed alpha compatibility review below. **READY FOR BETA CANDIDATE PREPARATION** means no currently known critical regression in the tested matrix, not proof of universal user coverage, Safari/Firefox support, beta publication or npm approval. Distinguish the immutable published alpha.1 from corrected code on `master`.
 - **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
-- **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); obsolete TypeScript 7 Dependabot PR #152 is now **closed/unmerged**, superseded by accepted TypeScript 7 upgrade #165. Stable staging still explicitly rejects stable releases.
+- **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); obsolete TypeScript 7 Dependabot PR #152 is now **closed/unmerged**, superseded by accepted TypeScript 7 upgrade #165. The historical staging refusal was superseded by accepted exact-version `2.0.1` staging capability in PR #191.
 - **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md) provides the twelve *task IDs and dependencies*. Every substantive agent-managed round follows the distinct [12-Step Engineering Round Protocol](../engineering/round-protocol.md), discovered through [AGENTS.md](../../AGENTS.md); [round evidence template](../engineering/round-evidence-template.md) supplies PR/issue records, not a second tracker. No autonomous worker, scheduled Haversine Autopilot, mandatory new CI, or modification of central GitHub HQ is implied.
 - **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
 
+## Current stable 2.0.1 reconciliation — 2026-10-23
+
+**Accepted implementation:** `master` `5964152e4abb7922d6d114a142fdebfe009151d8` (PR #190 candidate + PR #191 exact-version manual staging). **Public stable release: NOT YET PUBLISHED.** This dated section supersedes earlier historical 2.0.0 planning and statements that the stable staging workflow is disabled; those earlier snapshots are preserved as historical evidence, not current instructions.
+
+- **Candidate:** [PR #190](https://github.com/DaniilSydorenko/haversine-geolocation/pull/190) merged `81b293d975eebaa5ec0b1481235822e3da6be90a`; version/lockfile = `2.0.1`, README/migration/CHANGELOG/notes updated, exact-head full 11/11 compatibility checks and 79/79 tests [PASS](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39849323817). Corresponding completed preparation issue #187 is closed.
+- **Safe staging capability:** [PR #191](https://github.com/DaniilSydorenko/haversine-geolocation/pull/191) merged at `5964152e4abb7922d6d114a142fdebfe009151d8`. [Postmerge CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39850327768) and [secret scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39850327823) PASS. Workflow requires an existing matching tag, explicit `PUBLISH`, trusted OIDC `npm stage publish` and owner npm 2FA; prereleases use `next`, only stable `2.0.1` is eligible for `latest`. Completed workflow issue #188 is closed. **No stable staging execution or actual public publish is implied.**
+- **Open publication gate:** [#74](https://github.com/DaniilSydorenko/haversine-geolocation/issues/74). Owner creates `v2.0.1` at the accepted release SHA and a non-prerelease GitHub Release, manually dispatches Stage npm Release, checks staged contents, approves through npm 2FA; only then independently verify public npm `latest=2.0.1`, provenance and clean CJS/ESM/TypeScript/Node 22/24/26 imports. Public npm could not be independently re-queried during this docs reconciliation; the last independent prerelease workflow still proved `latest=1.6.0`, `next=2.0.0-rc.1`.
+- **Post-release:** [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) remains WAITING for actual stable publication; finalize README and migration guide (two original roadmap rows), and update the prerelease-only verifier's hard-coded `latest=1.6.0` expectation before using it against public stable `2.0.1`.
+- **Independent owner decision:** [#186](https://github.com/DaniilSydorenko/haversine-geolocation/issues/186) default-branch protection stays at 0%; this is not a release blocker and should not cause admin changes without owner approval. Dependabot [PR #172](https://github.com/DaniilSydorenko/haversine-geolocation/pull/172) remains open and unmerged; its manifest/lockfile changes are separate from this documentation reconciliation.
+- **Score:** **79/84 = 94% unweighted**, five pending task rows: final stable-release owner approval, public stable 2.0.1, postrelease README, postrelease migration, independent master branch protection. The source may be releasable, but it is NOT evidence of a public stable package.
+
 ## Accepted release round — Public RC.1 verification and bounded hardening (2026-10-22)
 
-**HV-RC-01 DONE; HV-RC-02 DONE within the documented support matrix. Stable `2.0.0` still needs separate owner approval.**
+**HV-RC-01 DONE; HV-RC-02 DONE within the documented support matrix.** The following section is a dated RC-era snapshot; the current first-stable target is `2.0.1` (see 2026-10-23 reconciliation above).
 
 - **Immutable RC:** `v2.0.0-rc.1` points at `4c7d942952921c12689a9263c570932c83e6d319`; [manual candidate validation](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39842987712) PASS, 77/77 tests; [OIDC staging](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39844826681) PASS with `next`, sha1 `4f01a06a7d8f697b57d405a859faad893c3035c8`, [Sigstore log 3399064659](https://search.sigstore.dev/?logIndex=3399064659), staging id `44e8fa76-31d4-421c-b16d-f810f57027ef`. Maintainer completed npm staged approval.
 - **Actual public npm proof:** [PR #184](https://github.com/DaniilSydorenko/haversine-geolocation/pull/184), merged `871692bbb841615733e619fcbb2cb3bb53e3f27f`, expands the existing registry verifier to alpha, beta and RC. [Workflow #39846708004](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39846708004) **9/9 clean npm installs PASS** (Node 22,24,26 × three prereleases). It asserts CJS, ESM, TS7, browser/legacy entrypoints, `nearest()` validation, exact North/South Pole zero distance and nearest selection on published RC, npm signatures, published RC SHA1 matching staged, `next=2.0.0-rc.1` and `latest=1.6.0`. PR exact HEAD **11/11 PASS**; accepted master postmerge Test and build / Gitleaks PASS.
@@ -204,7 +215,7 @@
 | 3 | **HV-BETA-01** — `2.0.0-beta.1` (0%) | After beta-readiness evidence: prepare version/notes/tag candidate, exact-head CI and packed consumer checks, explicitly owner-approved prerelease publication, then independently verify npm package and GitHub release. |
 | 4 | **HV-BETA-02** — beta feedback/compatibility (0%) | Triage real beta feedback and reconcile any reproduced regressions; preserve an auditable acceptance decision. |
 | 5 | **HV-RC-01 / HV-RC-02** — `2.0.0-rc.1` and RC hardening (both 0%) | Review beta acceptance, owner-gated RC publication, independent real-package verification, release-candidate compatibility hardening. |
-| 6 | **HV-STABLE-01 / HV-STABLE-02 / HV-STABLE-03** — owner stable approval, safe stable-capable workflow and public `2.0.0` npm publication (all 0%) | Explicit stable-release approval, independently reviewed safe workflow enablement, maintainer npm action/2FA, provenance and actual published package verification; **current stable staging remains disabled**. |
+| 6 | **HV-STABLE-01 / HV-STABLE-02 / HV-STABLE-03** — final owner release approval and public `2.0.1` (pending); reviewed manual staging capability (DONE via #191) | Owner controls exact tag/GitHub Release, npm stage/2FA and independent public-package verification; staging capability is enabled for `2.0.1` only, but was not executed. |
 | 7 | **HV-POST-01** — README/status and migration-guide finalization (both 0%) | Only after verified public stable: align docs, version/status labels, migration and install guidance with real npm/GitHub release state. |
 
 **Accounting:** 84 existing task rows; 73 at 100%, one historically estimated at 55%, and 10 at 0%. `(73 × 100 + 55) / 84 = 87.56%` → **88% unweighted checklist**, unchanged by this documentation-only round. **Stable V2: NOT READY.** Do not add a new task or increase progress merely because this state was re-audited.
