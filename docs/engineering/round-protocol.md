@@ -21,7 +21,7 @@
 | Published versions | Real public npm and GitHub releases, package provenance and external consumer checks |
 | Central controls | Read-only pinned GRS consumer; HQ-owned C01–C07 decisions are outside this repository |
 
-Run only on explicit/on-demand project work; **do not** install an automation, modify GitHub HQ, absorb GitHub Autopilot, or infer permissions to change branch rules or publish packages. An owner gate is **BLOCKED** until explicitly approved; no owner decision may be impersonated by an agent. Stable `2.0.0` remains unapproved and unpublished until proved otherwise.
+Run only on explicit/on-demand project work; **do not** install an automation, modify GitHub HQ, absorb GitHub Autopilot, or infer permissions to change branch rules or publish packages. An owner gate is **BLOCKED** until explicitly approved; no owner decision may be impersonated by an agent. The initial stable V2 target is `2.0.1`: candidate and manual staging capability are accepted, but final owner tag/2FA/publication and public registry verification remain outstanding. No stable `2.0.0` will be backfilled.
 
 ## The mandatory twelve steps
 
