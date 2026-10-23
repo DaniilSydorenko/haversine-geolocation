@@ -25,7 +25,7 @@ Do not introduce a long-lived npm automation token. Further npm permission chang
 
 ## Safe validation flow
 
-Before creating a publishable tag:
+For historical prereleases only (not stable `2.0.1`), before creating a publishable tag:
 
 1. Run **Validate npm Release Candidate** manually.
 2. Enter a V2 prerelease version such as `2.0.0-alpha.1` **for historical prerelease-only validation**. This workflow does not accept stable `2.0.1`; rely on existing exact-head stable CI and the manual staging workflow's stable checks.
