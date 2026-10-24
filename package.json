@@ -32,8 +32,8 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "7.0.2",
-    "vite": "8.3.4",
-    "vitest": "5.0.3",
+    "vite": "8.3.5",
+    "vitest": "5.0.5",
     "@biomejs/biome": "2.5.15"
   },
   "files": [
