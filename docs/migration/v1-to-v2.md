@@ -1,10 +1,10 @@
 # Migrating from Haversine V1 to V2
 
-Status: V2 migration guide for the `v2.0.1` stable GitHub release of October 25, 2026. Independent npm registry and installed-consumer validation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
+Status: V2 migration guide for the `v2.0.1` stable GitHub release of October 25, 2026. Public npm registry and installed-consumer behavior were independently verified in [12/12 published-package CI jobs](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115); remaining documentation reconciliation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
-This guide describes the V2 contract on `master` and in accepted ADRs. The public `2.0.0-rc.1` was independently verified (root, `./browser`, `./legacy`, Node/TS consumers, exact-pole behavior). The maintainer selected `2.0.1` as the **initial stable V2 version** without publishing stable `2.0.0`; its GitHub Release is public and the npm staging workflow succeeded. V2 retains the later merged Cursor Pilot `nearest()` pole regression tests. Independently checking npm installation remains distinct from GitHub Release and staging evidence.
+This guide describes the V2 contract on `master` and in accepted ADRs. The public `2.0.0-rc.1` was independently verified (root, `./browser`, `./legacy`, Node/TS consumers, exact-pole behavior). The maintainer selected `2.0.1` as the **initial stable V2 version** without publishing stable `2.0.0`; its GitHub Release is public and the npm staging workflow succeeded. V2 retains the later merged Cursor Pilot `nearest()` pole regression tests. The separate [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed across Node 22/24/26 with clean CJS/ESM/TS, browser/legacy, pole and signature checks.
 
 ## Migration strategy
 
@@ -370,10 +370,10 @@ For an existing V1 application:
 
 ## Release status
 
-The first stable V2 release is `2.0.1`, published as a GitHub Release on October 25, 2026; npm staging was successful. To independently confirm availability and the unpinned default, run `npm view haversine-geolocation dist-tags --json` and `npm view haversine-geolocation@2.0.1 version dist.integrity --json`.
+The first stable V2 release is `2.0.1`, published as a GitHub Release on October 25, 2026; public npm `latest=2.0.1` and `next=2.0.0-rc.1` were independently verified, along with SHA-1, SHA-512 and installed consumers, in [published-package CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115). To recheck at any time, run `npm view haversine-geolocation dist-tags --json` and `npm view haversine-geolocation@2.0.1 version dist.integrity --json`.
 
 - For a pinned V2 install: `npm install haversine-geolocation@2.0.1`.
-- Once the public npm `latest` tag is confirmed as `2.0.1`: `npm install haversine-geolocation`.
+- With independently verified public npm `latest=2.0.1`: `npm install haversine-geolocation`.
 - To reproduce the last verified public RC regardless of stable state: `npm install haversine-geolocation@2.0.0-rc.1`.
 - To retain the historical V1 stable line: `npm install haversine-geolocation@1.6.0`.
 

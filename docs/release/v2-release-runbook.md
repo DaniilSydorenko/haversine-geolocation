@@ -1,6 +1,6 @@
 # Haversine V2 Release Runbook
 
-Status (2026-10-27): public RC.1 was verified on 2026-10-22; the initial stable **`2.0.1`** [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on 2026-10-25 and [npm staging](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) succeeded. Public npm registry, tarball and installed consumers still require independent verification under [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). **Do not repeat any historical stable tagging/staging/publishing instructions below.** No stable `2.0.0` exists.
+Status (2026-10-27): public RC.1 was verified on 2026-10-22; the initial stable **`2.0.1`** [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on 2026-10-25 and [npm staging](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) succeeded. Public npm `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures and installed consumers were independently verified by [12/12 published-package CI jobs](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115). Remaining documentation and roadmap closeout is under [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). **Do not repeat any historical stable tagging/staging/publishing instructions below.** No stable `2.0.0` exists.
 
 ## Release sequence
 
@@ -97,7 +97,7 @@ Do not enable stable `latest` publication until:
 - issue #12 is resolved by an actually published Node-safe version;
 - the owner explicitly approves the stable release.
 
-**2026-10-23 historical publication gate (superseded):** the maintainer subsequently created the exact `v2.0.1` tag and stable GitHub Release and ran the npm staging workflow successfully on 2026-10-25. The remaining exit gate is independent public npm `latest=2.0.1` evidence and installed-consumer/provenance verification under #189, including an updated verifier. Do not stage or publish `2.0.1` again.
+**2026-10-23 historical publication gate (superseded):** the maintainer subsequently created the exact `v2.0.1` tag and stable GitHub Release and ran the npm staging workflow successfully on 2026-10-25. Public npm `latest=2.0.1` and clean installed-consumer/provenance verification have since passed in [published-package CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115). The remaining work under #189 is accepted documentation/roadmap reconciliation, not staging or publication. Do not stage or publish `2.0.1` again.
 
 ## Historical owner handoff for stable `2.0.1` — completed; do not repeat
 

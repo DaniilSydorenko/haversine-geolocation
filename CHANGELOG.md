@@ -10,7 +10,7 @@ No unreleased runtime changes are described here.
 
 ## 2.0.1 — stable GitHub release 2026-10-25
 
-The maintainer selected `2.0.1` as the first stable V2 version, intentionally skipping stable `2.0.0`. The [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) and [npm staging workflow](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) are confirmed. Independent npm registry and clean installed-consumer verification are tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
+The maintainer selected `2.0.1` as the first stable V2 version, intentionally skipping stable `2.0.0`. The [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) and [npm staging workflow](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) are confirmed. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed 12/12 clean consumer jobs (Node 22/24/26 × alpha/beta/RC/stable), confirming npm tags, staged SHA-1/SHA-512, installed CJS/ESM/TS/browser/legacy and signature attestation. Documentation closeout is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
 
 - Maintain the published RC.1 production API, spherical model, rounding and legacy compatibility rules without introducing runtime breaking changes.
 - Carry the accepted exact North/South Pole regression correction (#175).

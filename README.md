@@ -26,7 +26,7 @@ npm view haversine-geolocation dist-tags --json
 npm install haversine-geolocation
 ```
 
-The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent public-registry tag, tarball and installed-consumer verification is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
+The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed all 12 Node 22/24/26 × alpha/beta/RC/stable jobs, confirming `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures/attestation and installed consumers. Postrelease documentation reconciliation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
 
 ### Historical versions
 
@@ -34,7 +34,7 @@ The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversin
 - **V2 prerelease:** `2.0.0-alpha.1`, `2.0.0-beta.1` and `2.0.0-rc.1` remain immutable and installable explicitly.
 - **V2 stable release:** `2.0.1` (first stable V2; the maintainer skipped stable `2.0.0`).
 
-This documentation describes the stable V2 package contract. A GitHub release or successful npm staging job alone does not establish public registry installation; consult the npm registry and the linked verification issue.
+This documentation describes the stable V2 package contract. Public npm availability has been separately verified by the linked published-package CI, not inferred from GitHub release or staging alone.
 
 See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
 
