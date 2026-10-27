@@ -2,7 +2,7 @@
 
 | Task | Color | Progress |
 |---|---:|---:|
-| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **94%** |
+| **ALL ROADMAP — UNWEIGHTED TASK CHECKLIST** | 🟡 | **99%** |
 | V1 forensic audit | 🟢 | 100% |
 | V1 shipped-behavior characterization | 🟢 | 100% |
 | Mathematical reference suite | 🟢 | 100% |
@@ -61,10 +61,10 @@
 | Beta feedback and compatibility hardening | 🟢 | 100% |
 | 2.0.0-rc.1 | 🟢 | 100% |
 | Release-candidate hardening | 🟢 | 100% |
-| Stable-release approval gate | 🔵 | 0% |
-| 2.0.1 initial stable npm release | 🔵 | 0% |
-| Post-release README/status update | 🔵 | 0% |
-| Post-release migration-guide finalization | 🔵 | 0% |
+| Stable-release approval gate | 🟢 | 100% |
+| 2.0.1 initial stable npm release | 🟢 | 100% |
+| Post-release README/status update | 🟢 | 100% |
+| Post-release migration-guide finalization | 🟢 | 100% |
 | 🆕 NEW — Modernize TypeScript compiler baseline from 4.4 | 🟢 | 100% |
 | 🆕 NEW — Define supported Node.js/browser compatibility matrix | 🟢 | 100% |
 | 🆕 NEW — Add compatibility CI across supported Node.js versions | 🟢 | 100% |
@@ -92,15 +92,31 @@
 
 **Original baseline re-audit (2026-10-16)** against accepted default branch `master` at `99d72e3e6bff7ae06bbb7cf2628dd645e154599c`, complete open PR inventory, exact-head and accepted beta candidate CI, verified public npm alpha smoke, release issue #74 and current GitHub release inventory. This SHA is the accepted implementation baseline before roadmap reconciliation, not a frozen assertion about future `master`.
 
-- **94% is an unweighted task-checklist score, NOT stable-release readiness.** After accepted PR #191 enabled manual 2.0.1-only stable staging: 84 tasks, 79 complete and 5 pending: `(79 × 100) / 84 = 94.05%`, rounded **94%**. The previous 55% alpha estimate has been replaced by a verified, bounded beta-readiness review, not by an assertion of comprehensive customer feedback. Tasks have different sizes; score can decrease when genuine new work is found.
-- **Stable V2 publication: OWNER-GATED, NOT YET PUBLISHED.** Public alpha, beta and RC are verified; the 2.0.1 candidate and exact-version manual `latest` staging capability are accepted. Final owner tag/GitHub Release, manual staging, npm 2FA and verified registry consumers remain pending. The separate stable-release approval row stays at 0% until the explicit final owner publication authorization.
+- **99% is the current unweighted V2 checklist score, not a confidence metric or complete product-market readiness score.** After verified stable publication and accepted [PR #197](https://github.com/DaniilSydorenko/haversine-geolocation/pull/197), **83 of 84** existing checklist rows are complete: `(83 × 100) / 84 = 98.81%`, rounded **99%**. The sole pending checklist item is owner-controlled [master branch protection #186](https://github.com/DaniilSydorenko/haversine-geolocation/issues/186), which is independent of stable npm publication. Future DX, SEO, AI documentation and optional feature discoveries are separate workstreams and are not silently counted as completed in these 84 rows.
+- **Stable V2 publication: COMPLETE and independently verified.** [Stable GitHub Release v2.0.1](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on 2026-10-25 with the annotated tag targeting `5964152e4abb7922d6d114a142fdebfe009151d8`. [Manual npm staging](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) succeeded; [independent public package verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570906) confirmed `latest=2.0.1`, `next=2.0.0-rc.1`, matching staged SHA-1/SHA-512, clean installed Node 22/24/26 CJS/ESM/TypeScript, `./browser`, `./legacy`, pole edge cases and verified npm attestation (12/12 PASS). Never backfill stable `2.0.0` or republish immutable `2.0.1`.
 - **Alpha readiness decision:** the previous 55% was an unverified planning estimate; it is superseded by the accepted evidence-backed alpha compatibility review below. **READY FOR BETA CANDIDATE PREPARATION** means no currently known critical regression in the tested matrix, not proof of universal user coverage, Safari/Firefox support, beta publication or npm approval. Distinguish the immutable published alpha.1 from corrected code on `master`.
 - **Evidence-based row reconciliation:** `docs/compatibility.md` and Node 22/24/26 runtime matrix define the current feature-based policy (no untested Safari/Firefox version promises); `.github/workflows/browser-umd.yml` + `fixtures/browser-umd/index.html` provide the Chrome real-browser fixture; the accepted CI build log uses Vite 8.3.4 without the named native-config-loader ESM warning. Hence those three existing rows now read 100%.
 - **Reconciled quality debt:** the prior **27 Biome warnings** have been removed or narrowly justified in accepted PR #155; PR #156 makes future warnings fail CI and both manual V2 validation/staging quality steps. Historical generated JS artifacts remain unchanged. The corrected release runbook is accepted; `master` remains unprotected (owner decision, no automated admin change); obsolete TypeScript 7 Dependabot PR #152 is now **closed/unmerged**, superseded by accepted TypeScript 7 upgrade #165. The historical staging refusal was superseded by accepted exact-version `2.0.1` staging capability in PR #191.
 - **Task-round contract:** [Haversine V2 Bounded Engineering Round Map](haversine-v2-agent-rounds.md) provides the twelve *task IDs and dependencies*. Every substantive agent-managed round follows the distinct [12-Step Engineering Round Protocol](../engineering/round-protocol.md), discovered through [AGENTS.md](../../AGENTS.md); [round evidence template](../engineering/round-evidence-template.md) supplies PR/issue records, not a second tracker. No autonomous worker, scheduled Haversine Autopilot, mandatory new CI, or modification of central GitHub HQ is implied.
 - **State authority:** accepted `master` and exact-head CI for implementation; the public npm/GitHub release for publication; this file for local task statuses. Pending PRs are proposals only. Do not change another project's roadmap or adopt central C01–C07 controls without GitHub HQ owner issue #56.
 
-## Current stable 2.0.1 reconciliation — 2026-10-23
+## Accepted V2 stable post-release reconciliation — 2026-10-27
+
+- **Published public artifact:** `haversine-geolocation@2.0.1` is the first stable V2; immutable alpha, beta and RC history remains installable. Independent clean npm-installed verification and integrity checks passed [12/12](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570906); npm signatures include a verified attestation. The verified release tag and staging evidence are linked in the status section above.
+- **[PR #197](https://github.com/DaniilSydorenko/haversine-geolocation/pull/197) — ACCEPTED:** merged as `dd4371cd4b60a867c11831d7edf117fecfeaf3c1`; reconciled README, API, migration, changelog, release notes/runbook and extended published npm verifier to stable V2 while preserving prerelease semantics. All applicable exact-head checks PASS: [public npm verifier 12/12](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570906), [CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570973), [Secret Scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570902) and [GRS](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570982). Postmerge [CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506148581), [Secret Scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506148554) and [GRS](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506148540) passed on the accepted merge SHA.
+- **[PR #196](https://github.com/DaniilSydorenko/haversine-geolocation/pull/196) — ACCEPTED independently:** Dependabot changed dev-only Vite `8.3.4→8.3.5`, Vitest `5.0.3→5.0.5` and Biome `2.5.15→2.6.2`; merged as `bae69a9d6c646e9f801c3c71d1d94db04e2128de` after six applicable PR checks passed. Postmerge [CI](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506321271), [Secret Scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506321055), [Node compatibility](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506321069) and [browser UMD](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506321087) passed; [consumer fixtures](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40506321125) must reach terminal success before full independent postmerge acceptance. No runtime dependency or public npm release was updated.
+- **Existing V2 checklist:** stable owner approval, public 2.0.1 release and postrelease README/migration rows changed from pending to complete on accepted evidence. **83/84 = 99%**, with [branch protection #186](https://github.com/DaniilSydorenko/haversine-geolocation/issues/186) as the sole owner-gated pending row. This is not a reason to withhold already-verified npm V2.
+- **No release actions:** Do not create a new tag, run npm staging, republish `2.0.1`, release `2.0.2`, change branch protection, or close an unrelated workstream automatically. Reconcile existing issues [#74](https://github.com/DaniilSydorenko/haversine-geolocation/issues/74) and [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) only after this roadmap sync is accepted.
+
+### Beyond the fixed V2 checklist (separate scoped backlog; no DONE credit)
+
+1. **Technical discoverability:** evidence-driven npm/GitHub metadata and README/SEO review; npm-facing package metadata updates require a future explicitly approved release.
+2. **Consumer documentation and tested examples:** validate entry points and errors against packed declarations; provide minimal Node/TS then framework/map integration recipes, automated where affordable.
+3. **Maintainer/consumer AI readiness:** audit AGENTS/Cursor/Copilot instructions, add only justified thin adapters and correct AI integration examples; do not promise model indexing.
+4. **Maintenance/security:** independently review future dependency bumps, CI/pack size/compatibility/provenance drift, and obtain a separate enable/defer owner decision on branch protection [#186](https://github.com/DaniilSydorenko/haversine-geolocation/issues/186).
+5. **Later owner-approved proposals, not V2 blockers:** evaluate playground and proximity APIs (`withinRadius`, `sortByDistance`, `distancesTo`, adapters, bounds) only after demand and contract design. Do not implement them as existing `2.0.1` APIs.
+
+## Historical stable 2.0.1 preparation snapshot — 2026-10-23 (superseded by accepted release)
 
 **Accepted implementation:** `master` `5964152e4abb7922d6d114a142fdebfe009151d8` (PR #190 candidate + PR #191 exact-version manual staging). **Public stable release: NOT YET PUBLISHED.** This dated section supersedes earlier historical 2.0.0 planning and statements that the stable staging workflow is disabled; those earlier snapshots are preserved as historical evidence, not current instructions.
 
