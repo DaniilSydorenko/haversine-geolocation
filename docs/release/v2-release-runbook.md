@@ -9,7 +9,7 @@ Use the staged progression:
 1. `2.0.0-alpha.1` — completed; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-alpha.1) and published npm package verified.
 2. `2.0.0-beta.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-beta.1), npm maintainer-approved staged publication and [public npm Node 22/24/26 installations + signature verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704) all PASS.
 3. `2.0.0-rc.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-rc.1), maintainer npm approval and [independent registry-installed smoke](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39846708004) (9/9 PASS).
-4. `2.0.1` — first stable V2 GitHub Release published 2026-10-25; npm staging complete, independent public-registry proof pending. Stable `2.0.0` was intentionally skipped.
+4. `2.0.1` — first stable V2 GitHub Release published 2026-10-25; npm staging completed and [12/12 public npm verifier jobs](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) independently passed. Stable `2.0.0` was intentionally skipped.
 
 No further alpha/beta/RC cycle is planned or requested for the initial stable V2. Any future prerelease would require a new owner decision and new evidence.
 
@@ -101,7 +101,7 @@ Do not enable stable `latest` publication until:
 
 ## Historical owner handoff for stable `2.0.1` — completed; do not repeat
 
-> **ARCHIVED PROCEDURE (2026-10-23): DO NOT EXECUTE.** The stable GitHub Release and npm staging were completed on 2026-10-25. Retain these steps for historical audit only. Never recreate the tag, stage, approve or republish `2.0.1`; use [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) for postrelease public-registry verification.
+> **ARCHIVED PROCEDURE (2026-10-23): DO NOT EXECUTE.** The stable GitHub Release and npm staging were completed on 2026-10-25. Retain these steps for historical audit only. Never recreate the tag, stage, approve or republish `2.0.1`; use [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) for accepted postrelease documentation and roadmap closeout.
 
 The reviewed candidate commit is `5964152e4abb7922d6d114a142fdebfe009151d8`. Later accepted commits changed **documentation / agent instructions only**, without changing the package payload or release workflow. Tagging a different commit requires its own explicit owner choice and appropriate exact-head verification. Do **not** substitute the current `master` head by accident.
 
