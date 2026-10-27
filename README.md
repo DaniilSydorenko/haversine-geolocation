@@ -7,7 +7,7 @@
 [![GRS Governance](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/grs.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/grs.yml)
 [![Secret Scan](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/DaniilSydorenko/haversine-geolocation/actions/workflows/secret-scan.yml)
 
-A small JavaScript/TypeScript geospatial library built around spherical Haversine distance calculations, nearest-point search and browser geolocation integration.
+A dependency-free JavaScript/TypeScript library for **spherical distance** and **nearest-point search** with validated coordinates, typed ESM/CommonJS entry points and an optional browser geolocation adapter.
 
 ## Versions and installation
 
@@ -26,7 +26,7 @@ npm view haversine-geolocation dist-tags --json
 npm install haversine-geolocation
 ```
 
-The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed all 12 Node 22/24/26 × alpha/beta/RC/stable jobs, confirming `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures/attestation and installed consumers. Postrelease documentation reconciliation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
+The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed all 12 Node 22/24/26 × alpha/beta/RC/stable jobs, confirming `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures/attestation and installed consumers. Postrelease documentation reconciliation was completed in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
 
 ### Historical versions
 
@@ -38,71 +38,32 @@ This documentation describes the stable V2 package contract. Public npm availabi
 
 See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
 
-## Published V1 usage
+## Quick start — stable V2
 
-### Import
-
-```ts
-import HaversineGeolocation from 'haversine-geolocation';
-```
-
-### Distance
+V2 uses named exports, validates latitude/longitude coordinates and returns **spherical great-circle distances** (not road routes). No runtime dependencies are needed.
 
 ```ts
-const a = {
-  latitude: 61.5322204,
-  longitude: 28.7515963,
-  accuracy: 5,
-};
+import { distance, nearest } from 'haversine-geolocation';
 
-const b = {
-  latitude: 51.9971208,
-  longitude: 22.1455439,
-  accuracy: 5,
-};
+const warsaw = { latitude: 52.2297, longitude: 21.0122 };
+const oslo = { latitude: 59.9139, longitude: 10.7522 };
 
-HaversineGeolocation.getDistanceBetween(a, b, 'km'); // 1133.1
-HaversineGeolocation.getDistanceBetween(a, b, 'mi'); // 704.1
-HaversineGeolocation.getDistanceBetween(a, b, 'm');  // 1133063
+const kilometres = distance(warsaw, oslo); // 'km' by default
+const metres = distance(warsaw, oslo, { unit: 'm' });
+
+const locations = [
+  { id: 'oslo', ...oslo },
+  { id: 'warsaw', ...warsaw },
+];
+
+const closest = nearest(warsaw, locations);
+// closest: { point: locations[1], distance: 0 }
+console.log(closest?.point.id); // 'warsaw'
 ```
 
-V1 applies historical presentation rounding automatically.
+Coordinates use `{ latitude, longitude }` with finite numeric values. `distance()` returns an unrounded number; `nearest()` returns `{ point, distance }` or `undefined` when the list is empty. Use `{ unit: 'km' | 'm' | 'mi' }` as the third argument, not a positional unit string.
 
-### Closest position
-
-```ts
-const closest = HaversineGeolocation.getClosestPosition(
-  a,
-  [
-    {
-      latitude: 61.5322204,
-      longitude: 28.7515963,
-      accuracy: 5,
-    },
-    {
-      latitude: 51.9971208,
-      longitude: 22.1455439,
-      accuracy: 5,
-    },
-  ],
-  'km',
-);
-
-console.log(closest.haversine.distance);
-```
-
-### Browser geolocation
-
-```ts
-const position = await HaversineGeolocation.isGeolocationAvailable();
-
-console.log(position.coords.latitude);
-console.log(position.coords.longitude);
-```
-
-V1 couples browser geolocation to the historical singleton. That package design is one of the areas V2 changes.
-
----
+For full signatures and validation errors see the [V2 API reference](docs/api-reference.md); for legacy users see [V1 → V2 migration](docs/migration/v1-to-v2.md). The calculation uses a spherical Earth model, not ellipsoidal WGS84 precision.
 
 ## V2 functional API
 
@@ -231,6 +192,75 @@ import HaversineGeolocation from 'haversine-geolocation/legacy';
 ```
 
 The legacy facade preserves historical V1 behavior where compatibility matters, including the old radius and rounding semantics.
+
+## Legacy V1 usage (migration reference)
+
+The following examples describe the historical V1-style default facade retained in the V2 migration line. **New integrations should use the V2 named exports above.**
+
+
+### Import
+
+```ts
+import HaversineGeolocation from 'haversine-geolocation';
+```
+
+### Distance
+
+```ts
+const a = {
+  latitude: 61.5322204,
+  longitude: 28.7515963,
+  accuracy: 5,
+};
+
+const b = {
+  latitude: 51.9971208,
+  longitude: 22.1455439,
+  accuracy: 5,
+};
+
+HaversineGeolocation.getDistanceBetween(a, b, 'km'); // 1133.1
+HaversineGeolocation.getDistanceBetween(a, b, 'mi'); // 704.1
+HaversineGeolocation.getDistanceBetween(a, b, 'm');  // 1133063
+```
+
+V1 applies historical presentation rounding automatically.
+
+### Closest position
+
+```ts
+const closest = HaversineGeolocation.getClosestPosition(
+  a,
+  [
+    {
+      latitude: 61.5322204,
+      longitude: 28.7515963,
+      accuracy: 5,
+    },
+    {
+      latitude: 51.9971208,
+      longitude: 22.1455439,
+      accuracy: 5,
+    },
+  ],
+  'km',
+);
+
+console.log(closest.haversine.distance);
+```
+
+### Browser geolocation
+
+```ts
+const position = await HaversineGeolocation.isGeolocationAvailable();
+
+console.log(position.coords.latitude);
+console.log(position.coords.longitude);
+```
+
+V1 couples browser geolocation to the historical singleton. That package design is one of the areas V2 changes.
+
+---
 
 ## V2 package architecture
 
