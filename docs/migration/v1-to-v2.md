@@ -1,10 +1,10 @@
 # Migrating from Haversine V1 to V2
 
-Status: V2 migration guide; public RC `2.0.0-rc.1` independently verified, initial stable V2 candidate `2.0.1` awaiting publication.
+Status: V2 migration guide for the `v2.0.1` stable GitHub release of October 25, 2026. Independent npm registry and installed-consumer validation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
-This guide describes the V2 contract on `master` and in accepted ADRs. The public `2.0.0-rc.1` was independently verified (root, `./browser`, `./legacy`, Node/TS consumers, exact-pole behavior). The maintainer selected `2.0.1` as the **initial stable V2 version** without publishing `2.0.0`. The prepared stable candidate includes the later merged Cursor Pilot `nearest()` pole regression tests. Neither a GitHub candidate commit nor a tagged prerelease means the new stable version has been published in npm.
+This guide describes the V2 contract on `master` and in accepted ADRs. The public `2.0.0-rc.1` was independently verified (root, `./browser`, `./legacy`, Node/TS consumers, exact-pole behavior). The maintainer selected `2.0.1` as the **initial stable V2 version** without publishing stable `2.0.0`; its GitHub Release is public and the npm staging workflow succeeded. V2 retains the later merged Cursor Pilot `nearest()` pole regression tests. Independently checking npm installation remains distinct from GitHub Release and staging evidence.
 
 ## Migration strategy
 
@@ -300,7 +300,7 @@ Repository CI now performs an actual Node CommonJS smoke test against the built 
 
 This fixes the architectural class of failure reported in issue #12 on the development branch.
 
-Historically, npm `latest` pointed to V1 `1.6.0` while `next` exposed V2 RC.1; installing `2.0.0-rc.1` explicitly receives Node-safe exports. The owner-approved stable V2 `2.0.1` will become the default only after separately verified npm publication under `latest`.
+Before V2 stable publication, npm `latest` pointed to V1 `1.6.0`, while `next` exposed RC.1. The stable GitHub release `v2.0.1` now exists; consult the live npm dist-tags to confirm what an unpinned installation receives.
 
 ## Deep imports and explicit exports
 
@@ -370,10 +370,10 @@ For an existing V1 application:
 
 ## Release status
 
-The V2 stable release is designated `2.0.1`; unlike source code on `master`, this becomes publicly installable only after maintainer-approved npm staging and a successful registry check.
+The first stable V2 release is `2.0.1`, published as a GitHub Release on October 25, 2026; npm staging was successful. To independently confirm availability and the unpinned default, run `npm view haversine-geolocation dist-tags --json` and `npm view haversine-geolocation@2.0.1 version dist.integrity --json`.
 
-- For deterministic stable V2 installation **after publication**: `npm install haversine-geolocation@2.0.1`.
-- After npm `latest` has been independently verified as `2.0.1`: `npm install haversine-geolocation`.
+- For a pinned V2 install: `npm install haversine-geolocation@2.0.1`.
+- Once the public npm `latest` tag is confirmed as `2.0.1`: `npm install haversine-geolocation`.
 - To reproduce the last verified public RC regardless of stable state: `npm install haversine-geolocation@2.0.0-rc.1`.
 - To retain the historical V1 stable line: `npm install haversine-geolocation@1.6.0`.
 
