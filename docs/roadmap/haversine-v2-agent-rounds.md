@@ -32,7 +32,9 @@ The twelve entries **below** are individual **work items**, not these process st
 
 **Default exclusion for every round:** no cross-repository mutation, no C01–C07 enforcement, no visibility changes, no automatic publishing or release tags, no unrelated dependency upgrades, no generated-state churn.
 
-**2026-10-23 current gate:** stable candidate PR #190 and stable-capable workflow PR #191 are accepted; publication remains owner-only under #74. Historical stable `2.0.0` phrasing below is superseded by initial stable `2.0.1`. Existing #187/#188 closed, #189 waiting; #186 independent.
+**2026-10-23 historical release gate (superseded):** stable candidate PR #190 and stable-capable workflow PR #191 are accepted; publication remains owner-only under #74. Historical stable `2.0.0` phrasing below is superseded by initial stable `2.0.1`. Existing #187/#188 closed, #189 waiting; #186 independent.
+
+**2026-10-27 accepted current baseline:** the public stable `haversine-geolocation@2.0.1` has been independently verified [12/12 public installed checks](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428570906), postrelease/docs PR #197 and canonical roadmap PR #198 accepted, release issues #74/#189 completed. Maintainer created and activated [master ruleset #25961520](https://github.com/DaniilSydorenko/haversine-geolocation/rules/25961520); `master` now reports `protected=true`, with required `Test and build`/`Gitleaks`, 0 reviews and no bypass. Original canonical V2 checklist is 84/84 complete; future technical SEO, runnable examples, AI readiness and dependency/security upkeep are separate open research and implementation workstreams. Do not re-run historical alpha/beta/RC tasks or republish npm.
 
 ## Ordered, bounded rounds
 
@@ -60,9 +62,9 @@ The twelve entries **below** are individual **work items**, not these process st
 
 ### HV-SEC-01 — Decide default-branch protection
 
-- **Owner:** repository owner (**OWNER DECISION**), not an autonomous agent. `master` was observed unprotected at the audit baseline.
+- **Owner:** repository owner (**OWNER DECISION — ACCEPTED 2026-10-27**). Previous unprotected `master` observation was historical; live `master` is now protected by [owner-created ruleset #25961520](https://github.com/DaniilSydorenko/haversine-geolocation/rules/25961520).
 - **Allowed:** read-only study of present merge practices and available repository rulesets. No admin changes in an agent round.
-- **Acceptance:** owner accepts or declines a minimal branch-protection/ruleset proposal grounded in actual check names, without breaking the current workflow. If declined, record the accepted risk rather than blocking library releases arbitrarily.
+- **Acceptance — PASS:** owner approved and created an active `~DEFAULT_BRANCH` ruleset for `master`. Independent ruleset readback proves deletion and non-fast-forward blocks, required PR with zero approvals, mandatory GitHub Actions `Test and build` and `Gitleaks` checks, no bypass actors, no untested CodeQL requirements, and branch `protected=true`. The sole remaining accepted 84-row checklist item is complete.
 - **Stop:** no silent admin enforcement, no synthetic mandatory C01–C07 checks.
 
 ### HV-BETA-01 — Validate and publish 2.0.0-beta.1
