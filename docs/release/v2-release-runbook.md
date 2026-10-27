@@ -1,6 +1,6 @@
 # Haversine V2 Release Runbook
 
-Status: **public V2 RC.1 independently verified** on 2026-10-22. Initial stable target is **`2.0.1`** by explicit maintainer selection (unusual but valid; no published stable `2.0.0`); stable npm publication remains gated. Registry evidence confirmed `next=2.0.0-rc.1`, `latest=1.6.0` before stable publication.
+Status (2026-10-27): public RC.1 was verified on 2026-10-22; the initial stable **`2.0.1`** [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on 2026-10-25 and [npm staging](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) succeeded. Public npm registry, tarball and installed consumers still require independent verification under [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). **Do not repeat any historical stable tagging/staging/publishing instructions below.** No stable `2.0.0` exists.
 
 ## Release sequence
 
@@ -9,7 +9,7 @@ Use the staged progression:
 1. `2.0.0-alpha.1` — completed; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-alpha.1) and published npm package verified.
 2. `2.0.0-beta.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-beta.1), npm maintainer-approved staged publication and [public npm Node 22/24/26 installations + signature verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39741835704) all PASS.
 3. `2.0.0-rc.1` — **completed**; [GitHub prerelease](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.0-rc.1), maintainer npm approval and [independent registry-installed smoke](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/39846708004) (9/9 PASS).
-4. `2.0.1` — selected first stable V2 release; prepared candidate, **not yet published**. `2.0.0` will be skipped rather than retroactively published.
+4. `2.0.1` — first stable V2 GitHub Release published 2026-10-25; npm staging complete, independent public-registry proof pending. Stable `2.0.0` was intentionally skipped.
 
 No further alpha/beta/RC cycle is planned or requested for the initial stable V2. Any future prerelease would require a new owner decision and new evidence.
 
@@ -97,13 +97,15 @@ Do not enable stable `latest` publication until:
 - issue #12 is resolved by an actually published Node-safe version;
 - the owner explicitly approves the stable release.
 
-**Stable release remains externally owner-gated, NOT PUBLISHED:** the maintainer must authorize and create `v2.0.1` at the exact accepted master commit, create a non-prerelease GitHub Release, manually run **Stage npm Release** with `tag=v2.0.1` and `confirm_publish=PUBLISH`, inspect staged contents and approve via npm 2FA. Only a real public npm `latest=2.0.1` and independently verified consumers/provenance complete #74. Postrelease verifier `.github/workflows/verify-published-alpha.yml` still expects `latest=1.6.0`; update this condition and add stable coverage under #189 after publication, not by silently claiming its current prerelease matrix verifies stable.
+**2026-10-23 historical publication gate (superseded):** the maintainer subsequently created the exact `v2.0.1` tag and stable GitHub Release and ran the npm staging workflow successfully on 2026-10-25. The remaining exit gate is independent public npm `latest=2.0.1` evidence and installed-consumer/provenance verification under #189, including an updated verifier. Do not stage or publish `2.0.1` again.
 
-## Exact owner handoff for initial stable `2.0.1`
+## Historical owner handoff for stable `2.0.1` — completed; do not repeat
+
+> **ARCHIVED PROCEDURE (2026-10-23): DO NOT EXECUTE.** The stable GitHub Release and npm staging were completed on 2026-10-25. Retain these steps for historical audit only. Never recreate the tag, stage, approve or republish `2.0.1`; use [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) for postrelease public-registry verification.
 
 The reviewed candidate commit is `5964152e4abb7922d6d114a142fdebfe009151d8`. Later accepted commits changed **documentation / agent instructions only**, without changing the package payload or release workflow. Tagging a different commit requires its own explicit owner choice and appropriate exact-head verification. Do **not** substitute the current `master` head by accident.
 
-The review-candidate evidence in [`2.0.1.md`](2.0.1.md) is **internal preparation**, not suitable to paste into a public GitHub Release: it contains `NOT PUBLISHED` and historical unfinished-gate language. Use the separate, customer-facing [GitHub Release notes](2.0.1-public-release-notes.md) **only when creating the actual stable release**.
+The current [`2.0.1.md`](2.0.1.md) records release evidence and remaining verification. The [customer-facing release notes](2.0.1-public-release-notes.md) were used for the published GitHub release. The following owner handoff instructions are retained as a dated record, not actionable guidance.
 
 ### Maintainer sequence (local Git + GitHub CLI)
 
