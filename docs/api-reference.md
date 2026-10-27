@@ -1,6 +1,6 @@
 # Haversine V2 API Reference
 
-This document describes the public V2 package surface currently available through the `2.0.0-alpha.1` prerelease.
+This document describes the V2 public API contract for the stable `2.0.1` release line. The earlier `2.0.0-alpha.1`, `2.0.0-beta.1` and `2.0.0-rc.1` artifacts are immutable and may differ in edge-case behavior.
 
 ## Package entry points
 
