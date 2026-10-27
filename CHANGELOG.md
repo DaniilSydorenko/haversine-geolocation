@@ -2,18 +2,20 @@
 
 All notable changes to Haversine Geolocation are documented here.
 
-This project keeps the historical V1 release line stable while Haversine 2 evolves through explicit prereleases before any stable `latest` publication.
+Haversine V1 and the immutable V2 prereleases remain part of the release history. Stable V2 starts at `2.0.1`; stable `2.0.0` was intentionally skipped.
 
 ## Unreleased
 
-### Prepared `2.0.1` initial stable V2 release (publication pending)
+No unreleased runtime changes are described here.
 
-The maintainer explicitly selected `2.0.1` as the initial stable V2 release number; `2.0.0` has **never been published**. No additional alpha, beta or RC iteration is required. Publication under `latest` is still a separately controlled, manual npm stage/2FA action.
+## 2.0.1 — stable GitHub release 2026-10-25
+
+The maintainer selected `2.0.1` as the first stable V2 version, intentionally skipping stable `2.0.0`. The [GitHub Release](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) and [npm staging workflow](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40193740538) are confirmed. Independent npm registry and clean installed-consumer verification are tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
 
 - Maintain the published RC.1 production API, spherical model, rounding and legacy compatibility rules without introducing runtime breaking changes.
 - Carry the accepted exact North/South Pole regression correction (#175).
 - Include the latest merged test-only Cursor Pilot #178 regression coverage for `nearest()`, plus accepted #183 and release verification #184 evidence.
-- Publish a README that describes the stable V2 install without falsely equating the GitHub source version and public npm `latest`.
+- Document the stable V2 installation without equating the GitHub source version with the public npm `latest` tag.
 - Preserve zero runtime dependencies, Node 22/24 and Node 26 forward smoke, TypeScript 7, CJS/ESM, browser and legacy export contracts.
 
 ## 2.0.0-rc.1 — published 2026-10-22
