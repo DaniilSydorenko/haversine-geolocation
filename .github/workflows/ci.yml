@@ -111,12 +111,16 @@ jobs:
           cd /tmp/haversine-cjs
           npm init -y >/dev/null
           npm install "$PACKAGE_PATH" --ignore-scripts --no-audit --no-fund >/dev/null
+          cp "$GITHUB_WORKSPACE/examples/node-cjs.cjs" ./v2-example.cjs
+          node ./v2-example.cjs
           node -e "const pkg=require('haversine-geolocation'); const result=pkg.distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('packed CJS root failed'); const browser=require('haversine-geolocation/browser'); if(typeof browser.isGeolocationSupported!=='function') throw new Error('packed CJS browser subpath failed'); const legacy=require('haversine-geolocation/legacy'); if(!legacy.default||typeof legacy.default.getDistanceBetween!=='function') throw new Error('packed CJS legacy subpath failed');"
 
           cd /tmp/haversine-esm
           npm init -y >/dev/null
           npm pkg set type=module
           npm install "$PACKAGE_PATH" --ignore-scripts --no-audit --no-fund >/dev/null
+          cp "$GITHUB_WORKSPACE/examples/node-esm.mjs" ./v2-example.mjs
+          node ./v2-example.mjs
           node --input-type=module -e "import legacyDefault,{distance} from 'haversine-geolocation'; import {isGeolocationSupported} from 'haversine-geolocation/browser'; import legacy from 'haversine-geolocation/legacy'; const result=distance({latitude:0,longitude:0},{latitude:0,longitude:1}); if(!Number.isFinite(result)||result<=0) throw new Error('packed ESM root failed'); if(typeof isGeolocationSupported!=='function') throw new Error('packed ESM browser subpath failed'); if(!legacy||typeof legacy.getDistanceBetween!=='function') throw new Error('packed ESM legacy subpath failed'); if(!legacyDefault||typeof legacyDefault.getDistanceBetween!=='function') throw new Error('packed ESM default failed');"
 
       - name: Test packed TypeScript consumer
