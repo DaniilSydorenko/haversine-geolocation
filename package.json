@@ -1,7 +1,7 @@
 {
   "name": "haversine-geolocation",
   "version": "2.0.1",
-  "description": "Get distances between two points or get closest position to current point. Based on the Haversine Formula",
+  "description": "Spherical distance and nearest-point search for JavaScript/TypeScript, with validated coordinates, ESM/CJS, and no runtime dependencies",
   "main": "dist/index.cjs",
   "scripts": {
     "build": "npm run build:runtime && npm run build:umd && npm run build:types",
@@ -17,17 +17,24 @@
     "quality:fix": "biome check --write src spec scripts vite.lib.config.ts vite.umd.config.ts vitest.config.ts"
   },
   "keywords": [
-    "geolocation",
     "haversine",
+    "distance",
+    "great-circle-distance",
+    "nearest-point",
     "coordinates",
+    "geolocation",
+    "typescript",
     "javascript",
-    "es-6",
-    "node.js"
+    "nodejs"
   ],
   "author": "Daniil Sydorenko <daniildeveloper@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DaniilSydorenko/haversine-geolocation.git"
+  },
+  "homepage": "https://github.com/DaniilSydorenko/haversine-geolocation#readme",
+  "bugs": {
+    "url": "https://github.com/DaniilSydorenko/haversine-geolocation/issues"
   },
   "license": "MIT",
   "devDependencies": {
