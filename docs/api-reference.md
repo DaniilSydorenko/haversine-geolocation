@@ -12,6 +12,8 @@ haversine-geolocation/legacy
 
 The package root exposes the V2 functional API as named exports and keeps the historical singleton as the default export during the 2.x migration line.
 
+For executable packed-package Node ESM, CommonJS and TypeScript examples and browser/SSR usage, see [V2 Consumer Examples](examples/v2-consumers.md).
+
 ## Root API
 
 ### Coordinate

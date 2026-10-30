@@ -39,6 +39,8 @@ const candidates = [
 
 const km: number = distance(origin, candidates[1], { unit: 'km' });
 const closest = nearest(origin, candidates);
+const emptyResult: NearestResult<Place> | undefined = nearest(origin, [] as Place[]);
+void emptyResult;
 
 if (closest !== undefined) {
   const typedResult: NearestResult<Place> = closest;
