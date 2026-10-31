@@ -14,6 +14,8 @@ The package root exposes the V2 functional API as named exports and keeps the hi
 
 For executable packed-package Node ESM, CommonJS and TypeScript examples and browser/SSR usage, see [V2 Consumer Examples](examples/v2-consumers.md).
 
+For agent-generated integration code, consult the [V2 Coding Assistant Contract](examples/v2-coding-assistants.md) to avoid unsupported exports and incorrect coordinate/result shapes.
+
 ## Root API
 
 ### Coordinate
