@@ -9,34 +9,13 @@
 
 A dependency-free JavaScript/TypeScript library for **spherical distance** and **nearest-point search** with validated coordinates, typed ESM/CommonJS entry points and an optional browser geolocation adapter.
 
-## Versions and installation
-
-### Haversine V2 — stable `2.0.1` release line
-
-Install a specific stable V2 version:
+## Install
 
 ```bash
 npm install haversine-geolocation@2.0.1
 ```
 
-Check the public npm `latest` tag before choosing an unpinned install:
-
-```bash
-npm view haversine-geolocation dist-tags --json
-npm install haversine-geolocation
-```
-
-The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed all 12 Node 22/24/26 × alpha/beta/RC/stable jobs, confirming `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures/attestation and installed consumers. Postrelease documentation reconciliation was completed in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
-
-### Historical versions
-
-- **V1:** `npm install haversine-geolocation@1.6.0` (legacy stable behavior).
-- **V2 prerelease:** `2.0.0-alpha.1`, `2.0.0-beta.1` and `2.0.0-rc.1` remain immutable and installable explicitly.
-- **V2 stable release:** `2.0.1` (first stable V2; the maintainer skipped stable `2.0.0`).
-
-This documentation describes the stable V2 package contract. Public npm availability has been separately verified by the linked published-package CI, not inferred from GitHub release or staging alone.
-
-See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
+This is the first stable V2 release. The package supports Node ESM, CommonJS and TypeScript. For new integrations, use the named `distance()` and `nearest()` exports below.
 
 ## Quick start — stable V2
 
@@ -64,6 +43,14 @@ console.log(closest?.point.id); // 'warsaw'
 Coordinates use `{ latitude, longitude }` with finite numeric values. `distance()` returns an unrounded number; `nearest()` returns `{ point, distance }` or `undefined` when the list is empty. Use `{ unit: 'km' | 'm' | 'mi' }` as the third argument, not a positional unit string.
 
 For full signatures and validation errors see the [V2 API reference](docs/api-reference.md); for legacy users see [V1 → V2 migration](docs/migration/v1-to-v2.md). The calculation uses a spherical Earth model, not ellipsoidal WGS84 precision.
+
+## Examples and integration guides
+
+- [Executable Node ESM, CommonJS and TypeScript examples](docs/examples/v2-consumers.md) — validated against the installed npm tarball in CI.
+- [Browser Geolocation and SSR usage](docs/examples/v2-consumers.md#browser-geolocation-and-server-side-rendering) — permissions, secure contexts and server-safe imports.
+- [V2 API reference](docs/api-reference.md) — types, units, validation and edge cases.
+- [Coding assistant integration contract](docs/examples/v2-coding-assistants.md) — real exports and common mistakes to avoid.
+- [V1 → V2 migration](docs/migration/v1-to-v2.md) — legacy facade and behavioral changes.
 
 ## V2 functional API
 
@@ -327,6 +314,31 @@ The detailed API, migration and release guides are:
 Historical behavior and compatibility findings are preserved in:
 
 - [Haversine V1 Forensic Audit](docs/research/v1-forensic-audit.md)
+
+## Release history and publication details
+
+### Haversine V2 — stable `2.0.1` release line
+
+The pinned installation command appears in [Install](#install) above.
+
+Check the public npm `latest` tag before choosing an unpinned install:
+
+```bash
+npm view haversine-geolocation dist-tags --json
+npm install haversine-geolocation
+```
+
+The stable [GitHub release `v2.0.1`](https://github.com/DaniilSydorenko/haversine-geolocation/releases/tag/v2.0.1) was published on October 25, 2026, and npm staging completed successfully. Independent [public npm verification](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115) passed all 12 Node 22/24/26 × alpha/beta/RC/stable jobs, confirming `latest=2.0.1`, `next=2.0.0-rc.1`, tarball hashes, signatures/attestation and installed consumers. Postrelease documentation reconciliation was completed in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189). The npm badge reflects the actual public `latest` tag, not this repository's `package.json`; the explicit `@2.0.1` command remains deterministic.
+
+### Historical versions
+
+- **V1:** `npm install haversine-geolocation@1.6.0` (legacy stable behavior).
+- **V2 prerelease:** `2.0.0-alpha.1`, `2.0.0-beta.1` and `2.0.0-rc.1` remain immutable and installable explicitly.
+- **V2 stable release:** `2.0.1` (first stable V2; the maintainer skipped stable `2.0.0`).
+
+This documentation describes the stable V2 package contract. Public npm availability has been separately verified by the linked published-package CI, not inferred from GitHub release or staging alone.
+
+See [Migrating from V1 to V2](docs/migration/v1-to-v2.md) for the upgrade path and the [Changelog](CHANGELOG.md) for release history.
 
 ## Development quality gates
 
