@@ -131,7 +131,8 @@ Behavior:
 - `O(1)` auxiliary memory;
 - does not mutate candidates;
 - preserves candidate identity and metadata;
-- returns `undefined` for an empty collection;
+- returns `undefined` for an empty collection **after validating origin and distance options**;
+- invalid origin/options still throw on empty candidates (`TypeError` or `RangeError` as appropriate);
 - preserves the first candidate on an exact tie;
 - uses the same distance options as `distance()`.
 
