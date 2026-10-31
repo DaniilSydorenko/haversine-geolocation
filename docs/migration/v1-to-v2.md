@@ -1,6 +1,6 @@
 # Migrating from Haversine V1 to V2
 
-Status: V2 migration guide for the `v2.0.1` stable GitHub release of October 25, 2026. Public npm registry and installed-consumer behavior were independently verified in [12/12 published-package CI jobs](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115); remaining documentation reconciliation is tracked in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189).
+Status: V2 migration guide for the `v2.0.1` stable GitHub release of October 25, 2026. Public npm registry and installed-consumer behavior were independently verified in [12/12 published-package CI jobs](https://github.com/DaniilSydorenko/haversine-geolocation/actions/runs/40428171115); postrelease documentation reconciliation in [#189](https://github.com/DaniilSydorenko/haversine-geolocation/issues/189) is completed.
 
 Haversine V2 modernizes the public API, mathematical defaults, validation, runtime compatibility and package layout while preserving a compatibility path for existing V1 consumers during the 2.x line.
 
@@ -260,7 +260,7 @@ getCurrentPosition()
 isGeolocationSupported()
 ```
 
-The published V2 prerelease package surface is:
+The stable V2 package exposes this browser import (first verified in the prerelease):
 
 ```ts
 import {
@@ -279,7 +279,7 @@ The package root must remain safe in Node and SSR environments.
 
 The historical compatibility facade has been physically separated into its own module in the repository.
 
-The published V2 prerelease package surface is:
+The stable V2 package exposes this legacy import (first verified in the prerelease):
 
 ```ts
 import HaversineGeolocation from 'haversine-geolocation/legacy';
@@ -291,7 +291,7 @@ The default root compatibility import is also intended to remain available durin
 
 ## Node.js compatibility
 
-The developing V2 root build no longer depends on `window` at module initialization.
+The published stable V2 root build no longer depends on `window` at module initialization.
 
 Repository CI now performs an actual Node CommonJS smoke test against the built artifact and verifies both:
 
@@ -308,7 +308,7 @@ V1 published a broad tarball containing source files, tests and development conf
 
 Some consumers may therefore have imported internal paths that were never intended as supported API.
 
-The published V2 prerelease already uses an explicit `exports` map.
+The published stable V2 package uses an explicit `exports` map (introduced during the prerelease).
 
 That means imports such as:
 
@@ -357,7 +357,7 @@ if (closest) {
 
 For an existing V1 application:
 
-1. upgrade only after a V2 prerelease/release is explicitly announced;
+1. choose the published stable V2 `2.0.1` (or a later version after checking current npm dist-tags);
 2. keep the default legacy facade initially;
 3. migrate distance calls to the named `distance()` API;
 4. move presentation rounding into application/UI code;
