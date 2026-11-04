@@ -34,3 +34,14 @@ Use `npm ci`, `npm run quality -- --error-on-warnings --max-diagnostics=none`, `
 - Canonical optional reference: https://github.com/DaniilSydorenko/.github/blob/main/docs/initiatives/ai-engineering/OPERATING_RULES.md . This local instruction is a non-enforcing opt-in for owner-approved Cursor tasks, not a new central permission or mandatory full-context preload. Local domain policy has priority.
 
 For this repository, the **mandatory 12-stage engineering round and full relevant PR conflict inspection still apply**; budget optimization cannot skip stages or release/npm maintainer approval. The default branch is master.
+
+## ChatGPT → Cursor delegation discovery (owner-approved manual tasks)
+
+For an owner-requested implementation, bug fix, engineering test or code review, the coordinating ChatGPT chat **must explicitly evaluate** the existing GitHub Issue → `@cursor` route before defaulting to GitHub Connector-only code edits. GitHub Connector handles deterministic discovery, Issue/PR coordination and independent CI evidence; Cursor is the **preferred candidate implementation executor**, not an automatic launch entitlement. Do not require the owner to repeatedly remind the chat about Cursor.
+
+1. Read this local `AGENTS.md`, the owning Issue/PR, current default-branch SHA, relevant open PR overlaps and applicable domain authority. Reuse existing work; do not start a duplicate writer.
+2. Classify `CONNECTOR_ONLY`, `CURSOR_CANDIDATE`, `WAITING_DEPENDENCY`, `OWNER_GATE` or `STOP`. An owner-approved *specific* manual task may use one scoped `@cursor` comment **in this repository's owning Issue**, only after applicable provider/active-writer/budget/permission gates. Unknown gate = STOP, not speculative launch.
+3. Include one verifiable goal, allowed/forbidden paths, tests and stop conditions. Posting `@cursor` is `DISPATCH_REQUESTED`, **not** proof that Cursor started; confirm provider acknowledgement before claiming `STARTED`. No duplicate comments, subagents, autonomous retries or unattended task chain.
+4. Independently verify exact-head CI and required local reviews; PR open, CI pass, merged and accepted are separate states. Never infer merge/release authority from this guidance.
+
+Central contract: https://github.com/DaniilSydorenko/.github/blob/main/docs/initiatives/ai-engineering/OPERATING_RULES.md . Local safety, privacy, release, workflow and ownership rules take precedence. This text does **not** activate a Cursor scheduler, managed launcher or cross-repo permissions.
