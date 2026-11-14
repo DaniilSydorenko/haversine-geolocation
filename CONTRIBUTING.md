@@ -25,11 +25,25 @@ For these rounds, attach the [twelve-stage evidence template](docs/engineering/r
 ## Development
 
 1. Fork the repository and create a focused branch.
-2. Install dependencies with the package manager used by the repository.
+2. Install dependencies with `npm ci` (the repository includes an npm lockfile).
 3. Make the smallest coherent change that solves the issue.
 4. Add or update tests when behavior changes.
-5. Run the relevant tests and build locally.
+5. Run the local verification commands below.
 6. Open a pull request using the repository template.
+
+### Local verification
+
+From the repository root, run:
+
+```sh
+npm ci
+npm run quality -- --error-on-warnings --max-diagnostics=none
+npm run typecheck
+npm test
+npm run build
+```
+
+These commands install the locked dependencies, check code quality, type-check, run the test suite, and build the package. For package-size changes, also run `npm run size:check`. Some additional compatibility and security checks run in GitHub Actions; local success does not replace required PR checks.
 
 ## Pull requests
 
