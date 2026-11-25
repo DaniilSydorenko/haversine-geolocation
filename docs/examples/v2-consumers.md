@@ -39,9 +39,9 @@ console.log(nearest(origin, places)?.point.id); // 'oslo'
 ## TypeScript (published declarations)
 
 ```ts
-import { isCoordinate, distance } from 'haversine-geolocation';
+import { isCoordinate, distance, type Coordinate } from 'haversine-geolocation';
 
-const unknownInput: unknown = getInput(); // Assume this function retrieves an unknown input.
+const unknownInput: unknown = { latitude: 60.3913, longitude: 5.3221 };
 
 if (isCoordinate(unknownInput)) {
   const origin: Coordinate = { latitude: 59.9139, longitude: 10.7522 };
