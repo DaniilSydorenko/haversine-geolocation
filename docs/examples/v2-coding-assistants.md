@@ -50,6 +50,14 @@ This matches the existing [packed TypeScript consumer](../../fixtures/typescript
 
 ## Validation, geography and browser limitations
 
+## Source-of-truth checks
+
+The published package exports are authoritative for consumer examples. Please verify the existence of the following source files for reference:
+
+- [src/v2/index.ts](../../src/v2/index.ts)
+- [src/v2/distance.ts](../../src/v2/distance.ts)
+- [src/v2/coordinate.ts](../../src/v2/coordinate.ts)
+
 `isCoordinate(value)` returns a boolean, while `assertCoordinate(value)` throws on invalid input. Malformed/non-finite fields yield `TypeError`, finite out-of-range coordinates yield `RangeError`. Invalid units and custom radius also fail validation.
 
 At the **exact** North or South Pole, equal-latitude pole points have distance zero regardless of longitude. For antimeridian crossings use the spherical calculation rather than subtracting longitudes as flat Cartesian coordinates. Haversine's intermediate is clamped to `[0,1]` to guard floating-point drift.
