@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { nearest } from '../src/v2/nearest';
+import { distance } from '../src/v2/distance';
 
 import { nearest } from '../src/v2/nearest';
 
@@ -121,6 +123,14 @@ describe('V2 nearest', () => {
 
     it('propagates a custom spherical radius', () => {
         const result = nearest({ latitude: 0, longitude: 0 }, [{ latitude: 0, longitude: 90 }], {
+    it('selects the first candidate when computed distance overflows', () => {
+        const candidates = [
+            { id: 'first', latitude: 0, longitude: 1 },
+            { id: 'second', latitude: 0, longitude: -1 },
+        ];
+        const result = nearest({ latitude: 0, longitude: 0 }, candidates, { radius: Infinity });
+        expect(result?.point.id).toBe('first');
+    });
             unit: 'm',
             radius: 1000,
         });
