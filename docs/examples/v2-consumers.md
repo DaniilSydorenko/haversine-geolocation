@@ -38,6 +38,20 @@ console.log(nearest(origin, places)?.point.id); // 'oslo'
 
 ## TypeScript (published declarations)
 
+```ts
+import { isCoordinate, distance, type Coordinate } from 'haversine-geolocation';
+
+const unknownInput: unknown = { latitude: 60.3913, longitude: 5.3221 };
+
+if (isCoordinate(unknownInput)) {
+  const origin: Coordinate = { latitude: 59.9139, longitude: 10.7522 };
+  const km: number = distance(origin, unknownInput, { unit: 'km' });
+  console.log(`Distance: ${km} km`);
+} else {
+  console.error('Invalid coordinate input.');
+}
+```
+
 The existing [TypeScript consumer fixture](../../fixtures/typescript-consumer/index.ts) is installed with the real packed package and typechecked by the same CI workflow. Its `Place` type extends `Coordinate`; `nearest()` preserves the `id` and `metadata` of the selected original candidate.
 
 ```ts
