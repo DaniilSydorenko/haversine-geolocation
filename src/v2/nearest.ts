@@ -21,12 +21,12 @@ export const nearest = <T extends Coordinate>(
     }
 
     let closestPoint: T | undefined;
-    let closestDistance = options.radius === Infinity ? Infinity : Number.MAX_VALUE;
+    let closestDistance = Infinity;
 
     for (const candidate of candidates) {
         const candidateDistance = distance(origin, candidate, options);
 
-        if (candidateDistance < closestDistance) {
+        if (closestPoint === undefined || candidateDistance < closestDistance) {
             closestPoint = candidate;
             closestDistance = candidateDistance;
         }

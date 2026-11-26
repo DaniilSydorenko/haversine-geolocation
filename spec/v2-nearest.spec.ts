@@ -1,7 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { nearest } from '../src/v2/nearest';
-import { distance } from '../src/v2/distance';
-
+import { describe, expect, it, vi } from 'vitest';
+import * as distanceModule from '../src/v2/distance';
 import { nearest } from '../src/v2/nearest';
 
 describe('V2 nearest', () => {
@@ -123,19 +121,33 @@ describe('V2 nearest', () => {
 
     it('propagates a custom spherical radius', () => {
         const result = nearest({ latitude: 0, longitude: 0 }, [{ latitude: 0, longitude: 90 }], {
-    it('selects the first candidate when computed distance overflows', () => {
-        const candidates = [
-            { id: 'first', latitude: 0, longitude: 1 },
-            { id: 'second', latitude: 0, longitude: -1 },
-        ];
-        const result = nearest({ latitude: 0, longitude: 0 }, candidates, { radius: Infinity });
-        expect(result?.point.id).toBe('first');
-    });
             unit: 'm',
             radius: 1000,
         });
 
         expect(result?.distance).toBeCloseTo((1000 * Math.PI) / 2, 12);
+    });
+
+    it('selects the first candidate when computed distance overflows', () => {
+        const extremeRadius = Number.MAX_VALUE;
+        const candidates = [
+            { id: 'first', latitude: 0, longitude: 90 },
+            { id: 'second', latitude: 0, longitude: -90 },
+        ];
+
+        const distanceSpy = vi.spyOn(distanceModule, 'distance').mockReturnValue(Infinity);
+
+        try {
+            const result = nearest({ latitude: 0, longitude: 0 }, candidates, {
+                radius: extremeRadius,
+            });
+
+            expect(result?.point.id).toBe('first');
+            expect(result?.distance).toBe(Infinity);
+            expect(distanceSpy).toHaveBeenCalledTimes(2);
+        } finally {
+            distanceSpy.mockRestore();
+        }
     });
 
     it('validates candidate coordinates through distance()', () => {
