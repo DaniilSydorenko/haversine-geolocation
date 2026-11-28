@@ -40,11 +40,7 @@ export const assertDistanceOptions = (options?: DistanceOptions): void => {
     assertDistanceUnit(resolved.unit ?? 'km');
 };
 
-export const distance = (
-    from: Coordinate,
-    to: Coordinate,
-    options?: DistanceOptions,
-): number => {
+export const distance = (from: Coordinate, to: Coordinate, options?: DistanceOptions): number => {
     assertCoordinate(from);
     assertCoordinate(to);
 
