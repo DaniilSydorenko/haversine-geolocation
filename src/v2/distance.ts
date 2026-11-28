@@ -22,22 +22,34 @@ const assertRadius = (radius: number): void => {
     }
 };
 
-// Validate options even when nearest() receives no candidates to measure.
-export const assertDistanceOptions = (options: DistanceOptions = {}): void => {
-    assertRadius(options.radius ?? EARTH_MEAN_RADIUS_M);
-    assertDistanceUnit(options.unit ?? 'km');
+const assertOptionsIsObject = (options: unknown): void => {
+    if (options === null || typeof options !== 'object' || Array.isArray(options)) {
+        throw new TypeError('Distance options must be an object');
+    }
 };
 
-export const distance = (
-    from: Coordinate,
-    to: Coordinate,
-    options: DistanceOptions = {},
-): number => {
+// Validate options even when nearest() receives no candidates to measure.
+export const assertDistanceOptions = (options?: DistanceOptions): void => {
+    if (options !== undefined) {
+        assertOptionsIsObject(options);
+    }
+
+    const resolved = options ?? {};
+
+    assertRadius(resolved.radius ?? EARTH_MEAN_RADIUS_M);
+    assertDistanceUnit(resolved.unit ?? 'km');
+};
+
+export const distance = (from: Coordinate, to: Coordinate, options?: DistanceOptions): number => {
     assertCoordinate(from);
     assertCoordinate(to);
 
-    const unit = options.unit ?? 'km';
-    const radius = options.radius ?? EARTH_MEAN_RADIUS_M;
+    if (options !== undefined) {
+        assertOptionsIsObject(options);
+    }
+
+    const unit = options?.unit ?? 'km';
+    const radius = options?.radius ?? EARTH_MEAN_RADIUS_M;
 
     assertRadius(radius);
 

@@ -143,4 +143,18 @@ describe('V2 spherical distance', () => {
             RangeError,
         );
     });
+
+    it('defaults to kilometres when options are omitted or an empty object', () => {
+        const target = { latitude: 0, longitude: 1 };
+
+        expect(distance(origin, target)).toBeCloseTo(distance(origin, target, {}), 12);
+    });
+
+    it('rejects non-object distance options such as a V1 positional unit string', () => {
+        const target = { latitude: 0, longitude: 1 };
+
+        expect(() => distance(origin, target, 'm' as never)).toThrowError(TypeError);
+        expect(() => distance(origin, target, null as never)).toThrowError(TypeError);
+        expect(() => distance(origin, target, 5 as never)).toThrowError(TypeError);
+    });
 });
