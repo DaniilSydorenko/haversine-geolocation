@@ -82,6 +82,13 @@ describe('V2 nearest', () => {
         expect(() => nearest(origin, [], { radius: 0 })).toThrowError(RangeError);
     });
 
+    it('rejects non-object distance options such as a V1 positional unit string', () => {
+        const candidate = { latitude: 52.23, longitude: 21.012 };
+
+        expect(() => nearest(origin, [candidate], 'm' as never)).toThrowError(TypeError);
+        expect(() => nearest(origin, [], 'm' as never)).toThrowError(TypeError);
+    });
+
     it('selects the first candidate when distances are equal', () => {
         const candidates = [
             {
